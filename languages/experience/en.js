@@ -2,7 +2,7 @@
  * Textes anglais - expériences : écran d'accueil, transitions, HUD de visite et succès.
  */
 export default {
-    "EXP.HELLO": "Welcome to Pierre Bernard-Darmann's portfolio",
+    "EXP.HELLO": "Welcome to my portfolio",
     "EXP.TITLE": "Choose your experience",
     "EXP.SUB": "The same journey, four ways to explore it. Each one has its own colors, animations and finishing touches.",
     "EXP.CLASSIC": "Classic",
@@ -21,8 +21,6 @@ export default {
     "EXP.GO": "Let's go",
     "EXP.NOTE": "You can change it at any time with this button, at the top of the page.",
     "EXP.CLOSE": "Close",
-    "EXP.LANG_SWITCH": "Français",
-    "EXP.LANG_ARIA": "Passer en français",
     "EXP.CHANGE": "Change experience",
     "EXP.T_FUTURE": "LIFT-OFF - HEADING FOR THE JOURNEY",
     "EXP.T_GAMER": "READY? GO!",

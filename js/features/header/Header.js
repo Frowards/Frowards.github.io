@@ -14,6 +14,7 @@
 import Lang, { t } from '../../core/Lang.js';
 import Events from '../../core/Events.js';
 import Theme from '../theme/Theme.js';
+import Flag from '../../components/Flag.js';
 import { qs } from '../../utils/dom.js';
 
 /**
@@ -31,9 +32,7 @@ function initLangButton() {
     if (!button) return;
 
     const refresh = () => {
-        const isFrench = Lang.lang === 'fr';
-        setHidden(qs('.flag-en', button), !isFrench);
-        setHidden(qs('.flag-fr', button), isFrench);
+        button.innerHTML = Flag.svg(Flag.target(Lang.lang));
         button.setAttribute('aria-label', t('LANG.SWITCH_ARIA'));
     };
 

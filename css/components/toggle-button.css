@@ -31,5 +31,4 @@
     border-radius: 2px;
     box-shadow: 0 0 0 1px var(--pb-border);
 }
-.toggle-btn .flag[hidden] { display: none; }
 .toggle-btn svg[hidden] { display: none; }

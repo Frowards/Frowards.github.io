@@ -2,7 +2,7 @@
  * Textes français - expériences : écran d'accueil, transitions, HUD de visite et succès.
  */
 export default {
-    "EXP.HELLO": "Bienvenue sur le portfolio de Pierre Bernard-Darmann",
+    "EXP.HELLO": "Bienvenue sur mon portfolio",
     "EXP.TITLE": "Choisissez votre expérience",
     "EXP.SUB": "Le même parcours, quatre façons de le visiter. Chacune a ses couleurs, ses animations et ses finitions.",
     "EXP.CLASSIC": "Classique",
@@ -21,8 +21,6 @@ export default {
     "EXP.GO": "C'est parti",
     "EXP.NOTE": "Modifiable à tout moment avec ce bouton, en haut de la page.",
     "EXP.CLOSE": "Fermer",
-    "EXP.LANG_SWITCH": "English",
-    "EXP.LANG_ARIA": "Switch to English",
     "EXP.CHANGE": "Changer d'expérience",
     "EXP.T_FUTURE": "DÉCOLLAGE - CAP SUR LE PARCOURS",
     "EXP.T_GAMER": "PRÊT ? GO !",

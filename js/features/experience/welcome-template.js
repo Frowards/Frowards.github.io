@@ -6,9 +6,10 @@
  * Les fragments sont assemblés sans espace entre les balises, comme le
  * balisage d'origine : aucun nœud texte parasite dans la mise en page.
  */
-import { t } from '../../core/Lang.js';
+import Lang, { t } from '../../core/Lang.js';
 import { esc } from '../../utils/dom.js';
 import Icon from '../../components/Icon.js';
+import Flag from '../../components/Flag.js';
 import { EXPERIENCES } from './presets.js';
 import './icons.js';
 
@@ -95,7 +96,7 @@ export function welcomeMarkup({ closable, detected }) {
         '<div class="xp-welcome__bg" aria-hidden="true"></div>',
         '<div class="xp-welcome__box">',
         '<div class="xp-welcome__top">',
-        `<button type="button" class="xp-chip" data-xp-lang aria-label="${tx('EXP.LANG_ARIA')}">${tx('EXP.LANG_SWITCH')}</button>`,
+        `<button type="button" class="xp-chip xp-chip--flag" data-xp-lang aria-label="${tx('LANG.SWITCH_ARIA')}" title="${tx('LANG.SWITCH_ARIA')}">${Flag.svg(Flag.target(Lang.lang))}</button>`,
         closable ? `<button type="button" class="toggle-btn" data-xp-close aria-label="${tx('EXP.CLOSE')}">${Icon.svg('close')}</button>` : '',
         '</div>',
         `<p class="xp-welcome__hello">${tx('EXP.HELLO')}</p>`,

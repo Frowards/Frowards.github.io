@@ -20,6 +20,7 @@ body.xp-open { overflow: hidden; }
     overflow-y: auto;
     overscroll-behavior: contain;
     padding: clamp(1rem, 4vh, 3rem) 1rem;
+    padding-bottom: calc(clamp(1rem, 4vh, 3rem) + env(safe-area-inset-bottom, 0px));
     opacity: 0;
     transition: opacity 0.35s var(--pb-ease-out);
     color: var(--pb-text);
@@ -35,6 +36,13 @@ body.xp-open { overflow: hidden; }
         radial-gradient(60rem 40rem at 15% 10%, rgba(var(--pb-primary-rgb), 0.18), transparent 60%),
         radial-gradient(50rem 40rem at 90% 90%, rgba(139, 92, 246, 0.14), transparent 60%),
         var(--pb-bg);
+}
+/* Safari iOS : la barre d'adresse du bas flotte au-dessus de la page, et un
+   calque fixe en inset: 0 s'arrête juste au-dessus d'elle (la page reste
+   visible dessous). Le fond prend la hauteur du grand viewport (lvh), avec
+   une marge pour le rebond du défilement : il passe sous les barres. */
+@supports (height: 100lvh) {
+    .xp-welcome__bg { top: -4rem; bottom: auto; height: calc(100lvh + 8rem); }
 }
 .xp-welcome__box {
     width: min(68rem, 100%);
@@ -61,6 +69,14 @@ body.xp-open { overflow: hidden; }
     cursor: pointer;
 }
 .xp-chip:hover { color: var(--pb-text); border-color: var(--pb-primary); }
+/* Bouton de langue : drapeau de la langue proposée (composant Flag) */
+.xp-chip--flag { display: inline-flex; align-items: center; padding: 0.45rem 0.7rem; }
+.xp-chip--flag .flag {
+    width: 1.6rem;
+    height: 0.8rem;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px var(--pb-border);
+}
 .xp-welcome__hello {
     font-family: 'Cascadia Code', 'JetBrains Mono', Consolas, monospace;
     font-size: 0.78rem;

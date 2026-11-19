@@ -13,6 +13,11 @@
     place-items: center;
     overflow: hidden;
 }
+/* Safari iOS : le calque passe aussi sous la barre d'adresse du bas
+   (voir .xp-welcome__bg dans welcome.css) */
+@supports (height: 100lvh) {
+    .xp-trans { bottom: auto; height: 100lvh; }
+}
 .xp-trans__txt { position: relative; z-index: 2; }
 
 /* Classique : voile qui se pose puis s'ouvre en douceur */
