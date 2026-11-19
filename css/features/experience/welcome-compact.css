@@ -94,10 +94,13 @@
     .xp-welcome__box {
         display: flex;
         flex-direction: column;
-        justify-content: center;
         height: 100%;
         margin: 0;
     }
+    /* Place libre : un tiers au-dessus, deux tiers en dessous (le contenu
+       remonte un peu vers le haut de l'écran) */
+    .xp-welcome__box::before, .xp-welcome__box::after { content: ""; flex: 1 1 0; }
+    .xp-welcome__box::after { flex-grow: 2; }
     .xp-cards {
         flex: 0 1 auto;
         min-height: 0;
