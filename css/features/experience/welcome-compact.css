@@ -103,11 +103,50 @@
     .xp-welcome[data-preview="retro"] .xp-go { font-size: 1.15rem; }
 }
 
+/* Téléphone en portrait : l'écran remplit toute la hauteur disponible, du
+   petit iPhone SE au grand Android. La boîte occupe au moins l'écran
+   visible (colonne flexible) : les cartes prennent la place libre, leurs
+   aperçus grandissent jusqu'à 9rem, puis le reste se répartit en haut et
+   en bas. Aucun calcul par taille d'écran : rien ne déborde, rien ne reste
+   vide. */
+@media (max-width: 600px) and (orientation: portrait) {
+    .xp-welcome { --xp-gap: clamp(0.35rem, 6svh - 2.4rem, 1.2rem); }
+    .xp-welcome__box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 100%;
+        margin: 0;
+    }
+    .xp-cards {
+        flex: 1 1 auto;
+        grid-auto-rows: minmax(0, 1fr);
+        max-height: 25rem;
+        gap: clamp(0.5rem, var(--xp-gap), 0.8rem);
+    }
+    .xp-card .xp-pv { flex: 1 1 auto; aspect-ratio: auto; height: auto; min-height: 3rem; max-height: 9rem; }
+    .xp-welcome .xp-go { align-self: center; }
+    .xp-welcome__hello { margin-bottom: calc(var(--xp-gap) * 0.5); }
+    .xp-welcome[data-preview] .xp-welcome__title { margin-bottom: var(--xp-gap); }
+    .xp-pick { margin-bottom: calc(var(--xp-gap) + 0.2rem); }
+    .xp-mode, .xp-tour { margin-bottom: var(--xp-gap); }
+    .xp-welcome__note { margin-top: var(--xp-gap); }
+}
+@media (max-width: 600px) and (orientation: portrait) and (min-height: 720px) {
+    .xp-welcome__sub { display: block; max-width: 34ch; margin-bottom: var(--xp-gap); font-size: 0.86rem; line-height: 1.45; }
+    .xp-welcome[data-preview] .xp-welcome__title { font-size: 1.55rem; }
+    .xp-welcome[data-preview="retro"] .xp-welcome__title { font-size: 2.1rem; }
+    .xp-welcome[data-preview="retro"] .xp-welcome__sub { font-size: 0.98rem; line-height: 1.15; }
+    .xp-welcome[data-preview="future"] .xp-welcome__title { font-size: 1.15rem; }
+    .xp-welcome[data-preview="gamer"] .xp-welcome__title { font-size: 0.9rem; }
+    .xp-card__name { font-size: 0.98rem; }
+    .xp-welcome .xp-go { padding: 0.85rem 1.5rem; }
+}
+
 /* Petits téléphones (iPhone SE...) : encore un peu plus serré */
 @media (max-width: 600px) and (max-height: 620px) {
     .xp-welcome__hello { min-height: 1.9rem; }
     .xp-welcome__top .toggle-btn, .xp-chip--flag { height: 1.9rem; }
-    .xp-card .xp-pv { aspect-ratio: 16 / 6; }
     .xp-tour__opt small { display: none; }
     .xp-mode { margin-bottom: 0.45rem; }
     .xp-tour { margin-bottom: 0.55rem; }
