@@ -21,10 +21,11 @@ import { EXPERIENCES } from './presets.js';
 import { currentExp, currentTour, systemMode } from './state.js';
 import { welcomeMarkup } from './welcome-template.js';
 
-/** Durée du fondu de fermeture (voir .xp-welcome dans welcome.css) */
+/** Durée du fondu d'ouverture et de fermeture (voir .xp-welcome dans welcome.css) */
 const CLOSE_MS = 350;
 
 let overlay = null;
+let coverTimer = 0;
 let firstVisit = false;
 let launchHandler = null;
 
@@ -115,6 +116,15 @@ function build() {
     Lang.onChange(() => { if (overlay && !overlay.hidden) render(); });
 }
 
+/**
+ * Masque (ou réaffiche) la page sous l'écran d'accueil : body.xp-covered,
+ * posé seulement une fois l'écran opaque (voir welcome.css).
+ */
+function setPageCovered(covered) {
+    clearTimeout(coverTimer);
+    document.body.classList.toggle('xp-covered', covered);
+}
+
 /** Rend le focus au bouton du header qui rouvre l'écran (sauf première visite) */
 function focusHeaderButton() {
     const button = qs('#btn-exp');
@@ -153,7 +163,12 @@ const Welcome = {
         render();
         overlay.hidden = false;
         document.body.classList.add('xp-open');
-        document.documentElement.classList.remove('pb-welcome-pending');
+        /* Page déjà masquée par l'anti-flash : elle le reste ; sinon, elle
+           l'est à la fin du fondu d'ouverture */
+        const root = document.documentElement;
+        if (root.classList.contains('pb-welcome-pending') || prefersReducedMotion()) setPageCovered(true);
+        else coverTimer = setTimeout(() => setPageCovered(true), CLOSE_MS);
+        root.classList.remove('pb-welcome-pending');
         requestAnimationFrame(() => {
             overlay.classList.add('is-in');
             const selected = qs('[data-xp].is-selected', overlay);
@@ -164,6 +179,7 @@ const Welcome = {
     /** Ferme l'écran en fondu et rend le focus au bouton du header */
     close() {
         if (!overlay) return;
+        setPageCovered(false);
         overlay.classList.remove('is-in');
         document.body.classList.remove('xp-open');
         const done = () => { overlay.hidden = true; };
@@ -186,6 +202,7 @@ const Welcome = {
         if (!overlay) return;
         overlay.hidden = true;
         overlay.inert = false;
+        setPageCovered(false);
         overlay.classList.remove('is-in');
         document.body.classList.remove('xp-open');
         focusHeaderButton();

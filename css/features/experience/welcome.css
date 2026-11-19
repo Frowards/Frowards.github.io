@@ -9,6 +9,10 @@
 /* Première visite : rien n'apparaît avant l'écran d'accueil */
 html.pb-welcome-pending body > *:not(#pb-welcome) { visibility: hidden; }
 body.xp-open { overflow: hidden; }
+/* Écran d'accueil entièrement affiché : la page dessous est masquée. Safari
+   iOS la laisserait sinon apparaître sous sa barre d'adresse translucide.
+   Le calque de transition de lancement (.xp-trans) reste visible. */
+body.xp-covered > *:not(#pb-welcome):not(.xp-trans) { visibility: hidden; }
 
 .xp-welcome {
     position: fixed;
