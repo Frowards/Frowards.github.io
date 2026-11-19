@@ -1,13 +1,11 @@
 /* ==========================================================================
-   Panneau de personnalisation du thème : cadre et mise en page
-   (esprit de la page « Mon thème » de Ceres)
-
-   Fenêtre modale à deux zones : les réglages défilants (onglets) et la
-   colonne d'aperçu, toujours visible. Téléphone : aperçu épinglé sous les
-   réglages ; à partir de 720 px : colonne à droite.
+   Options d'affichage (roue crantée du header, js/features/theme-panel)
+   Petite fenêtre modale : mascotte affichée ou non, type de daltonisme corrigé.
    ========================================================================== */
 
 .theme-panel[hidden] { display: none; }
+/* Ouvertes depuis l'écran d'accueil : au-dessus de lui */
+body.xp-open .theme-panel { z-index: 950; }
 .theme-panel {
     position: fixed;
     inset: 0;
@@ -24,82 +22,30 @@
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
 }
-/* Transparence désactivée par le visiteur : pas de flou non plus */
-:root.pb-no-blur .theme-panel__backdrop {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-}
 .theme-panel__card {
     position: relative;
-    width: min(52rem, 100%);
-    max-height: 90vh;
-    display: flex;
-    flex-direction: column;
+    width: min(24rem, 100%);
     background: var(--pb-card-bg);
     border: var(--pb-border-w) solid var(--pb-border);
     border-radius: var(--pb-radius-lg);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     box-shadow: var(--pb-shadow-lg), var(--pb-inset-highlight);
-    padding: 1.4rem 1.4rem 1.2rem;
+    padding: 1.2rem 1.3rem 1.3rem;
 }
 .theme-panel__head {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    margin-bottom: 1.2rem;
-    flex: none;
+    margin-bottom: 0.9rem;
 }
 .theme-panel__head h3 { font-size: 1.05rem; }
+.theme-panel__body { display: flex; flex-direction: column; gap: 0.8rem; }
 
-/* ---------- Deux zones : réglages défilants + aperçu toujours visible ---------- */
-.theme-panel__cols {
-    display: flex;
-    flex-direction: column;
-    gap: 1.1rem;
-    min-height: 0;
-    flex: 1;
-}
-.theme-panel__body {
-    overflow-y: auto;
-    min-height: 0;
-    flex: 1;
-    padding-right: 0.4rem;
-}
-.theme-panel__side {
-    flex: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.9rem;
-    border-top: var(--pb-border-w) solid var(--pb-border);
-    padding-top: 0.9rem;
-}
-.theme-panel__side .btn { justify-content: center; }
-@media (min-width: 720px) {
-    .theme-panel__cols {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) 17rem;
-        gap: 1.4rem;
-        align-items: stretch;
-    }
-    .theme-panel__side {
-        border-top: 0;
-        padding-top: 0;
-        border-left: var(--pb-border-w) solid var(--pb-border);
-        padding-left: 1.4rem;
-        align-self: start;
-        position: sticky;
-        top: 0;
-    }
-}
-
-/* Bouton compact (export / import, aperçu, retour au thème de base) */
-.btn-sm { padding: 0.45rem 0.9rem; font-size: 0.85rem; }
-
-/* ---------- Téléphone : panneau plus haut et aperçu resserré ---------- */
-@media (max-width: 719px) {
-    .theme-panel__card { max-height: 92vh; max-height: 92dvh; padding: 1.1rem 1rem 1rem; }
-    .theme-panel__side .demo-card p { display: none; }
-    .theme-panel__side { gap: 0.6rem; }
-}
+/* Mode daltonien : un type au choix (boutons radio) */
+.cvd-options { margin: 0; padding: 0.7rem 0 0; border: 0; border-top: var(--pb-border-w) solid var(--pb-border); display: flex; flex-direction: column; gap: 0.15rem; }
+.cvd-options legend { float: left; width: 100%; padding: 0; margin-bottom: 0.4rem; font-weight: 600; }
+.cvd-options label { display: flex; align-items: center; gap: 0.6rem; padding: 0.4rem 0.2rem; border-radius: var(--pb-radius-md); cursor: pointer; }
+.cvd-options label:hover { background: var(--pb-bg-hover); }
+.cvd-options input { flex: none; width: 1.05rem; height: 1.05rem; margin: 0; accent-color: var(--pb-primary); }

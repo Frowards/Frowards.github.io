@@ -11,11 +11,7 @@
     height: 100%;
     z-index: -1;
     pointer-events: none;
-    background:
-        radial-gradient(ellipse 60% 45% at 25% 20%, rgba(90, 40, 170, 0.32), transparent 70%),
-        radial-gradient(ellipse 55% 45% at 80% 85%, rgba(0, 140, 190, 0.26), transparent 70%),
-        radial-gradient(ellipse 35% 25% at 70% 30%, rgba(255, 62, 165, 0.12), transparent 70%),
-        #02030a;
+    /* Le fond (nuit ou blanc) est peint dans le canvas : space/sky.js */
 }
 #pb-space[hidden] { display: none; }
 :root[data-pb-exp="future"] :is(#pb-particles, #pb-fluid, #pb-page-bg) { display: none !important; }

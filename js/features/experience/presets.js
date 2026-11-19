@@ -1,7 +1,8 @@
 /**
  * Expériences proposées sur l'écran d'accueil et préréglages de thème
  * associés : chaque préréglage devient la base du thème (Theme.setBase /
- * Theme.applyPreset), que le visiteur peut ensuite personnaliser.
+ * Theme.applyPreset) ; le visiteur ne règle que le mode clair / sombre et
+ * le mode daltonien.
  *
  * Les clés de police (fontTitle, fontBody) renvoient aux piles de polices
  * du thème ; le script anti-flash du <head> (js/boot/anti-flash.js) en

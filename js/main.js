@@ -27,6 +27,7 @@ import Experience from './features/experience/Experience.js';
 import Tour from './features/tour/Tour.js';
 import Mascot from './features/mascot/Mascot.js';
 import OrientationHint from './features/orientation/OrientationHint.js';
+import Toc from './features/toc/Toc.js';
 
 import Particles from './effects/particles/Particles.js';
 import LauncherFx from './effects/LauncherFx.js';
@@ -53,6 +54,7 @@ Tour.init();
 Experience.init();
 Mascot.init();
 OrientationHint.init();
+Toc.init();
 
 /* 5. Effets décoratifs */
 LauncherFx.init();

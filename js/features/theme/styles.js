@@ -61,4 +61,7 @@ export function applyStyles(root, cfg, mode) {
     applyFonts(style, cfg);
     /* Transparence (verre) désactivée : classe lue par les feuilles de style */
     root.classList.toggle('pb-no-blur', !cfg.glass);
+    /* Mode daltonien : type lu par css/features/a11y/colorblind.css */
+    if (cfg.cvd) root.setAttribute('data-pb-cvd', cfg.cvd);
+    else root.removeAttribute('data-pb-cvd');
 }

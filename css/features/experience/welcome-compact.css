@@ -23,7 +23,7 @@
     .xp-welcome__top { gap: 0.4rem; margin-bottom: 0.25rem; grid-template-columns: minmax(2.3rem, 1fr) minmax(0, auto) minmax(2.3rem, 1fr); }
     .xp-welcome__top .toggle-btn { height: 2.1rem; }
     .xp-chip--flag { height: 2.1rem; padding: 0 0.55rem; }
-    .xp-welcome__hello { font-size: 0.66rem; line-height: 1.3; }
+    .xp-welcome__hello { font-size: 0.76rem; line-height: 1.3; }
 
     /* Titre : tailles par police (l'aperçu en direct change la police) */
     .xp-welcome[data-preview] .xp-welcome__title { font-size: 1.35rem; margin-bottom: 0.55rem; }
@@ -73,7 +73,8 @@
     .xp-tour__opt b { font-size: 0.86rem; }
     .xp-tour__opt small { font-size: 0.68rem; }
     .xp-welcome .xp-go { width: min(100%, 22rem); padding: 0.7rem 1.5rem; }
-    .xp-welcome__note { margin-top: 0.5rem; font-size: 0.7rem; }
+    .xp-welcome .xp-go { padding-left: 0.75rem; padding-right: 0.75rem; }
+    .xp-go__note { font-size: 0.6rem; }
 
     /* Rétro : la police VT323 est petite, mais ses interlignes sont grands */
     .xp-welcome[data-preview="retro"] { font-size: 1rem; }
@@ -86,7 +87,7 @@
    iPhone SE au grand Android, sans défiler et sans paraître tassé.
    - Les espacements entre les blocs grandissent avec la hauteur de
      l'écran (unités svh) : c'est eux qui donnent de l'air.
-   - Les aperçus grandissent aussi, mais restent mesurés (9rem au plus).
+   - Les aperçus grandissent aussi, mais restent mesurés (7,7rem au plus).
    - Si la place manque malgré tout, les aperçus rétrécissent en premier
      (colonne flexible) : rien ne déborde. Le reste se centre. */
 @media (max-width: 600px) and (orientation: portrait) {
@@ -97,24 +98,39 @@
         height: 100%;
         margin: 0;
     }
-    /* Place libre : un dixième au-dessus, le reste en dessous (le contenu
-       remonte un peu vers le haut de l'écran) */
-    .xp-welcome__box::before, .xp-welcome__box::after { content: ""; flex: 1 1 0; }
-    .xp-welcome__box::after { flex-grow: 9; }
+    /* Ordre sur téléphone : Clair / Sombre remonte entre le titre et les
+       cartes (ordre visuel seulement, via order) */
+    .xp-welcome__box > .xp-welcome__top { order: 1; }
+    .xp-welcome__box > .xp-welcome__title { order: 2; }
+    .xp-welcome__box > .xp-mode { order: 3; }
+    .xp-welcome__box > .xp-cards { order: 4; }
+    .xp-welcome__box > .xp-pick { order: 5; }
+    .xp-welcome__box > .xp-tour { order: 6; }
+    .xp-welcome__box > .xp-go { order: 7; }
+    .xp-welcome__box::after { order: 8; }
+    /* Contenu calé en haut (petite marge), « C'est parti » calé en bas,
+       avec la même marge qu'en haut. La place libre se partage en quatre
+       marges automatiques égales : titre / Clair-Sombre, Clair-Sombre /
+       cartes (au-dessus d'un écart minimal de --xp-split / 2), puis cartes /
+       visite et visite / bouton (au-dessus d'un écart minimal --xp-split) */
+    .xp-welcome__box::before, .xp-welcome__box::after { content: ""; flex: 0 0 0.35rem; }
+    .xp-welcome__box > .xp-mode, .xp-welcome__box > .xp-cards, .xp-welcome__box > .xp-tour { margin-top: auto; }
+    .xp-welcome__box > .xp-tour { margin-bottom: auto; }
+    .xp-welcome { --xp-split: var(--xp-gap); }
     .xp-cards {
         flex: 0 1 auto;
         min-height: 0;
         grid-auto-rows: minmax(0, 1fr);
         gap: clamp(0.5rem, var(--xp-gap), 0.8rem);
     }
-    .xp-card .xp-pv { flex: 0 1 auto; aspect-ratio: auto; height: clamp(3rem, 19svh - 2rem, 9rem); min-height: 2.5rem; }
+    .xp-card .xp-pv { flex: 0 1 auto; aspect-ratio: auto; height: clamp(2.6rem, 16.3svh - 1.7rem, 7.7rem); min-height: 2.5rem; }
     .xp-welcome .xp-go { align-self: center; }
-    .xp-welcome__top { margin-bottom: calc(var(--xp-gap) * 0.5); }
-    .xp-welcome[data-preview] .xp-welcome__title { margin-bottom: calc(var(--xp-gap) * 0.8); }
-    .xp-cards { margin-bottom: 0.5rem; }
+    .xp-welcome__top { margin-bottom: calc(var(--xp-gap) * 0.5 + 10px); }
+    .xp-welcome[data-preview] .xp-welcome__title { margin-bottom: calc(var(--xp-split) * 0.5); }
+    .xp-welcome .xp-mode { margin-bottom: calc(var(--xp-split) * 0.5); }
+    .xp-cards { margin-bottom: var(--xp-split); }
     .xp-pick { margin-bottom: var(--xp-gap); }
-    .xp-mode, .xp-tour { margin-bottom: var(--xp-gap); }
-    .xp-welcome__note { margin-top: calc(var(--xp-gap) * 0.8); }
+    .xp-welcome .xp-tour { margin-bottom: auto; padding-bottom: var(--xp-split); }
 }
 
 /* Petits téléphones (iPhone SE...) : encore un peu plus serré */
@@ -122,8 +138,7 @@
     .xp-welcome__top .toggle-btn, .xp-chip--flag { height: 1.9rem; }
     .xp-tour__opt small { display: none; }
     .xp-mode { margin-bottom: 0.45rem; }
-    .xp-tour { margin-bottom: 0.55rem; }
-    .xp-welcome__note { display: none; }
+    .xp-go__note { display: none; }
 }
 
 /* Téléphone en paysage : quatre cartes sur une ligne, réglages côte à côte */
@@ -146,7 +161,7 @@
     .xp-welcome[data-preview] .xp-mode__space { display: none; }
     .xp-tour__opts { width: 100%; }
     .xp-tour__opt small { display: none; }
-    .xp-welcome__note { display: none; }
+    .xp-go__note { display: none; }
 }
 
 /* Tablette en portrait : aperçus des cartes moins hauts */
@@ -165,7 +180,6 @@
     .xp-mode { margin-bottom: 0.8rem; }
     .xp-mode__detected { display: none; }
     .xp-tour { margin-bottom: 0.9rem; }
-    .xp-welcome__note { margin-top: 0.6rem; }
 }
 @media (min-width: 601px) and (max-height: 700px) {
     .xp-card .xp-pv { aspect-ratio: 16 / 6; }

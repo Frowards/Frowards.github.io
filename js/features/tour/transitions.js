@@ -104,7 +104,9 @@ function futureScene({ from, to, index, name, show, done }) {
     later(T.jump, () => {
         from.classList.remove('is-leaving');
         Starfield.warp(T.warp);
-        showFxLayer('tour-fx--future', `<span class="tour-fx__txt">${esc(t('TOUR.JUMP', { nn: pad2(index + 1), name: name.toUpperCase() }))}</span>`);
+        /* « Saut vers la zone 02 : » sur une ligne, le nom de la zone dessous */
+        const jump = esc(t('TOUR.JUMP', { nn: pad2(index + 1) }));
+        showFxLayer('tour-fx--future', `<span class="tour-fx__txt"><span>${jump}</span><span>${esc(name.toUpperCase())}</span></span>`);
     });
     later(T.arrive, () => {
         removeFxLayer();

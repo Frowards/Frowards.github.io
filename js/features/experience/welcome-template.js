@@ -65,11 +65,12 @@ function modeMarkup(detected) {
     const detectedName = t(detected === 'dark' ? 'EXP.DARK' : 'EXP.LIGHT').toLowerCase();
     return [
         '<div class="xp-mode">',
-        `<span class="xp-mode__label">${tx('EXP.MODE')}</span>`,
         `<div class="seg xp-seg" role="radiogroup" aria-label="${tx('EXP.MODE')}">`,
         `<button type="button" role="radio" data-xp-mode="light">${Icon.svg('sun')}<span>${tx('EXP.LIGHT')}</span></button>`,
         `<button type="button" role="radio" data-xp-mode="dark">${Icon.svg('moon')}<span>${tx('EXP.DARK')}</span></button>`,
         '</div>',
+        /* Daltonisme : bien en vue, ouvre le choix du type (options d'affichage) */
+        `<button type="button" class="xp-chip xp-cvd" data-xp-cvd aria-haspopup="dialog" aria-label="${tx('EXP.CVD')}">${Icon.svg('accessibility')}<span>${tx('EXP.CVD')}</span></button>`,
         `<span class="xp-mode__detected">${tx('EXP.DETECTED', { mode: detectedName })}</span>`,
         `<span class="xp-mode__space">${tx('EXP.SPACE_NIGHT')}</span>`,
         '</div>'
@@ -117,8 +118,12 @@ export function welcomeMarkup({ closable, detected }) {
         pickMarkup(),
         modeMarkup(detected),
         tourMarkup(),
-        `<button type="button" class="btn btn-primary xp-go" data-xp-go>${tx('EXP.GO')}</button>`,
-        `<p class="xp-welcome__note">${Icon.svg('sparkle')}<span>${tx('EXP.NOTE')}</span></p>`,
+        /* « C'est parti », avec en bas la mention « Modifiable à tout moment »
+           (nom accessible : le libellé ; la mention en est la description) */
+        `<button type="button" class="btn btn-primary xp-go" data-xp-go aria-label="${tx('EXP.GO')}" aria-describedby="xp-go-note">`,
+        `<span class="xp-go__label">${tx('EXP.GO')}</span>`,
+        `<span class="xp-go__note" id="xp-go-note">${Icon.svg('sparkle')}<span>${tx('EXP.NOTE')}</span></span>`,
+        '</button>',
         '</div>'
     ].join('');
 }

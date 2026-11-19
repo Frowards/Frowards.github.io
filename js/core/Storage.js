@@ -17,14 +17,13 @@
 export const KEYS = Object.freeze({
     LANG: 'pb_lang',              // langue choisie ('fr' | 'en')
     THEME: 'pb_cfg',              // réglages du thème (objet)
-    BG_IMAGE: 'pb_bg_image',      // image de fond importée (data URL)
-    EVENTS_OFF: 'pb_events_off',  // thèmes d'événements désactivés (tableau)
     EXPERIENCE: 'pb_exp',         // expérience et visite choisies ({ exp, tour, at })
     MASCOT: 'pb_mascot',          // mascotte masquée ('off') ou visible
     WELCOME_SEEN: 'pb_welcome_seen', // (session) écran d'accueil déjà montré pendant cette visite
     TOUR_STEP: 'pb_tour_step',      // (session) étape de la visite guidée à l'écran
     SCROLL_POS: 'pb_scroll_pos',    // (session) position de lecture en visite libre ({ i, dy })
-    ORIENT_HINT_OFF: 'pb_orient_off' // (session) conseil « tournez votre téléphone » refermé
+    ORIENT_HINT_OFF: 'pb_orient_off', // (session) conseil « tournez votre téléphone » refermé
+    TOC_POS: 'pb_toc_pos'           // position du bouton du sommaire ({ side, t })
 });
 
 function area(kind) {

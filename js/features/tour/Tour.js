@@ -33,8 +33,11 @@ import { trackScroll, restoreScroll } from './scroll-memory.js';
 
 /** Contenu restant sous l'étape (px) au-delà duquel on invite à défiler */
 const MORE_THRESHOLD_PX = 40;
-/** Délai avant de mesurer le contenu d'une étape tout juste affichée (ms) */
-const MORE_CHECK_DELAY_MS = 60;
+/** Délai avant de mesurer le contenu d'une étape tout juste affichée (ms) :
+    « Faites défiler » apparaît une fois l'étape arrivée */
+const MORE_CHECK_DELAY_MS = 450;
+/** Défilement (px) à partir duquel « Faites défiler » s'efface pour l'étape */
+const MORE_DISMISS_PX = 4;
 /** Hauteur du header si --xp-header-h n'est pas encore connue (px) */
 const DEFAULT_HEADER_PX = 56;
 
@@ -42,7 +45,8 @@ let active = false;
 let index = 0;
 let busy = false;
 let slides = [];
-let exitHandler = null;
+/** « Faites défiler » déjà effacé pour l'étape affichée (le visiteur a défilé) */
+let moreDismissed = false;
 
 const root = () => document.documentElement;
 const currentExp = () => root().getAttribute('data-pb-exp') || 'classic';
@@ -63,10 +67,14 @@ function renderBar() {
     Cockpit.setZone(zoneLabel(index, slides.length));
 }
 
-/** « Faites défiler » tant que l'étape a du contenu sous la ligne de flottaison */
+/**
+ * « Faites défiler » : apparaît à l'arrivée sur une étape qui a du contenu
+ * sous la ligne de flottaison, s'efface dès que le visiteur commence à
+ * défiler (et ne revient qu'à l'étape suivante).
+ */
 function checkMore() {
     const slide = slides[index];
-    const more = Boolean(active && slide && slide.scrollHeight - slide.clientHeight - slide.scrollTop > MORE_THRESHOLD_PX);
+    const more = Boolean(active && slide && !moreDismissed && slide.scrollHeight - slide.clientHeight - slide.scrollTop > MORE_THRESHOLD_PX);
     root().classList.toggle('tour-more', more);
 }
 
@@ -81,6 +89,9 @@ function show(n) {
     index = n;
     Storage.session.set(KEYS.TOUR_STEP, n);
     slides[n].scrollTop = 0;
+    /* Retiré puis remis : l'indication « Faites défiler » réapparaît (pop) */
+    moreDismissed = false;
+    root().classList.remove('tour-more');
     setTimeout(checkMore, MORE_CHECK_DELAY_MS);
     replayReveals(slides[n]);
     renderBar();
@@ -97,14 +108,10 @@ function syncSpace() {
     else Starfield.stop();
 }
 
-/** Clic sur la barre : 'prev', 'next', 'exit' ou numéro d'étape */
+/** Clic sur la barre : 'prev', 'next' ou numéro d'étape */
 function onBarAction(action) {
     if (action === 'prev') Tour.go(index - 1);
-    else if (action === 'next') Tour.go(index >= slides.length - 1 ? 0 : index + 1);
-    else if (action === 'exit') {
-        if (exitHandler) exitHandler();
-        else Tour.disable();
-    } else if (/^\d+$/.test(action)) Tour.go(Number(action));
+    else if (action === 'next') Tour.go(index + 1); else if (/^\d+$/.test(action)) Tour.go(Number(action));
 }
 
 /** Étape à l'écran en visite libre (la dernière dont le haut a passé 40 % de l'écran) */
@@ -163,12 +170,14 @@ const Tour = {
         collect();
         if (!slides.length) return;
         const wasActive = active;
+        /* Étape de départ mesurée AVANT la mise en page guidée (qui empile
+           toutes les sections au même endroit) */
+        const n = typeof startAt === 'number' ? startAt : visibleStep();
         active = true;
         root().setAttribute('data-pb-tour', 'guided');
         TourBar.build(onBarAction);
         TourBar.show();
         if (!wasActive) {
-            const n = typeof startAt === 'number' ? startAt : visibleStep();
             window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
             show(Math.max(0, Math.min(slides.length - 1, n)));
         }
@@ -226,20 +235,15 @@ const Tour = {
         Starfield.warp(ms);
     },
 
-    /**
-     * Action du bouton « Visite libre » de la barre (par défaut : disable).
-     * L'expérience s'y abonne pour mémoriser le choix du visiteur.
-     */
-    onExit(fn) {
-        exitHandler = fn;
-    },
 
     /** Pose les écouteurs (défilement, clavier, balayage, liens, langue) */
     init() {
         Starfield.onFrame((speed) => Cockpit.setSpeed(speed));
         trackScroll(() => !active);
         document.addEventListener('scroll', (e) => {
-            if (active && e.target && e.target.classList && e.target.classList.contains('is-current')) checkMore();
+            if (!active || !e.target || !e.target.classList || !e.target.classList.contains('is-current')) return;
+            if (e.target.scrollTop > MORE_DISMISS_PX) moreDismissed = true;
+            checkMore();
         }, true);
         window.addEventListener('resize', () => { if (active) checkMore(); });
         bindTourInputs({

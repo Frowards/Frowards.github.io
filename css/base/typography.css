@@ -25,3 +25,8 @@ a:hover { color: var(--pb-primary-hover); }
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
+
+/* Passages mis en valeur dans les textes (balises <strong> des dictionnaires) :
+   plus gras et dans la couleur du texte principal, plus contrastée que celle
+   des paragraphes secondaires */
+strong { font-weight: 700; color: var(--pb-text); }

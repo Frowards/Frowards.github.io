@@ -78,6 +78,26 @@
 .mascot-bubble__status { font-size: 0.78rem; color: var(--pb-success); margin-top: 0.45rem; min-height: 1em; }
 .mascot-bubble__status:empty { display: none; }
 .mascot-bubble__tip { margin-top: 0.55rem; font-size: 0.74rem; color: var(--pb-text-muted); }
+/* « Masquer la mascotte » : lien discret en pied de bulle, séparé des
+   moyens de contact (elle revient par le panneau de thème) */
+.mascot-bubble__hide {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.35rem;
+    width: 100%;
+    margin-top: 0.6rem;
+    padding: 0.55rem 0 0;
+    border: 0;
+    border-top: 1px dashed var(--pb-border);
+    background: none;
+    color: var(--pb-text-muted);
+    font: inherit;
+    font-size: 0.72rem;
+    cursor: pointer;
+}
+.mascot-bubble__hide:hover, .mascot-bubble__hide:focus-visible { color: var(--pb-text); text-decoration: underline; }
+.mascot-bubble__hide .li { width: 0.9rem; height: 0.9rem; flex: none; }
 
 /* Cachée pendant l'écran d'accueil */
 body.xp-open .mascot-bubble { display: none; }

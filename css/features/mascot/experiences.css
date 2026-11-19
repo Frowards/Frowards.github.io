@@ -2,8 +2,8 @@
    Mascotte : finitions selon l'expérience (Rétro, Gamer, Spatial).
    Chargée après les autres feuilles de la mascotte.
    ========================================================================== */
-:root[data-pb-exp="retro"] :is(.mascot-bubble, .mascot-bubble__list a, .mascot-bubble__list button, .mascot-toggle, .mascot__hint) { border-radius: 0; }
-:root[data-pb-exp="gamer"] :is(.mascot-bubble, .mascot-bubble__list a, .mascot-bubble__list button, .mascot-toggle, .mascot__hint) { border-radius: 0; }
+:root[data-pb-exp="retro"] :is(.mascot-bubble, .mascot-bubble__list a, .mascot-bubble__list button, .mascot__hint) { border-radius: 0; }
+:root[data-pb-exp="gamer"] :is(.mascot-bubble, .mascot-bubble__list a, .mascot-bubble__list button, .mascot__hint) { border-radius: 0; }
 :root[data-pb-exp="gamer"] .mascot-bubble { border-width: 3px; box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4); }
 :root[data-pb-exp="gamer"] .mascot-bubble__title { font-size: 0.7rem; line-height: 1.6; }
 :root[data-pb-exp="future"] .mascot-bubble { border-radius: 0; clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%); }

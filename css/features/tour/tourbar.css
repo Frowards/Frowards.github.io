@@ -86,7 +86,7 @@
 }
 .tourbar__btn:hover:not(:disabled) { transform: translateY(-1px); border-color: var(--pb-primary); }
 .tourbar__btn:disabled { opacity: 0.35; cursor: default; }
-.tourbar__btn .li, .tourbar__exit .li { width: 1.1rem; height: 1.1rem; stroke: currentColor; }
+.tourbar__btn .li { width: 1.1rem; height: 1.1rem; stroke: currentColor; }
 .tourbar__next { background: var(--pb-primary); border-color: var(--pb-primary); color: var(--pb-text-on-color); box-shadow: var(--pb-shadow-primary); }
 .tourbar__next:hover { background: var(--pb-primary-hover); }
 .tourbar__mid { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; min-width: 11rem; }
@@ -104,30 +104,10 @@
     transition: width 0.25s var(--pb-ease-out), background 0.25s;
 }
 .tourbar__dot.is-on { width: 1.3rem; background: var(--pb-primary); border-color: var(--pb-primary); }
-.tourbar__exit {
-    position: absolute;
-    right: 1rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    padding: 0.4rem 0.75rem;
-    border-radius: 999px;
-    border: var(--pb-border-w) solid var(--pb-border);
-    background: transparent;
-    color: var(--pb-text-secondary);
-    font-family: var(--pb-font-family);
-    font-size: 0.8rem;
-    cursor: pointer;
-}
-.tourbar__exit:hover { color: var(--pb-text); border-color: var(--pb-primary); }
-@media (max-width: 900px) {
-    .tourbar__exit { position: static; }
-}
 @media (max-width: 600px) {
     .tourbar { gap: 0.45rem; padding: 0 0.6rem; }
     .tourbar__btn { padding: 0.65rem 0.75rem; }
-    .tourbar__btn span, .tourbar__exit span { display: none; }
-    .tourbar__exit { padding: 0.55rem; }
+    .tourbar__btn span { display: none; }
     .tourbar__mid { min-width: 0; flex: 1; }
     .tourbar__name { font-size: 0.9rem; text-align: center; }
 }
@@ -135,7 +115,6 @@
 @media (orientation: landscape) and (max-height: 500px) {
     :root { --tourbar-h: 3.3rem; }
     .tourbar__btn { padding: 0.45rem 0.9rem; }
-    .tourbar__exit { padding: 0.35rem 0.7rem; }
     .tourbar__mid { gap: 0.1rem; }
     .tourbar__count { font-size: 0.62rem; }
     .tourbar__name { font-size: 0.88rem; }
@@ -144,14 +123,14 @@
 
 /* Barre selon l'expérience */
 :root[data-pb-exp="retro"] .tourbar { background: var(--pb-bg-secondary); border-top-width: 2px; }
-:root[data-pb-exp="retro"] .tourbar__btn, :root[data-pb-exp="retro"] .tourbar__exit { border-radius: 0; text-transform: uppercase; font-size: 1.05rem; }
+:root[data-pb-exp="retro"] .tourbar__btn { border-radius: 0; text-transform: uppercase; font-size: 1.05rem; }
 :root[data-pb-exp="retro"] .tourbar__dot { border-radius: 0; }
 :root[data-pb-exp="gamer"] .tourbar { background: var(--pb-bg-secondary); border-top: 3px solid var(--pb-border); }
 :root[data-pb-exp="gamer"] .tourbar__btn { border-radius: 0; font-family: 'Press Start 2P', monospace; font-size: 0.55rem; text-transform: uppercase; box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4); }
 :root[data-pb-exp="gamer"] .tourbar__btn:active:not(:disabled) { transform: translate(3px, 3px); box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4); }
 :root[data-pb-exp="gamer"] .tourbar__name { font-size: 0.62rem; line-height: 1.6; }
-:root[data-pb-exp="gamer"] .tourbar__dot, :root[data-pb-exp="gamer"] .tourbar__exit { border-radius: 0; }
-:root[data-pb-exp="future"] .tourbar__btn, :root[data-pb-exp="future"] .tourbar__exit {
+:root[data-pb-exp="gamer"] .tourbar__dot { border-radius: 0; }
+:root[data-pb-exp="future"] .tourbar__btn {
     border-radius: 0;
     clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px));
     font-family: 'Orbitron', sans-serif;

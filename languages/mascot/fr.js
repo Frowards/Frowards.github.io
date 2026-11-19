@@ -15,6 +15,5 @@ export default {
     "MASCOT.SECTION": "Voir la page Contact",
     "MASCOT.CLOSE": "Fermer",
     "MASCOT.HIDE": "Masquer la mascotte",
-    "MASCOT.SHOW": "Faire revenir la mascotte",
     "MASCOT.TIP": "Astuce : attrapez-moi et lancez-moi, mon dragon adore ça."
 };

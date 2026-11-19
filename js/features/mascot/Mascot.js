@@ -16,9 +16,9 @@
  *   Pet.js          le dragon
  *   DragThrow.js    attraper / lancer, chute et rebonds
  *   Bubble.js       bulle de contact
- *   Toggle.js       bouton masquer / afficher
  */
 import Lang from '../../core/Lang.js';
+import Events from '../../core/Events.js';
 import Storage, { KEYS } from '../../core/Storage.js';
 import { prefersReducedMotion } from '../../utils/motion.js';
 import './icons.js';
@@ -28,7 +28,6 @@ import FetchGame from './FetchGame.js';
 import Pet from './Pet.js';
 import DragThrow from './DragThrow.js';
 import Bubble from './Bubble.js';
-import Toggle from './Toggle.js';
 import { scene, viewportWidth, cellWidth } from './scene.js';
 
 /** Largeur d'écran sous laquelle la mascotte rapetisse (px) et échelles associées */
@@ -71,7 +70,8 @@ function start() {
     raf = requestAnimationFrame(tick);
 }
 
-/** Affiche ou masque la mascotte, et mémorise le choix */
+/** Affiche ou masque la mascotte, mémorise le choix et le fait savoir
+    (mascot:change : interrupteur du panneau de thème) */
 function setVisible(on) {
     scene.visible = Boolean(on);
     Storage.set(KEYS.MASCOT, scene.visible ? 'on' : 'off');
@@ -81,7 +81,7 @@ function setVisible(on) {
     }
     scene.el.hidden = !scene.visible;
     Pet.show(scene.visible);
-    Toggle.render(scene.visible);
+    Events.emit('mascot:change', { visible: scene.visible });
     if (scene.visible) {
         /* Retour : il rentre par le bord le plus proche */
         scene.x = Math.random() < 0.5 ? -cellWidth() : viewportWidth();
@@ -108,7 +108,6 @@ function resize() {
 /** Textes de la mascotte dans la langue courante */
 function translate() {
     Pierre.translate();
-    Toggle.render();
     Bubble.translate();
 }
 
@@ -125,7 +124,8 @@ const Mascot = {
         Pierre.mount();
         Pet.mount();
         FetchGame.mount();
-        Toggle.mount(() => setVisible(!scene.visible));
+        /* Masquer / faire revenir : depuis la bulle de Pierre ou le panneau de thème */
+        Events.on('mascot:request', ({ visible }) => { if (visible !== scene.visible) setVisible(visible); });
 
         translate();
         Lang.onChange(translate);
@@ -143,7 +143,6 @@ const Mascot = {
         resize();
         scene.el.hidden = !scene.visible;
         Pet.show(scene.visible);
-        Toggle.render(scene.visible);
 
         if (prefersReducedMotion()) {
             scene.x = 12;

@@ -39,23 +39,6 @@ export function shade(hex, pct) {
 }
 
 /**
- * Couleur hexadécimale d'une teinte TSL.
- * @param {number} h teinte (0-360)
- * @param {number} s saturation (0-1)
- * @param {number} l luminosité (0-1)
- * @returns {string}
- */
-export function hslToHex(h, s, l) {
-    const a = s * Math.min(l, 1 - l);
-    const channel = (n) => {
-        const k = (n + h / 30) % 12;
-        const c = l - a * Math.max(-1, Math.min(k - 3, 9 - k, 1));
-        return Math.round(255 * c).toString(16).padStart(2, '0');
-    };
-    return `#${channel(0)}${channel(8)}${channel(4)}`;
-}
-
-/**
  * Variables CSS de la couleur d'accent et de ses dérivées.
  * En clair, l'accent est assombri pour garder du contraste (comme Ceres).
  * @param {string} accent couleur valide '#rrggbb'

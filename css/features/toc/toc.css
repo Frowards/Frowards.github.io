@@ -1,0 +1,98 @@
+/* ==========================================================================
+   Sommaire flottant (js/features/toc/Toc.js)
+   Bouton rond en bas à droite ; la liste des sections s'ouvre au-dessus.
+   Posé sur le « sol » de la mascotte (au-dessus de la ligne de commande
+   Rétro). Visite libre uniquement : en visite guidée, la barre de visite
+   fait déjà la navigation.
+   ========================================================================== */
+
+.toc {
+    position: fixed;
+    right: 1rem;
+    bottom: calc(var(--mascot-floor, 0px) + 1rem + env(safe-area-inset-bottom, 0px));
+    z-index: 325;
+    transition: bottom 0.35s var(--pb-ease-out);
+}
+/* Bouton déplaçable (drag.js) : posé en coordonnées écran, il glisse vers
+   le bord où il s'aimante ; pendant la saisie, il suit le doigt sans délai */
+.toc.is-placed { right: auto; bottom: auto; transition: left 0.35s var(--pb-ease-out), top 0.35s var(--pb-ease-out); }
+.toc.is-dragging { transition: none; }
+.toc.is-dragging .toc__toggle { cursor: grabbing; transform: scale(1.08); box-shadow: var(--pb-shadow-lg); }
+
+.toc__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    min-width: 2.9rem;
+    height: 2.9rem;
+    padding: 0 0.8rem;
+    border: var(--pb-border-w) solid var(--pb-border);
+    border-radius: 999px;
+    background: var(--pb-surface-glass);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--pb-shadow-md);
+    color: var(--pb-text);
+    font-family: var(--pb-font-family);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: border-color var(--pb-transition-fast), transform var(--pb-transition-fast);
+}
+.toc__toggle:hover { border-color: var(--pb-primary); }
+.toc__toggle .li { width: 1.2rem; height: 1.2rem; flex: none; color: var(--pb-primary); }
+.toc.is-open .toc__toggle { border-color: var(--pb-primary); }
+/* Téléphone : bouton rond, icône seule (le libellé reste en aria-label) */
+@media (max-width: 899px) {
+    .toc__toggle { padding: 0; }
+    .toc__label { display: none; }
+}
+
+.toc__list {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 0.5rem);
+    min-width: 13rem;
+    margin: 0;
+    padding: 0.4rem;
+    list-style: none;
+    border: var(--pb-border-w) solid var(--pb-border);
+    border-radius: var(--pb-radius-lg);
+    background: var(--pb-surface-glass);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    box-shadow: var(--pb-shadow-lg);
+}
+.toc__list[hidden] { display: none; }
+/* Liste orientée vers l'intérieur de l'écran selon la place du bouton */
+.toc--below .toc__list { bottom: auto; top: calc(100% + 0.5rem); }
+.toc--start .toc__list { right: auto; left: 0; }
+:root.pb-no-blur :is(.toc__toggle, .toc__list) { background: var(--pb-bg-secondary); }
+
+.toc__link {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    padding: 0.5rem 0.7rem;
+    border-radius: var(--pb-radius-md);
+    color: var(--pb-text-secondary);
+    text-decoration: none;
+    font-family: var(--pb-font-family);
+    font-size: 0.92rem;
+}
+.toc__link:hover, .toc__link:focus-visible { background: var(--pb-bg-hover); color: var(--pb-text); }
+.toc__link.is-current { color: var(--pb-primary); font-weight: 700; }
+.toc__num { font-family: var(--pb-font-mono); font-size: 0.75rem; color: var(--pb-text-muted); }
+.toc__link.is-current .toc__num { color: var(--pb-primary); }
+
+/* Écran d'accueil ouvert : le sommaire s'efface (voir aussi body.xp-covered) */
+body.xp-open .toc { visibility: hidden; }
+:root[data-pb-tour="guided"] .toc { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+    .toc, .toc.is-placed { transition: none; }
+}

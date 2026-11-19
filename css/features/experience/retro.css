@@ -94,10 +94,12 @@
 :root[data-pb-exp="retro"] h2 { font-size: clamp(1.9rem, 3.4vw, 3rem); }
 :root[data-pb-exp="retro"] h3 { font-size: 1.3rem; letter-spacing: 0.02em; }
 :root[data-pb-exp="retro"] .logo-text { -webkit-text-fill-color: var(--pb-primary); background: none; }
-:root[data-pb-exp="retro"] .btn { text-transform: uppercase; letter-spacing: 0.04em; font-size: 1.15rem; padding: 0.45rem 1rem; }
-:root[data-pb-exp="retro"] .btn::before { content: "["; }
-:root[data-pb-exp="retro"] .btn::after { content: "]"; }
-:root[data-pb-exp="retro"] .btn:hover { transform: none; background: var(--pb-primary); color: var(--pb-text-on-color); }
+/* Boutons de la page entre crochets ; pas celui de l'écran d'accueil
+   (« C'est parti » : habillé par l'aperçu de l'expérience choisie) */
+:root[data-pb-exp="retro"] .btn:not(.xp-go) { text-transform: uppercase; letter-spacing: 0.04em; font-size: 1.15rem; padding: 0.45rem 1rem; }
+:root[data-pb-exp="retro"] .btn:not(.xp-go)::before { content: "["; }
+:root[data-pb-exp="retro"] .btn:not(.xp-go)::after { content: "]"; }
+:root[data-pb-exp="retro"] .btn:not(.xp-go):hover { transform: none; background: var(--pb-primary); color: var(--pb-text-on-color); }
 :root[data-pb-exp="retro"] .chip { border-radius: 0; font-size: 1rem; }
 :root[data-pb-exp="retro"] [data-exp-tag]::before { font-size: 1.2rem; letter-spacing: 0.04em; }
 :root[data-pb-exp="retro"] [data-exp-tag]::before { content: attr(data-exp-tag) "_"; }

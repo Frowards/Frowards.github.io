@@ -14,6 +14,7 @@
  * Fenêtre modale accessible : role="dialog", focus piégé, Échap pour fermer.
  */
 import Lang from '../../core/Lang.js';
+import Events from '../../core/Events.js';
 import Theme from '../theme/Theme.js';
 import { qs, qsa } from '../../utils/dom.js';
 import { prefersReducedMotion } from '../../utils/motion.js';
@@ -52,6 +53,13 @@ function renderSelection() {
     });
     overlay.setAttribute('data-preview', choice.exp);
     overlay.setAttribute('data-preview-mode', choice.mode);
+    markColorBlind();
+}
+
+/** Bouton « Mode daltonien » allumé quand un type est corrigé */
+function markColorBlind() {
+    const button = qs('[data-xp-cvd]', overlay);
+    if (button) button.classList.toggle('is-on', Boolean(Theme.config.cvd));
 }
 
 /** Redessine tout l'écran (ouverture, changement de langue) */
@@ -69,6 +77,7 @@ function onClick(e) {
     if (tour) { choice.tour = tour.getAttribute('data-xp-tour'); renderSelection(); return; }
     if (e.target.closest('[data-xp-go]')) { if (launchHandler) launchHandler({ ...choice }); return; }
     if (e.target.closest('[data-xp-close]')) { Welcome.close(); return; }
+    if (e.target.closest('[data-xp-cvd]')) { Events.emit('panel:request'); return; }
     if (e.target.closest('[data-xp-lang]')) Lang.toggle();
 }
 
@@ -114,6 +123,7 @@ function build() {
     overlay.addEventListener('click', onClick);
     overlay.addEventListener('keydown', onKeydown);
     Lang.onChange(() => { if (overlay && !overlay.hidden) render(); });
+    Events.on('theme:change', () => { if (overlay && !overlay.hidden) markColorBlind(); });
 }
 
 /**

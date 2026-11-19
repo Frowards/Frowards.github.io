@@ -1,11 +1,8 @@
 /* ==========================================================================
-   En-tête (barre fixe, navigation, actions)
-   Disposition CeresHeader : barre collante de 56px en verre ; deux rangées
-   sur tablette et mobile, marque sur deux lignes sur téléphone.
-
-   À charger APRÈS les styles du panneau de thème (ancien ambience.css) :
-   le bloc téléphone resserre aussi les onglets de ce panneau et doit
-   passer après leur règle de base.
+   En-tête (barre fixe : marque et actions)
+   Disposition CeresHeader : barre collante de 56px en verre ; marque sur
+   deux lignes sur téléphone. La navigation entre les sections est dans le
+   sommaire flottant (features/toc).
    ========================================================================== */
 
 /* ---------- Header (disposition CeresHeader : barre fixe 56px, verre) ---------- */
@@ -36,96 +33,30 @@
     white-space: nowrap;
 }
 
-.topnav { display: flex; gap: 0.25rem; align-items: center; margin-left: auto; }
-.topnav a {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.42rem;
-    text-decoration: none;
-    color: var(--pb-text-secondary);
-    font-size: 0.9rem;
-    font-weight: 500;
-    padding: 0.4rem 0.8rem;
-    border-radius: var(--pb-radius-md);
-    white-space: nowrap;
-    transition: background var(--pb-transition-fast), color var(--pb-transition-fast);
-}
-.topnav .nav-ico { width: 1em; height: 1em; flex-shrink: 0; }
-/* Sur le bouton plein (fond accent), le trait suit la couleur du texte */
-.topnav a.cta .nav-ico { stroke: currentColor; }
-.topnav a:hover { background: var(--pb-bg-hover); color: var(--pb-text); }
-.topnav a.cta { background: var(--pb-primary); color: var(--pb-text-on-color); box-shadow: var(--pb-shadow-primary); }
-.topnav a.cta:hover { background: var(--pb-primary-hover); color: var(--pb-text-on-color); }
-.topbar-actions { display: flex; gap: 0.3rem; align-items: center; }
+.topbar-actions { display: flex; gap: 0.3rem; align-items: center; margin-left: auto; }
 
-/* Séparateur vertical entre la navigation et les actions du header */
-.topbar-actions::before {
-    content: "";
-    align-self: center;
-    width: var(--pb-border-w);
-    height: 1.4rem;
-    background: var(--pb-border);
-    flex-shrink: 0;
-    margin: 0 0.5rem;
-}
-
-/* Mobile / tablette : barre sur deux rangées confortables
-   (marque + actions en haut, navigation complète en dessous).
-   La hauteur est souple : changer de langue ne fait plus sauter la barre. */
+/* Mobile / tablette : marque et actions sur une rangée (la navigation est
+   dans le sommaire flottant, features/toc). La hauteur reste souple :
+   changer de langue ne fait pas sauter la barre. */
 @media (max-width: 860px) {
-    .topbar-inner {
-        flex-wrap: wrap;
-        row-gap: 0.15rem;
-        padding-top: 0.6rem;
-        padding-bottom: 0.65rem;
-    }
+    .topbar-inner { padding-top: 0.6rem; padding-bottom: 0.6rem; }
     .brand { flex: 1 1 auto; }
     .brand-name { font-size: 1.05rem; }
-    .topbar-actions { margin-left: auto; }
-    .topnav {
-        order: 3;
-        width: 100%;
-        margin-left: 0;
-        justify-content: space-between;
-        gap: 0.2rem;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        padding: 0.15rem 0;
-    }
-    .topnav::-webkit-scrollbar { display: none; }
-    /* Mobile : icônes seules (le libellé reste en aria-label) */
-    .topnav .nav-txt { display: none; }
-    .topnav a { padding: 0.6rem 0.9rem; }
-    .topnav .nav-ico { width: 1.3rem; height: 1.3rem; }
-    .topnav .ceres-logo-sm { width: 1.2rem; height: auto; }
-    .topnav a.cta { padding: 0.6rem 1rem; }
 }
 @media (max-width: 380px) { .brand-name { font-size: 0.95rem; } }
-/* Téléphone en paysage : la hauteur est rare, tout revient sur une rangée
-   (marque, navigation en icônes, actions) */
+/* Téléphone en paysage : la hauteur est rare, barre plus basse */
 @media (max-width: 860px) and (orientation: landscape) and (max-height: 500px) {
-    .topbar-inner { flex-wrap: nowrap; gap: 0.5rem; padding-top: 0.3rem; padding-bottom: 0.3rem; }
-    .brand { flex: 0 1 auto; }
+    .topbar-inner { padding-top: 0.3rem; padding-bottom: 0.3rem; }
     .brand-name { font-size: 0.95rem; }
-    .topnav { order: 0; width: auto; margin-left: auto; justify-content: flex-end; padding: 0; }
-    .topnav a { padding: 0.45rem 0.55rem; }
-    .topnav a.cta { padding: 0.45rem 0.7rem; }
-    .topbar-actions { margin-left: 0; }
-    .topbar-actions::before { margin: 0 0.3rem; }
 }
 
-/* Lien « Ceres » de la navigation : logo réduit à côté du libellé */
-.nav-ceres { display: inline-flex; align-items: center; gap: 0.4rem; }
-.ceres-logo-sm { width: 1.05em; height: auto; filter: drop-shadow(0 0 0.5px rgba(0, 0, 0, 0.85)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.25)); }
-
 /* ---------- En-tête téléphone : marque sur deux lignes, actions compactes
-   (4 boutons dont « Changer d'expérience ») pour rester sur une rangée ---------- */
+   (5 boutons) pour rester sur une rangée ---------- */
 @media (max-width: 520px) {
-    .topbar-actions::before { display: none; }
     .topbar-actions { gap: 0.25rem; }
+    /* Marque resserrée : les cinq boutons tiennent sur sa rangée (taille des
+       boutons : features/experience/adjustments.css) */
+    .topbar-inner { column-gap: 0.5rem; }
     .topbar-actions .toggle-btn { min-width: 2.35rem; height: 2.35rem; padding: 0 0.4rem; }
-    .brand-name { white-space: normal; line-height: 1.12; display: block; max-width: 10rem; }
-    /* Onglets du panneau de thème, resserrés à la même largeur */
-    .theme-tabs button { font-size: 0.8rem; padding: 0.5rem 0.55rem; }
+    .brand-name { white-space: normal; line-height: 1.12; display: block; max-width: 9.5rem; font-size: 0.95rem; }
 }

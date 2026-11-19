@@ -30,7 +30,7 @@ import Hud from './Hud.js';
 import { playLaunchTransition } from './transitions.js';
 import { resetAchievements, announceArrival } from './achievements.js';
 import { updateJourney, scheduleJourneyUpdate, tagSections } from './journey.js';
-import { addExperienceButton, trackHeaderHeight } from './header.js';
+import { addExperienceButton, addTourButton, trackHeaderHeight } from './header.js';
 
 /** Applique une expérience : attribut, préréglage du thème, HUD, visite */
 function applyExperience(exp, mode) {
@@ -46,9 +46,14 @@ function applyExperience(exp, mode) {
     Events.emit('experience:change', { exp, mode: Theme.effectiveMode() });
 }
 
-/** Active la visite guidée (depuis l'accueil) ou revient à la visite libre */
-function startTour(tour) {
-    if (tour === 'guided') Tour.enable(0);
+/**
+ * Active la visite guidée ou revient à la visite libre.
+ * @param {string} tour     'guided' | 'free'
+ * @param {number} [startAt] étape de départ ; par défaut, la section
+ *                           affichée à l'écran
+ */
+function startTour(tour, startAt) {
+    if (tour === 'guided') Tour.enable(startAt);
     else Tour.disable();
 }
 
@@ -67,7 +72,7 @@ function launch({ exp, mode: chosenMode, tour }) {
         light: chosenMode === 'light',
         onCovered: () => {
             Welcome.hide();
-            startTour(tour);
+            startTour(tour, 0);
             window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
             applyExperience(exp, mode);
         },
@@ -110,7 +115,8 @@ const Experience = {
         applyExperience(exp, mode);
     },
 
-    /** Visite guidée ou libre (bouton « Visite libre » de la barre de visite) */
+    /** Visite guidée ou libre (interrupteur du header : la visite guidée
+        reprend à la section affichée, la visite libre à l'étape en cours) */
     setTour(tour) {
         saveChoice(currentExp(), tour);
         startTour(tour);
@@ -135,11 +141,11 @@ const Experience = {
             onLaunch: launch
         });
         /* La visite guidée prévient à chaque étape et à son arrêt */
-        Tour.onExit(() => Experience.setTour('free'));
         Events.on('tour:step', updateJourney);
         Events.on('tour:toggle', ({ active }) => { if (!active) updateJourney(); });
 
         addExperienceButton(() => Welcome.open());
+        addTourButton(() => Experience.setTour(Tour.active ? 'free' : 'guided'));
         trackHeaderHeight();
         tagSections();
         Hud.build(currentExp());

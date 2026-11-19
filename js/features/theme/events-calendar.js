@@ -54,11 +54,6 @@ export const EVENTS = [
     }
 ];
 
-/** Événement de clé key, ou null */
-export function findEvent(key) {
-    return EVENTS.find((ev) => ev.key === key) || null;
-}
-
 /** Date de l'événement pour une année donnée */
 function eventDate(ev, year) {
     return typeof ev.date === 'function' ? ev.date(year) : new Date(year, ev.date.month - 1, ev.date.day);

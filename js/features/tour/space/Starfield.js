@@ -1,9 +1,9 @@
 /**
  * Starfield - ciel étoilé en 3D de l'expérience Spatial (canvas #pb-space).
  *
- * Les corps célestes viennent vers le spectateur (projection en
- * perspective) : étoiles en mode sombre, champ d'astéroïdes devant une
- * planète en mode clair (<html data-pb-mode>). Vitesse de croisière lente ;
+ * Les étoiles viennent vers le spectateur (projection en perspective) :
+ * points clairs sur ciel noir en mode sombre, points foncés sur ciel blanc
+ * en mode clair (<html data-pb-mode>). Vitesse de croisière lente ;
  * warp(ms) lance un saut en hyperespace (les étoiles s'étirent en
  * traînées) ; push(v) accélère brièvement le vaisseau (défilement en visite
  * libre).
@@ -15,8 +15,7 @@
  */
 import { prefersReducedMotion } from '../../../utils/motion.js';
 import { makeBody } from './bodies.js';
-import { planetLayer } from './planet-layer.js';
-import { drawAsteroidBody } from './asteroids.js';
+import { skyLayer } from './sky.js';
 
 const TAU = 6.2832;
 
@@ -75,9 +74,9 @@ function updateSpeed(now, dt) {
     if (!isFinite(speed)) { speed = CRUISE; boost = 0; }
 }
 
-/** Étoile (mode sombre) : point, ou traînée pendant un saut */
-function drawStar(body) {
-    const color = `rgba(${body.c},${view.alpha})`;
+/** Étoile : point, ou traînée pendant un saut (teinte selon le mode) */
+function drawStar(body, light) {
+    const color = `rgba(${light ? body.ink : body.c},${view.alpha})`;
     if (view.streak) {
         ctx.strokeStyle = color;
         ctx.lineWidth = view.radius;
@@ -106,8 +105,8 @@ function frame(now) {
     view.scale = scale;
     view.dt = dt;
 
-    ctx.clearRect(0, 0, w, h);
-    if (light) ctx.drawImage(planetLayer(w, h), 0, 0, w, h);
+    /* Fond peint dans le canvas : il suit le mode à chaque image */
+    ctx.drawImage(skyLayer(w, h, light), 0, 0, w, h);
 
     for (let i = 0; i < bodies.length; i++) {
         const body = bodies[i];
@@ -124,8 +123,7 @@ function frame(now) {
         view.fromY = cy + body.y / prevZ * focal;
         view.alpha = Math.min(1, (1 - body.z) * 1.3);
         view.radius = (1 - body.z) * 1.9 + 0.25;
-        if (light) drawAsteroidBody(ctx, body, view);
-        else drawStar(body);
+        drawStar(body, light);
     }
 
     if (frameListener) frameListener(speed);

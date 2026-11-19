@@ -25,18 +25,11 @@
 @import url("components/chip.css");
 @import url("components/launcher.css");
 @import url("components/toast.css");
-@import url("components/tabs.css");
 @import url("components/segmented.css");
-@import url("components/swatch.css");
 @import url("components/switch.css");
-@import url("components/range.css");
 
 /* Panneau de personnalisation du thème */
 @import url("features/theme-panel/panel.css");
-@import url("features/theme-panel/fields.css");
-@import url("features/theme-panel/grids.css");
-@import url("features/theme-panel/demo-card.css");
-@import url("features/theme-panel/events.css");
 
 /* Sections de la page */
 @import url("sections/hero.css");
@@ -57,7 +50,7 @@
 @import url("features/ambience/page-background.css");
 @import url("features/ambience/decorations.css");
 
-/* En-tête (après l'ambiance : sa version téléphone resserre aussi les onglets du panneau) */
+/* En-tête */
 @import url("sections/header.css");
 
 /* Expériences : écran d'accueil, transitions, finitions Rétro / Spatial / Gamer */
@@ -87,9 +80,14 @@
 /* Mascotte */
 @import url("features/mascot/mascot.css");
 @import url("features/mascot/bubble.css");
-@import url("features/mascot/toggle.css");
 @import url("features/mascot/pet.css");
 @import url("features/mascot/experiences.css");
 
 /* Conseil d'orientation (téléphone en paysage) */
 @import url("features/orientation/hint.css");
+
+/* Sommaire flottant (remplace la navigation du header) */
+@import url("features/toc/toc.css");
+
+/* Mode daltonien (en dernier : remplace les couleurs des expériences) */
+@import url("features/a11y/colorblind.css");

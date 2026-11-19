@@ -36,7 +36,21 @@
     letter-spacing: 0.06em;
     text-transform: uppercase;
 }
+/* Téléphone : sur une seule ligne (repliée, la pastille gardait toute la
+   largeur et laissait un grand vide à droite du texte) */
+@media (max-width: 600px) {
+    .status-pill { padding: 0.3rem 0.65rem; gap: 0.4rem; font-size: 0.6rem; letter-spacing: 0.02em; white-space: nowrap; }
+}
+/* Rétro : police (et rem) plus grandes, la pastille se resserre pour tenir */
+@media (max-width: 600px) {
+    :root[data-pb-exp="retro"] .status-pill { font-size: 0.52rem; letter-spacing: 0; padding: 0.25rem 0.55rem; }
+}
+/* Très petits écrans : le texte repasse à la ligne plutôt que de déborder */
+@media (max-width: 379px) {
+    .status-pill { white-space: normal; }
+}
 .status-dot {
+    flex: none;
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;

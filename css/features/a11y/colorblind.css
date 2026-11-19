@@ -1,0 +1,19 @@
+/* ==========================================================================
+   Mode daltonien (<html data-pb-cvd="deutan | protan | tritan">)
+
+   Toute la page passe par un filtre de correction propre à chaque type de
+   daltonisme (filtres SVG #pb-cvd-* en tête du <body>) : textes, boutons,
+   dégradés, fonds animés (canvas, WebGL), ciel étoilé, images. Les couleurs
+   que le visiteur confondrait sont décalées vers des teintes qu'il distingue.
+     - deutan : deutéranopie, vert (la plus courante)
+     - protan : protanopie, rouge
+     - tritan : tritanopie, bleu et jaune
+   Le filtre est posé sur <html> : les éléments fixes (header, barre de
+   visite, sommaire) restent à leur place.
+   ========================================================================== */
+
+.pb-cvd-filters { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+:root[data-pb-cvd="deutan"] { filter: url(#pb-cvd-deutan); }
+:root[data-pb-cvd="protan"] { filter: url(#pb-cvd-protan); }
+:root[data-pb-cvd="tritan"] { filter: url(#pb-cvd-tritan); }

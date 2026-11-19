@@ -56,8 +56,8 @@
 .xp-welcome[data-preview="retro"] :is(.xp-card, .xp-tour__opt, .xp-chip, .seg, .xp-go) { border-radius: 0; }
 .xp-welcome[data-preview="retro"] .xp-card__desc, .xp-welcome[data-preview="retro"] .xp-tour__opt small { font-size: 0.95rem; }
 .xp-welcome[data-preview="retro"] .xp-go { text-transform: uppercase; font-size: 1.3rem; }
-.xp-welcome[data-preview="retro"] .xp-go::before { content: "[ "; white-space: pre; }
-.xp-welcome[data-preview="retro"] .xp-go::after { content: " ]"; white-space: pre; }
+.xp-welcome[data-preview="retro"] .xp-go__label::before { content: "[ "; white-space: pre; }
+.xp-welcome[data-preview="retro"] .xp-go__label::after { content: " ]"; white-space: pre; }
 
 /* --- Futuriste : néons et grille --- */
 .xp-welcome[data-preview="future"] {

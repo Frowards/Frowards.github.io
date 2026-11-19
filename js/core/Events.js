@@ -11,7 +11,11 @@
  *   - experience:change   { exp, mode }          expérience appliquée
  *   - tour:toggle         { active }             visite guidée activée / quittée
  *   - tour:step           { index, count }       étape de la visite affichée
- *   - panel:toggle        { open }               panneau de personnalisation ouvert / fermé
+ *   - panel:toggle        { open }               options d'affichage ouvertes / fermées
+ *   - panel:request       -                      demande d'ouvrir les options d'affichage
+ *   - mascot:request      { visible }            demande d'afficher / masquer la mascotte
+ *                                                (bulle de Pierre, panneau de thème)
+ *   - mascot:change       { visible }            mascotte affichée / masquée
  */
 
 const listeners = new Map();

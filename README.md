@@ -1,8 +1,8 @@
 # Portfolio - Pierre Bernard-Darmann
 
 Portfolio personnel : une page de présentation qui se vit de quatre façons
-(Classique, Rétro, Spatial, Gamer), en visite guidée ou libre, avec un thème
-entièrement personnalisable et une mascotte interactive.
+(Classique, Rétro, Spatial, Gamer), en visite guidée ou libre, en clair ou
+en sombre (avec un mode daltonien), et une mascotte interactive.
 
 **Aucune dépendance, aucun outil de build** : HTML, CSS et JavaScript natifs
 (modules ES). Le code est organisé en composants, sur le modèle de Ceres,
@@ -38,10 +38,11 @@ js/
   main.js                   point d'entrée : initialise les modules dans l'ordre
   core/                     socle : Lang (i18n), Storage, Events (bus)
   utils/                    fonctions pures partagées (DOM, animation)
-  components/               composants d'interface génériques (Icon, Tooltip, Reveal,
-                            Tabs, SegmentedControl, Toast) et registres d'icônes
-  features/<fonction>/      fonctionnalités : theme, theme-panel, experience, tour,
-                            mascot, contact, header
+  components/               composants d'interface génériques (Icon, Flag, Tooltip,
+                            Reveal, SegmentedControl, Toast) et registres d'icônes
+  features/<fonction>/      fonctionnalités : theme, theme-panel (options d'affichage),
+                            experience, tour, toc (sommaire), mascot, contact,
+                            header, orientation
   effects/                  effets visuels sur canvas (particules, fluide WebGL...)
 languages/
   index.js                  assemble les dictionnaires
@@ -78,10 +79,11 @@ languages/
 | `core/Storage.js` | localStorage sûr | `get`, `set`, `getJSON`, `setJSON`, `remove`, `KEYS` |
 | `core/Events.js` | bus d'événements | `on(nom, fn)` (renvoie le désabonnement), `off`, `emit(nom, detail)` |
 | `components/Icon.js` | icônes SVG | `register(map, famille)`, `svg(nom, classe)`, `hydrate(root)` |
-| `features/theme/Theme.js` | thème et préréglages | `init`, `get`, `set(partiel)`, `reset`, `randomize`, `effectiveMode`, `applyPreset`, `setBase`... |
-| `features/theme-panel/ThemePanel.js` | panneau de personnalisation | `init`, `open`, `close`, `sync` |
+| `features/theme/Theme.js` | thème de l'expérience, mode clair / sombre, mode daltonien | `init`, `set({ mode, cvd })`, `effectiveMode`, `applyPreset`, `setBase`, `config` |
+| `features/theme-panel/ThemePanel.js` | options d'affichage (mascotte, mode daltonien) | `init`, `open`, `close` |
+| `features/toc/Toc.js` | sommaire flottant, déplaçable | `init` |
 | `features/experience/Experience.js` | écran d'accueil et expériences | `prepareTheme`, `init`, `open`, `set(exp, mode)`, `setTour`, `refresh`, `current` |
-| `features/tour/Tour.js` | visite guidée | `init`, `enable(etape)`, `disable`, `go(n)`, `syncExp`, `setZone`, `warp`, `onExit(fn)`, `active`, `index`, `count` |
+| `features/tour/Tour.js` | visite guidée | `init`, `enable(etape)`, `disable`, `go(n)`, `syncExp`, `setZone`, `warp`, `resumeScroll`, `savedStep`, `active`, `index`, `count` |
 | `features/mascot/Mascot.js` | mascotte | `init`, `show`, `hide`, `open` |
 | `components/Toast.js` | notifications | `show(titre, texte, { variant, exclusive })` |
 | `features/contact/Contact.js` | coordonnées protégées des robots | `mail`, `tel`, `telShown`, `hydrate(root)` |

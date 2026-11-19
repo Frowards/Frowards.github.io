@@ -7,7 +7,7 @@
  * la classe tour-more de <html>).
  *
  * Les clics sont transmis tels quels au propriétaire de la barre :
- * 'prev', 'next', 'exit' ou le numéro de l'étape visée ('0', '1'...).
+ * 'prev', 'next' ou le numéro de l'étape visée ('0', '1'...).
  */
 import { t } from '../../core/Lang.js';
 import { esc } from '../../utils/dom.js';
@@ -25,8 +25,9 @@ function dotMarkup(i, current, nameOf) {
 }
 
 function barMarkup(index, count, nameOf) {
+    /* Dernière étape : « Suivant » est désactivé (pas de retour au début) */
     const last = index >= count - 1;
-    const nextLabel = esc(t(last ? 'TOUR.RESTART' : 'TOUR.NEXT'));
+    const nextLabel = esc(t('TOUR.NEXT'));
     const dots = Array.from({ length: count }, (_, i) => dotMarkup(i, index, nameOf)).join('');
     return [
         `<span class="tourbar__more" aria-hidden="true">${Icon.svg('chevron-down')}${esc(t('TOUR.MORE'))}</span>`,
@@ -37,10 +38,8 @@ function barMarkup(index, count, nameOf) {
         `<span class="tourbar__name" aria-live="polite">${esc(nameOf(index))}</span>`,
         `<span class="tourbar__dots">${dots}</span>`,
         '</div>',
-        `<button type="button" class="tourbar__btn tourbar__next" data-tour="next" aria-label="${nextLabel}">`,
-        `<span>${nextLabel}</span>${Icon.svg('chevron-right')}</button>`,
-        `<button type="button" class="tourbar__exit" data-tour="exit" title="${esc(t('TOUR.EXIT_TITLE'))}">`,
-        `${Icon.svg('text-lines')}<span>${esc(t('TOUR.EXIT'))}</span></button>`
+        `<button type="button" class="tourbar__btn tourbar__next" data-tour="next"${last ? ' disabled' : ''} aria-label="${nextLabel}">`,
+        `<span>${nextLabel}</span>${Icon.svg('chevron-right')}</button>`
     ].join('');
 }
 

@@ -2,11 +2,13 @@
  * Bubble - la bulle de contact de la mascotte.
  *
  * Fenêtre (role="dialog") ancrée au-dessus de Pierre : e-mail, téléphone,
- * LinkedIn, copie de l'adresse et lien vers la section Contact. Pendant
+ * LinkedIn, copie de l'adresse, lien vers la section Contact, et « Masquer
+ * la mascotte » (elle revient par le panneau de thème). Pendant
  * qu'elle est ouverte, Pierre montre la bulle du doigt puis fait la fête.
  * Elle se ferme par son bouton, Échap ou un clic en dehors.
  */
 import { t } from '../../core/Lang.js';
+import Events from '../../core/Events.js';
 import Icon from '../../components/Icon.js';
 import { esc, el } from '../../utils/dom.js';
 import Contact from '../contact/Contact.js';
@@ -44,7 +46,9 @@ function render() {
         item('a', 'href="#contact" data-m="section"', 'mascot-contact', t('MASCOT.SECTION')),
         '</ul>',
         '<p class="mascot-bubble__status" role="status" aria-live="polite"></p>',
-        `<p class="mascot-bubble__tip">${esc(t('MASCOT.TIP'))}</p>`
+        `<p class="mascot-bubble__tip">${esc(t('MASCOT.TIP'))}</p>`,
+        /* Hors de la liste de contact : simple lien discret, en pied de bulle */
+        `<button type="button" class="mascot-bubble__hide" data-m="hide">${Icon.svg('mascot-hide')}<span>${esc(t('MASCOT.HIDE'))}</span></button>`
     ].join('');
 }
 
@@ -66,6 +70,7 @@ function onClick(event) {
     if (name === 'close') Bubble.close(true);
     else if (name === 'section') Bubble.close(false);
     else if (name === 'copy') copyMail();
+    else if (name === 'hide') Events.emit('mascot:request', { visible: false });
 }
 
 function onKeydown(event) {

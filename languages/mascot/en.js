@@ -15,6 +15,5 @@ export default {
     "MASCOT.SECTION": "Go to the Contact page",
     "MASCOT.CLOSE": "Close",
     "MASCOT.HIDE": "Hide the mascot",
-    "MASCOT.SHOW": "Bring the mascot back",
     "MASCOT.TIP": "Tip: grab me and throw me, my dragon loves it."
 };

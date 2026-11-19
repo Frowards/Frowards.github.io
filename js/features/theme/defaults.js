@@ -9,6 +9,8 @@
  *                 différentes du défaut sont gardées (comme effect_params de Ceres)
  *   radiusPct     0..200 (% des rayons de base), borderW 1..4 px, borderColor
  *   glass         transparence (verre) activée
+ *   cvd           mode daltonien : false | 'deutan' | 'protan' | 'tritan'
+ *                 (filtre de correction, css/features/a11y)
  *   fontTitle, fontBody (clés de FONT_STACKS), fontScale 80..125 %
  *   pageBg        { type: 'default' | 'gradient' | 'underwater' | 'image',
  *                   gradient: { dark: [3 hex], light: [3 hex] },
@@ -28,6 +30,7 @@ export const DEFAULTS = Object.freeze({
     borderW: 1,
     borderColor: null,
     glass: true,
+    cvd: false,
     fontTitle: 'cinzel',
     fontBody: 'system',
     fontScale: 100,
@@ -64,7 +67,3 @@ export const LIMITS = Object.freeze({
     fontScale: [80, 125],
     imageOpacity: [15, 100]
 });
-
-/** Signature des fichiers de thème exportés (onglet Partage) */
-export const FILE_TYPE = 'pb-theme';
-export const FILE_VERSION = 1;

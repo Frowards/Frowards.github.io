@@ -12,6 +12,7 @@
  *   - data-pb-tour         'guided' si la visite guidée était active
  *   - data-pb-mode         mode effectif 'light' | 'dark' (data-theme si le mode est forcé)
  *   - pb-no-blur           classe : transparence (effet verre) désactivée
+ *   - data-pb-cvd          type de daltonisme corrigé (deutan, protan, tritan)
  *   - variables CSS        arrondis, bordures, polices, taille du texte, couleur d'accent
  *
  * Il reprend volontairement, en version minimale, une partie de la logique de
@@ -92,6 +93,8 @@
         root.setAttribute('data-pb-mode', dark ? 'dark' : 'light');
         if (cfg.mode === 'light' || cfg.mode === 'dark') root.setAttribute('data-theme', cfg.mode);
         if (cfg.glass === false) root.classList.add('pb-no-blur');
+        const cvd = cfg.cvd === true ? 'deutan' : cfg.cvd;
+        if (cvd === 'deutan' || cvd === 'protan' || cvd === 'tritan') root.setAttribute('data-pb-cvd', cvd);
 
         if (typeof cfg.radiusPct === 'number') {
             const ratio = clamp(cfg.radiusPct, 0, 200) / 100;

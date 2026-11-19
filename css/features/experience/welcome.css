@@ -13,7 +13,7 @@ body.xp-open { overflow: hidden; }
    iOS la laisserait sinon apparaître sous sa barre d'adresse translucide.
    Le calque de transition de lancement (.xp-trans) et le conseil
    d'orientation (.orient-hint) restent visibles. */
-body.xp-covered > *:not(#pb-welcome, .xp-trans, .orient-hint) { visibility: hidden; }
+body.xp-covered > *:not(#pb-welcome, .xp-trans, .orient-hint, #theme-panel) { visibility: hidden; }
 
 .xp-welcome {
     position: fixed;
@@ -80,8 +80,12 @@ body.xp-covered > *:not(#pb-welcome, .xp-trans, .orient-hint) { visibility: hidd
     cursor: pointer;
 }
 .xp-chip:hover { color: var(--pb-text); border-color: var(--pb-primary); }
-/* Bouton de langue : drapeau de la langue proposée (composant Flag) */
-.xp-chip--flag { display: inline-flex; align-items: center; padding: 0.45rem 0.7rem; }
+/* Bouton de langue : drapeau de la langue proposée (composant Flag), seul,
+   sans cadre ; le cadre n'apparaît qu'au survol (souris) */
+.xp-welcome .xp-chip--flag { display: inline-flex; align-items: center; padding: 0.45rem 0.7rem; border-color: transparent; background: transparent; box-shadow: none; }
+@media (hover: hover) {
+    .xp-welcome .xp-chip--flag:hover { border-color: var(--pb-primary); background: var(--pb-surface-subtle); }
+}
 .xp-chip--flag .flag {
     width: 1.6rem;
     height: 0.8rem;
@@ -156,20 +160,48 @@ body.xp-covered > *:not(#pb-welcome, .xp-trans, .orient-hint) { visibility: hidd
     margin-bottom: clamp(1.2rem, 3vh, 1.8rem);
 }
 .xp-mode__label { font-size: 0.85rem; font-weight: 600; color: var(--pb-text-secondary); }
-.xp-seg button { display: inline-flex; align-items: center; gap: 0.4rem; }
+/* Clair et Sombre : deux boutons de même largeur */
+.xp-seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; }
+.xp-seg button { display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; }
 .xp-seg .li { width: 1rem; height: 1rem; stroke: currentColor; }
+/* Bouton « Mode daltonien » : à côté de Clair / Sombre, même hauteur ;
+   police neutre, quelle que soit l'expérience prévisualisée */
+.xp-welcome .xp-cvd {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    height: 2.15rem;
+    padding: 0 0.8rem;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: normal;
+    text-transform: none;
+}
+.xp-cvd .li { width: 1rem; height: 1rem; flex: none; stroke: currentColor; }
+.xp-welcome .xp-cvd.is-on { border-color: var(--pb-primary); color: var(--pb-primary); }
+/* Petits téléphones : icône seule, pour rester sur la ligne de Clair / Sombre */
+@media (max-width: 379px) {
+    .xp-welcome .xp-cvd { padding: 0 0.6rem; }
+    .xp-cvd span { display: none; }
+}
 .xp-mode__detected { flex-basis: 100%; font-size: 0.78rem; color: var(--pb-text-muted); }
-.xp-go { font-size: 1.05rem; padding: 0.85rem 2.4rem; justify-content: center; }
-.xp-welcome__note {
+/* « C'est parti », et en bas du bouton la mention « Modifiable à tout
+   moment » (police et casse neutres, quelle que soit l'expérience) */
+.xp-go { flex-direction: column; justify-content: center; gap: 0.3rem; font-size: 1.05rem; padding: 0.7rem 2.4rem; }
+.xp-go__note {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.45rem;
-    margin-top: 1rem;
-    font-size: 0.8rem;
-    color: var(--pb-text-muted);
+    gap: 0.35rem;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
+    opacity: 0.85;
 }
-.xp-welcome__note .li { width: 1.05rem; height: 1.05rem; color: var(--pb-primary); flex: none; }
+.xp-go__note .li { width: 0.95rem; height: 0.95rem; flex: none; stroke: currentColor; }
+.xp-go__note > span { white-space: nowrap; }
 
 /* Choix du type de visite (écran d'accueil) */
 .xp-tour { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; margin-bottom: clamp(1.2rem, 3vh, 1.8rem); }
