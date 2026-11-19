@@ -20,30 +20,11 @@
 
 @media (max-width: 600px), (orientation: landscape) and (max-height: 500px) {
     .xp-welcome { padding: 0.6rem 0.75rem calc(0.6rem + env(safe-area-inset-bottom, 0px)); }
-    .xp-welcome__box { position: relative; }
-
-    /* Drapeau à droite, fermeture à gauche, sur la ligne « Bienvenue » */
-    .xp-welcome__top {
-        position: absolute;
-        inset: 0 0 auto;
-        margin: 0;
-        pointer-events: none;
-    }
-    .xp-welcome__top > * { pointer-events: auto; }
-    .xp-welcome__top [data-xp-lang] { margin-left: auto; }
-    .xp-welcome__top [data-xp-close] { order: -1; }
+    /* Ligne du haut plus serrée */
+    .xp-welcome__top { gap: 0.4rem; margin-bottom: 0.25rem; grid-template-columns: minmax(2.3rem, 1fr) minmax(0, auto) minmax(2.3rem, 1fr); }
     .xp-welcome__top .toggle-btn { height: 2.1rem; }
     .xp-chip--flag { height: 2.1rem; padding: 0 0.55rem; }
-    .xp-welcome__hello {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 2.1rem;
-        padding: 0 3.4rem;
-        margin-bottom: 0.25rem;
-        font-size: 0.66rem;
-        line-height: 1.3;
-    }
+    .xp-welcome__hello { font-size: 0.66rem; line-height: 1.3; }
 
     /* Titre : tailles par police (l'aperçu en direct change la police) */
     .xp-welcome[data-preview] .xp-welcome__title { font-size: 1.35rem; margin-bottom: 0.55rem; }
@@ -103,40 +84,45 @@
     .xp-welcome[data-preview="retro"] .xp-go { font-size: 1.15rem; }
 }
 
-/* Téléphone en portrait : l'écran remplit toute la hauteur disponible, du
-   petit iPhone SE au grand Android. La boîte occupe au moins l'écran
-   visible (colonne flexible) : les cartes prennent la place libre, leurs
-   aperçus grandissent jusqu'à 9rem, puis le reste se répartit en haut et
-   en bas. Aucun calcul par taille d'écran : rien ne déborde, rien ne reste
-   vide. */
+/* Téléphone en portrait : l'écran occupe la hauteur disponible, du petit
+   iPhone SE au grand Android, sans défiler et sans paraître tassé.
+   - Les espacements entre les blocs grandissent avec la hauteur de
+     l'écran (unités svh) : c'est eux qui donnent de l'air.
+   - Les aperçus grandissent aussi, mais restent mesurés (6,5rem au plus).
+   - Si la place manque malgré tout, les aperçus rétrécissent en premier
+     (colonne flexible) : rien ne déborde. Le reste se centre. */
 @media (max-width: 600px) and (orientation: portrait) {
-    .xp-welcome { --xp-gap: clamp(0.35rem, 6svh - 2.4rem, 1.2rem); }
+    .xp-welcome { --xp-gap: clamp(0.5rem, 6.1svh - 1.86rem, 1.8rem); }
     .xp-welcome__box {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        min-height: 100%;
+        height: 100%;
         margin: 0;
     }
     .xp-cards {
-        flex: 1 1 auto;
+        flex: 0 1 auto;
+        min-height: 0;
         grid-auto-rows: minmax(0, 1fr);
-        max-height: 25rem;
         gap: clamp(0.5rem, var(--xp-gap), 0.8rem);
     }
-    .xp-card .xp-pv { flex: 1 1 auto; aspect-ratio: auto; height: auto; min-height: 3rem; max-height: 9rem; }
+    .xp-card .xp-pv { flex: 0 1 auto; aspect-ratio: auto; height: clamp(3rem, 15svh - 1.5rem, 6.5rem); min-height: 2.5rem; }
     .xp-welcome .xp-go { align-self: center; }
-    .xp-welcome__hello { margin-bottom: calc(var(--xp-gap) * 0.5); }
-    .xp-welcome[data-preview] .xp-welcome__title { margin-bottom: var(--xp-gap); }
-    .xp-pick { margin-bottom: calc(var(--xp-gap) + 0.2rem); }
+    .xp-welcome__top { margin-bottom: calc(var(--xp-gap) * 0.5); }
+    .xp-welcome[data-preview] .xp-welcome__title { margin-bottom: calc(var(--xp-gap) * 0.8); }
+    .xp-welcome__sub { margin-bottom: var(--xp-gap); }
+    .xp-cards { margin-bottom: 0.5rem; }
+    .xp-pick { margin-bottom: var(--xp-gap); }
     .xp-mode, .xp-tour { margin-bottom: var(--xp-gap); }
-    .xp-welcome__note { margin-top: var(--xp-gap); }
+    .xp-welcome__note { margin-top: calc(var(--xp-gap) * 0.8); }
 }
-@media (max-width: 600px) and (orientation: portrait) and (min-height: 720px) {
-    .xp-welcome__sub { display: block; max-width: 34ch; margin-bottom: var(--xp-gap); font-size: 0.86rem; line-height: 1.45; }
+@media (max-width: 600px) and (orientation: portrait) and (min-height: 650px) {
+    .xp-welcome__sub { display: block; max-width: 34ch; font-size: 0.86rem; line-height: 1.45; }
+    .xp-welcome[data-preview="retro"] .xp-welcome__sub { font-size: 0.98rem; line-height: 1.15; }
+}
+@media (max-width: 600px) and (orientation: portrait) and (min-height: 760px) {
     .xp-welcome[data-preview] .xp-welcome__title { font-size: 1.55rem; }
     .xp-welcome[data-preview="retro"] .xp-welcome__title { font-size: 2.1rem; }
-    .xp-welcome[data-preview="retro"] .xp-welcome__sub { font-size: 0.98rem; line-height: 1.15; }
     .xp-welcome[data-preview="future"] .xp-welcome__title { font-size: 1.15rem; }
     .xp-welcome[data-preview="gamer"] .xp-welcome__title { font-size: 0.9rem; }
     .xp-card__name { font-size: 0.98rem; }
@@ -145,7 +131,6 @@
 
 /* Petits téléphones (iPhone SE...) : encore un peu plus serré */
 @media (max-width: 600px) and (max-height: 620px) {
-    .xp-welcome__hello { min-height: 1.9rem; }
     .xp-welcome__top .toggle-btn, .xp-chip--flag { height: 1.9rem; }
     .xp-tour__opt small { display: none; }
     .xp-mode { margin-bottom: 0.45rem; }
@@ -185,8 +170,7 @@
    l'écran se resserre en hauteur pour tenir sans défiler */
 @media (min-width: 601px) and (max-height: 820px) {
     .xp-welcome { padding-top: 0.9rem; padding-bottom: 0.9rem; }
-    .xp-welcome__top { margin-bottom: 0; }
-    .xp-welcome__hello { margin-bottom: 0.3rem; }
+    .xp-welcome__top { margin-bottom: 0.3rem; }
     .xp-welcome__title { margin-bottom: 0.4rem; }
     .xp-welcome__sub { margin-bottom: 0.9rem; }
     .xp-card .xp-pv { aspect-ratio: 16 / 7; }

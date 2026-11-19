@@ -106,11 +106,12 @@ export function welcomeMarkup({ closable, detected }) {
     return [
         '<div class="xp-welcome__bg" aria-hidden="true"></div>',
         '<div class="xp-welcome__box">',
+        /* Ligne du haut : fermeture, « Bienvenue », drapeau de langue */
         '<div class="xp-welcome__top">',
-        `<button type="button" class="xp-chip xp-chip--flag" data-xp-lang aria-label="${tx('LANG.SWITCH_ARIA')}" title="${tx('LANG.SWITCH_ARIA')}">${Flag.svg(Flag.target(Lang.lang))}</button>`,
         closable ? `<button type="button" class="toggle-btn" data-xp-close aria-label="${tx('EXP.CLOSE')}">${Icon.svg('close')}</button>` : '',
-        '</div>',
         `<p class="xp-welcome__hello">${tx('EXP.HELLO')}</p>`,
+        `<button type="button" class="xp-chip xp-chip--flag" data-xp-lang aria-label="${tx('LANG.SWITCH_ARIA')}" title="${tx('LANG.SWITCH_ARIA')}">${Flag.svg(Flag.target(Lang.lang))}</button>`,
+        '</div>',
         `<h2 id="xp-title" class="xp-welcome__title">${tx('EXP.TITLE')}</h2>`,
         `<p class="xp-welcome__sub">${tx('EXP.SUB')}</p>`,
         `<div class="xp-cards" role="radiogroup" aria-label="${tx('EXP.TITLE')}">${EXPERIENCES.map(cardMarkup).join('')}</div>`,

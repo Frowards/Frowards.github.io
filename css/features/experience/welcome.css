@@ -57,12 +57,18 @@ body.xp-covered > *:not(#pb-welcome, .xp-trans, .orient-hint) { visibility: hidd
     transition: transform 0.5s var(--pb-ease-out);
 }
 .xp-welcome.is-in .xp-welcome__box { transform: none; }
+/* Ligne du haut : fermeture à gauche, « Bienvenue » au centre, drapeau à
+   droite, toujours sur la même ligne */
 .xp-welcome__top {
-    display: flex;
-    justify-content: flex-end;
+    display: grid;
+    grid-template-columns: minmax(2.5rem, 1fr) minmax(0, auto) minmax(2.5rem, 1fr);
+    align-items: center;
     gap: 0.5rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.6rem;
 }
+.xp-welcome__top [data-xp-close] { grid-area: 1 / 1; justify-self: start; }
+.xp-welcome__top .xp-welcome__hello { grid-area: 1 / 2; margin: 0; }
+.xp-welcome__top [data-xp-lang] { grid-area: 1 / 3; justify-self: end; }
 .xp-chip {
     border: 1px solid var(--pb-border);
     background: var(--pb-surface-subtle);
@@ -88,7 +94,6 @@ body.xp-covered > *:not(#pb-welcome, .xp-trans, .orient-hint) { visibility: hidd
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--pb-primary);
-    margin-bottom: 0.6rem;
 }
 .xp-welcome__title {
     font-family: 'Cinzel', Georgia, serif;
