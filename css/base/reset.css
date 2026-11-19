@@ -1,0 +1,41 @@
+/* ==========================================================================
+   Remise à zéro et réglages globaux du document
+   Marges, défilement doux, corps de page, médias fluides, barre de
+   défilement et anneau de focus clavier (repris de Ceres).
+   ========================================================================== */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--pb-header-height) + 1rem); }
+/* Barre sur deux rangées en mobile : décaler davantage les ancres */
+@media (max-width: 860px) { html { scroll-padding-top: 7.5rem; } }
+
+body {
+    font-family: var(--pb-font-family);
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--pb-text);
+    background-color: var(--pb-bg);
+    background-image: var(--pb-bg-gradient);
+    background-attachment: fixed;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+img, svg { max-width: 100%; }
+
+/* --- Scrollbar custom (Ceres) --- */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--pb-bg); }
+::-webkit-scrollbar-thumb { background: var(--pb-border-light); border-radius: var(--pb-radius-full); }
+::-webkit-scrollbar-thumb:hover { background: var(--pb-text-muted); }
+* { scrollbar-width: thin; scrollbar-color: var(--pb-border-light) transparent; }
+
+/* --- Ring de focus clavier global (Ceres) --- */
+:focus-visible {
+    outline: 2px solid var(--pb-primary);
+    outline-offset: 2px;
+    border-radius: var(--pb-radius-sm);
+}
+:focus:not(:focus-visible) { outline: none; }

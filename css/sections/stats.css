@@ -1,0 +1,78 @@
+/* ==========================================================================
+   Indicateurs de la section Ceres
+   Cartes KPI et leurs mini-graphiques animés à l'apparition.
+   ========================================================================== */
+
+/* ---------- Stats (disposition CeresKpiCard) ---------- */
+.stats {
+    display: grid;
+    /* 4 indicateurs : 2 x 2, ou 4 sur une ligne quand la place le permet
+       (jamais 3 + 1) ; 1 colonne sur petit téléphone */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.1rem;
+    margin-bottom: clamp(1.8rem, 3vw, 2.6rem);
+}
+@media (min-width: 1400px) { .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 440px) { .stats { grid-template-columns: 1fr; } }
+.stat { padding: 1.2rem; }
+.stat-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    margin-bottom: 0.25rem;
+}
+
+/* Mini-graphiques des KPI (sparkline, barres, donut, ligne plate) */
+.stat-viz { width: 4rem; height: 1.9rem; flex-shrink: 0; color: var(--pb-primary); overflow: visible; }
+.stat-viz--donut { width: 1.9rem; }
+.viz-line {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.viz-flat { stroke: var(--pb-text-muted); }
+.viz-area { fill: var(--pb-primary-alpha); }
+.viz-bars rect {
+    fill: currentColor;
+    opacity: 0.85;
+    transform-box: fill-box;
+    transform-origin: bottom;
+}
+.viz-donut-track { fill: none; stroke: var(--pb-primary-alpha); stroke-width: 4.5; }
+.viz-donut-seg { fill: none; stroke: currentColor; stroke-width: 4.5; stroke-dasharray: 31.4 31.6; }
+
+/* Animations une fois la section révélée */
+.stats.visible .viz-line {
+    stroke-dasharray: 95;
+    stroke-dashoffset: 95;
+    animation: viz-draw 1.1s ease-out 0.15s forwards;
+}
+.stats.visible .viz-area { opacity: 0; animation: viz-fade 0.7s ease-out 0.9s forwards; }
+.stats.visible .viz-bars rect { animation: viz-grow 0.65s cubic-bezier(0.2, 0.8, 0.3, 1.15) backwards; }
+.stats.visible .viz-bars rect:nth-child(1) { animation-delay: 0.15s; }
+.stats.visible .viz-bars rect:nth-child(2) { animation-delay: 0.27s; }
+.stats.visible .viz-bars rect:nth-child(3) { animation-delay: 0.39s; }
+.stats.visible .viz-bars rect:nth-child(4) { animation-delay: 0.51s; }
+.stats.visible .viz-bars rect:nth-child(5) { animation-delay: 0.63s; }
+.stats.visible .viz-donut-seg { animation: viz-donut 1s ease-out 0.2s backwards; }
+@keyframes viz-draw { to { stroke-dashoffset: 0; } }
+@keyframes viz-fade { to { opacity: 1; } }
+@keyframes viz-grow { from { transform: scaleY(0); } }
+@keyframes viz-donut { from { stroke-dasharray: 0 63; } }
+@media (prefers-reduced-motion: reduce) {
+    .stat-viz, .stat-viz * { animation: none !important; }
+    .stats.visible .viz-line { stroke-dasharray: none; stroke-dashoffset: 0; }
+    .stats.visible .viz-area { opacity: 1; }
+}
+.stat b {
+    font-family: var(--pb-font-title);
+    font-weight: 900;
+    font-size: clamp(1.7rem, 1.8vw, 2.3rem);
+    color: var(--pb-primary);
+    display: block;
+    line-height: 1.15;
+}
+.stat span { font-size: 0.85rem; color: var(--pb-text-secondary); }

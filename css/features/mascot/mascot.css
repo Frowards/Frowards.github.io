@@ -1,0 +1,63 @@
+/* ==========================================================================
+   Mascotte « Pierre » (js/features/mascot) : le personnage qui se balade en
+   bas de l'écran et son infobulle « Cliquez sur moi »
+   ========================================================================== */
+
+/* Sol de la mascotte : au-dessus de la ligne de commande Rétro ou de la
+   barre de visite guidée */
+:root { --mascot-floor: 0px; }
+:root[data-pb-exp="retro"]:not([data-pb-tour="guided"]) { --mascot-floor: 1.9rem; }
+:root[data-pb-tour="guided"] { --mascot-floor: var(--tourbar-h); }
+/* Saut en hyperespace (Spatial) : la barre de visite se replie, la
+   mascotte descend avec elle au lieu de marcher dans le vide */
+:root[data-pb-tour="guided"].tour-warping { --mascot-floor: 0px; }
+
+.mascot {
+    position: fixed;
+    left: 0;
+    bottom: var(--mascot-floor);
+    /* même durée que le repli de la barre de visite */
+    transition: bottom 0.35s var(--pb-ease-out);
+    z-index: 315;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    will-change: transform;
+    -webkit-tap-highlight-color: transparent;
+}
+.mascot[hidden] { display: none; }
+.mascot.is-dragging { cursor: grabbing; }
+.mascot__sprite {
+    background-repeat: no-repeat;
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.35));
+    transition: filter 0.2s;
+}
+.mascot:hover .mascot__sprite, .mascot:focus-visible .mascot__sprite { filter: drop-shadow(0 0 6px rgba(var(--pb-primary-rgb), 0.85)); }
+.mascot:focus-visible { outline: 2px dashed var(--pb-primary); outline-offset: 2px; border-radius: 8px; }
+
+/* « Cliquez sur moi » au survol */
+.mascot__hint {
+    position: absolute;
+    left: 50%;
+    bottom: 92%;
+    transform: translate(-50%, 4px);
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    background: var(--pb-primary);
+    color: var(--pb-text-on-color);
+    font-family: var(--pb-font-family);
+    font-size: 0.72rem;
+    font-weight: 700;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+}
+.mascot:hover .mascot__hint, .mascot:focus-visible .mascot__hint { opacity: 1; transform: translate(-50%, 0); }
+/* Après le survol (même spécificité) : bulle ouverte ou saisie, l'infobulle s'efface */
+.mascot[aria-expanded="true"] .mascot__hint { opacity: 0; }
+.mascot.is-dragging .mascot__hint { opacity: 0; }
+
+/* Caché pendant l'écran d'accueil */
+body.xp-open .mascot { display: none; }

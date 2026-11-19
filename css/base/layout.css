@@ -1,0 +1,15 @@
+/* ==========================================================================
+   Mise en page générale
+   Conteneur fluide des sections et canvas d'ambiance plein écran.
+   ========================================================================== */
+
+/* --- Conteneur fluide : toute la largeur disponible, gouttières adaptatives --- */
+.wrap { width: 100%; padding: 0 clamp(1rem, 4vw, 4.5rem); }
+
+/* --- Canvas des particules d'ambiance --- */
+#pb-particles {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+}

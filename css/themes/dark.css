@@ -1,0 +1,58 @@
+/* ==========================================================================
+   Thème sombre (palette reprise du design system Ceres)
+
+   C'est la palette de base : elle s'applique sur :root, que le thème sombre
+   soit forcé (data-theme="dark") ou non. La palette claire (light.css) la
+   remplace quand l'appareil est en clair ou que le visiteur l'a choisie.
+   Le thème (js/features/theme) surcharge --pb-primary* et --pb-border*
+   à l'exécution quand une couleur personnalisée est choisie.
+   ========================================================================== */
+
+:root,
+:root[data-theme="dark"] {
+    /* --- Couleur principale (cyan Ceres) --- */
+    --pb-primary: #06B6D4;
+    --pb-primary-hover: #0891B2;
+    --pb-primary-light: #22D3EE;
+    --pb-primary-rgb: 6, 182, 212;
+    --pb-primary-alpha: rgba(6, 182, 212, 0.15);
+
+    /* --- Sémantiques --- */
+    --pb-success: #22C55E;
+    --pb-danger: #EF4444;
+    --pb-warning: #F59E0B;
+
+    /* --- Fonds --- */
+    --pb-bg: #0A0B10;
+    --pb-bg-gradient: none;
+    --pb-bg-secondary: #14161F;
+    --pb-bg-tertiary: #1E2029;
+    --pb-bg-hover: #23263A;
+
+    /* --- Texte --- */
+    --pb-text: #e4e6eb;
+    --pb-text-secondary: #a0a4b0;
+    --pb-text-muted: #9CA3AF;
+    --pb-text-on-color: #ffffff;
+
+    /* --- Bordures --- */
+    --pb-border: #2a2e3d;
+    --pb-border-light: #353945;
+
+    /* --- Surfaces semi-transparentes (verre) --- */
+    --pb-header-bg: rgba(26, 29, 39, 0.7);
+    --pb-card-bg: rgba(30, 34, 48, 0.7);
+    --pb-surface-glass: rgba(25, 28, 36, 0.55);
+    --pb-surface-subtle: rgba(255, 255, 255, 0.03);
+    --pb-overlay-backdrop: rgba(0, 0, 0, 0.6);
+
+    /* --- Ombres --- */
+    --pb-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --pb-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --pb-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+    --pb-shadow-primary: 0 4px 14px rgba(var(--pb-primary-rgb), 0.25);
+    --pb-inset-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+    /* --- Image de marque (dégradé doré, lumière du soleil) --- */
+    --pb-logo-gradient: linear-gradient(180deg, #FFE9A8, #FDC900, #E8960C);
+}

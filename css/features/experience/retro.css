@@ -1,0 +1,113 @@
+/* ==========================================================================
+   Expérience Rétro : terminal à phosphore ambre (sombre) / listing papier (clair)
+   Palette, lignes de balayage, typographie, boutons [ ] et apparitions par paliers.
+   ========================================================================== */
+
+:root[data-pb-exp="retro"]:not([data-theme="light"]) {
+    --pb-bg: #0A0803;
+    --pb-bg-gradient: radial-gradient(ellipse at 50% 40%, #15100a 0%, #0A0803 70%);
+    --pb-bg-secondary: #120E05;
+    --pb-bg-tertiary: #1B150A;
+    --pb-bg-hover: #261D0D;
+    --pb-text: #FFC861;
+    --pb-text-secondary: #D7A24A;
+    --pb-text-muted: #A88238;
+    --pb-text-on-color: #0A0803;
+    --pb-border: #4A3613;
+    --pb-border-light: #6A4E1C;
+    --pb-header-bg: rgba(10, 8, 3, 0.94);
+    --pb-card-bg: rgba(18, 14, 5, 0.94);
+    --pb-surface-glass: rgba(18, 14, 5, 0.85);
+    --pb-surface-subtle: rgba(255, 176, 0, 0.035);
+    --pb-overlay-backdrop: rgba(0, 0, 0, 0.75);
+    --pb-shadow-sm: none;
+    --pb-shadow-md: 0 0 0 transparent;
+    --pb-shadow-lg: 0 0 30px rgba(255, 176, 0, 0.12);
+    --pb-inset-highlight: inset 0 0 0 transparent;
+    --pb-logo-gradient: linear-gradient(180deg, #FFE3A0, #FFB000, #C97F00);
+}
+@media (prefers-color-scheme: light) {
+    :root[data-pb-exp="retro"]:not([data-theme="dark"]) {
+        --pb-bg: #F4ECD6;
+        --pb-bg-gradient: repeating-linear-gradient(180deg, #F4ECD6 0 2.2rem, #E6EDD4 2.2rem 4.4rem);
+        --pb-bg-secondary: #EDE3C8;
+        --pb-bg-tertiary: #E2D5B2;
+        --pb-bg-hover: #D9C9A0;
+        --pb-text: #2B2108;
+        --pb-text-secondary: #574515;
+        --pb-text-muted: #7A6A3A;
+        --pb-text-on-color: #FFFFFF;
+        --pb-border: #9C8350;
+        --pb-border-light: #7E6838;
+        --pb-header-bg: rgba(244, 236, 214, 0.96);
+        --pb-card-bg: rgba(251, 246, 230, 0.97);
+        --pb-surface-glass: rgba(251, 246, 230, 0.9);
+        --pb-surface-subtle: rgba(90, 70, 20, 0.04);
+        --pb-shadow-sm: 3px 3px 0 rgba(90, 70, 20, 0.18);
+        --pb-shadow-md: 3px 3px 0 rgba(90, 70, 20, 0.2);
+        --pb-shadow-lg: 5px 5px 0 rgba(90, 70, 20, 0.22);
+        --pb-inset-highlight: inset 0 0 0 transparent;
+        --pb-logo-gradient: linear-gradient(180deg, #A36A00, #7A4F00, #523500);
+    }
+}
+:root[data-pb-exp="retro"][data-theme="light"] {
+    --pb-bg: #F4ECD6;
+    --pb-bg-gradient: repeating-linear-gradient(180deg, #F4ECD6 0 2.2rem, #E6EDD4 2.2rem 4.4rem);
+    --pb-bg-secondary: #EDE3C8;
+    --pb-bg-tertiary: #E2D5B2;
+    --pb-bg-hover: #D9C9A0;
+    --pb-text: #2B2108;
+    --pb-text-secondary: #574515;
+    --pb-text-muted: #7A6A3A;
+    --pb-text-on-color: #FFFFFF;
+    --pb-border: #9C8350;
+    --pb-border-light: #7E6838;
+    --pb-header-bg: rgba(244, 236, 214, 0.96);
+    --pb-card-bg: rgba(251, 246, 230, 0.97);
+    --pb-surface-glass: rgba(251, 246, 230, 0.9);
+    --pb-surface-subtle: rgba(90, 70, 20, 0.04);
+    --pb-shadow-sm: 3px 3px 0 rgba(90, 70, 20, 0.18);
+    --pb-shadow-md: 3px 3px 0 rgba(90, 70, 20, 0.2);
+    --pb-shadow-lg: 5px 5px 0 rgba(90, 70, 20, 0.22);
+    --pb-inset-highlight: inset 0 0 0 transparent;
+    --pb-logo-gradient: linear-gradient(180deg, #A36A00, #7A4F00, #523500);
+}
+/* Lignes de balayage + léger scintillement (sombre) */
+:root[data-pb-exp="retro"] body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 250;
+    pointer-events: none;
+    background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0 1px, transparent 1px 3px);
+    animation: xp-crt-flicker 6s steps(2) infinite;
+}
+:root[data-pb-exp="retro"][data-theme="light"] body::after { opacity: 0.12; animation: none; }
+@media (prefers-color-scheme: light) {
+    :root[data-pb-exp="retro"]:not([data-theme="dark"]) body::after { opacity: 0.12; animation: none; }
+}
+@keyframes xp-crt-flicker { 0%, 100% { opacity: 1; } 50% { opacity: 0.85; } }
+:root[data-pb-exp="retro"] body { padding-bottom: 1.9rem; }
+:root[data-pb-exp="retro"]:not([data-theme="light"]) :is(h1, h2, h3, .logo-text) { text-shadow: 0 0 8px rgba(255, 176, 0, 0.45); }
+:root[data-pb-exp="retro"] :is(h1, h2) { text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.05; }
+:root[data-pb-exp="retro"] h1 { font-size: clamp(2.2rem, 5vw, 4.6rem); }
+:root[data-pb-exp="retro"] h2 { font-size: clamp(1.9rem, 3.4vw, 3rem); }
+:root[data-pb-exp="retro"] h3 { font-size: 1.3rem; letter-spacing: 0.02em; }
+:root[data-pb-exp="retro"] .logo-text { -webkit-text-fill-color: var(--pb-primary); background: none; }
+:root[data-pb-exp="retro"] .btn { text-transform: uppercase; letter-spacing: 0.04em; font-size: 1.15rem; padding: 0.45rem 1rem; }
+:root[data-pb-exp="retro"] .btn::before { content: "["; }
+:root[data-pb-exp="retro"] .btn::after { content: "]"; }
+:root[data-pb-exp="retro"] .btn:hover { transform: none; background: var(--pb-primary); color: var(--pb-text-on-color); }
+:root[data-pb-exp="retro"] .chip { border-radius: 0; font-size: 1rem; }
+:root[data-pb-exp="retro"] [data-exp-tag]::before { font-size: 1.2rem; letter-spacing: 0.04em; }
+:root[data-pb-exp="retro"] [data-exp-tag]::before { content: attr(data-exp-tag) "_"; }
+/* Apparition par paliers, avec un éclair de phosphore (comme un vieil
+   écran qui s'allume) - pas de clip-path : il gênerait la détection
+   d'apparition (IntersectionObserver) */
+:root[data-pb-exp="retro"] .reveal {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: brightness(2.4) saturate(0.4);
+    transition: opacity 0.55s steps(5), transform 0.55s steps(5), filter 0.9s steps(4);
+}
+:root[data-pb-exp="retro"] .reveal.visible { opacity: 1; transform: none; filter: none; }

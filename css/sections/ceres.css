@@ -1,0 +1,19 @@
+/* ==========================================================================
+   Section Ceres : titre avec logo
+   ========================================================================== */
+
+/* ---------- Titre avec logo (section Ceres) ----------
+   Le logo flotte à gauche : le titre commence à sa droite puis, une fois le
+   logo dépassé, reprend toute la largeur en dessous (pas de colonne vide) */
+.title-logo-row { display: flow-root; }
+.ceres-logo {
+    float: left;
+    width: 3.4rem;
+    height: auto;
+    /* marge basse légèrement négative : une ligne qui commence juste au
+       ras du bas du logo repart quand même à gauche (pas de retrait isolé) */
+    margin: 0.25rem 0.9rem -0.2rem 0;
+    /* Liseré lisse (fine ombre) + relief, comme CeresLogo : remplace le
+       trait de 1 unité de l'ancien logo.svg, crénelé à l'écran */
+    filter: drop-shadow(0 0 0.6px rgba(0, 0, 0, 0.85)) drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.28)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
+}

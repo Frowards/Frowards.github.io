@@ -1,0 +1,63 @@
+/* ==========================================================================
+   Fenêtre-lanceur
+   Élément signature du héros : fenêtre d'application et sa grille de tuiles,
+   avec le canvas de halo (js/effects) posé par-dessus.
+   ========================================================================== */
+
+/* ---------- Fenêtre-lanceur (élément signature du héros) ---------- */
+.launcher-wrap { position: relative; }
+.launcher-fx {
+    position: absolute;
+    top: -28px;
+    left: -28px;
+    pointer-events: none;
+    z-index: 2;
+}
+.launcher { overflow: hidden; box-shadow: var(--pb-shadow-lg), var(--pb-inset-highlight); }
+.launcher-chrome {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1rem;
+    border-bottom: var(--pb-border-w) solid var(--pb-border);
+    background: var(--pb-surface-glass);
+}
+.launcher-dots { display: flex; gap: 0.35rem; }
+.launcher-dots span { width: 0.6rem; height: 0.6rem; border-radius: 50%; }
+.launcher-dots span:nth-child(1) { background: var(--pb-danger); }
+.launcher-dots span:nth-child(2) { background: var(--pb-warning); }
+.launcher-dots span:nth-child(3) { background: var(--pb-success); }
+.launcher-title { font-family: var(--pb-font-mono); font-size: 0.75rem; color: var(--pb-text-muted); }
+.launcher-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem; padding: 1rem; }
+@media (max-width: 420px) { .launcher-grid { grid-template-columns: repeat(2, 1fr); } }
+.tile {
+    background: var(--pb-surface-subtle);
+    border: var(--pb-border-w) solid var(--pb-border);
+    border-radius: var(--pb-radius-md);
+    padding: 0.9rem 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: transform var(--pb-transition-fast), border-color var(--pb-transition-fast),
+                box-shadow var(--pb-transition-fast), background var(--pb-transition-fast);
+}
+.tile:hover {
+    transform: translateY(-3px);
+    border-color: var(--pb-primary);
+    background: var(--pb-primary-alpha);
+    box-shadow: var(--pb-shadow-primary);
+}
+.tile svg { width: 1.5rem; height: 1.5rem; }
+.tile b { font-size: 0.85rem; font-weight: 600; line-height: 1.25; color: var(--pb-text); }
+.tile small { font-family: var(--pb-font-mono); font-size: 0.68rem; color: var(--pb-text-muted); }
+.launcher-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.55rem 1rem;
+    border-top: var(--pb-border-w) solid var(--pb-border);
+    font-family: var(--pb-font-mono);
+    font-size: 0.7rem;
+    color: var(--pb-text-muted);
+}
+.launcher-status .ok { color: var(--pb-success); }

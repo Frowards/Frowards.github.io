@@ -1,0 +1,23 @@
+/* ==========================================================================
+   Ambiance : décorations des cartes (js/features/theme/decorations.js)
+
+   Un motif SVG par côté (haut, bas, gauche, droite), posé en image de fond
+   des cartes. Le thème renseigne --pb-deco-<côté>-img et -size, et pose
+   data-pb-deco sur la racine dès qu'au moins un côté est décoré.
+   ========================================================================== */
+
+:root[data-pb-deco] .glass,
+:root[data-pb-deco] .card {
+    background-image:
+        var(--pb-deco-top-img, none),
+        var(--pb-deco-bottom-img, none),
+        var(--pb-deco-left-img, none),
+        var(--pb-deco-right-img, none);
+    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+    background-position: center top, center bottom, left center, right center;
+    background-size:
+        auto var(--pb-deco-top-size, 0px),
+        auto var(--pb-deco-bottom-size, 0px),
+        var(--pb-deco-left-size, 0px) auto,
+        var(--pb-deco-right-size, 0px) auto;
+}

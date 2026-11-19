@@ -1,0 +1,108 @@
+/* ==========================================================================
+   Mises en scène des changements d'étape (js/features/tour/transitions.js)
+   Classique : fondu glissé. Rétro : écran qui s'éteint et se rallume, dans
+   une fenêtre de terminal. Gamer : rideau de pixels et écran « STAGE ».
+   Le saut Spatial est dans warp.css.
+   ========================================================================== */
+
+/* Classique : fondu glissé */
+.tour-out.tour-fwd { animation: tc-out-left 0.85s var(--pb-ease-out) forwards; }
+.tour-out.tour-back { animation: tc-out-right 0.85s var(--pb-ease-out) forwards; }
+.tour-in.tour-fwd { animation: tc-in-right 0.9s var(--pb-ease-out) both; }
+.tour-in.tour-back { animation: tc-in-left 0.9s var(--pb-ease-out) both; }
+@keyframes tc-out-left { to { opacity: 0; transform: translateX(-7%) scale(0.98); } }
+@keyframes tc-out-right { to { opacity: 0; transform: translateX(7%) scale(0.98); } }
+@keyframes tc-in-right { from { opacity: 0; transform: translateX(7%); } }
+@keyframes tc-in-left { from { opacity: 0; transform: translateX(-7%); } }
+
+/* Rétro : écran qui s'éteint puis se rallume */
+.tour-crt-off { animation: tr-off 0.45s ease-in forwards; transform-origin: 50% 50%; }
+.tour-crt-on { animation: tr-on 0.6s ease-out both; transform-origin: 50% 50%; }
+@keyframes tr-off {
+    0% { transform: none; filter: none; }
+    60% { transform: scaleY(0.012); filter: brightness(3); }
+    100% { transform: scale(0, 0.012); filter: brightness(4); opacity: 0; }
+}
+@keyframes tr-on {
+    0% { transform: scale(0.6, 0.012); filter: brightness(4); }
+    55% { transform: scaleY(0.012); filter: brightness(3); }
+    100% { transform: none; filter: none; }
+}
+
+/* Rétro : chaque étape dans une fenêtre de terminal, lisible devant la pluie de code */
+:root[data-pb-exp="retro"][data-pb-tour="guided"] main#haut > section { background: transparent; padding: clamp(0.8rem, 2.5vh, 2rem) 0 clamp(1.4rem, 4vh, 3rem); }
+:root[data-pb-exp="retro"][data-pb-tour="guided"] main#haut > section > .wrap {
+    width: min(100% - 2rem, 92rem);
+    margin-inline: auto;
+    padding-block: clamp(1.2rem, 3vw, 2.2rem);
+    background: var(--pb-card-bg);
+    border: 2px solid var(--pb-border);
+    box-shadow: var(--pb-shadow-lg);
+}
+
+/* Calques de transition : ils commencent sous le header, qui reste
+   toujours visible */
+.tour-fx {
+    position: fixed;
+    inset: var(--xp-header-h, var(--pb-header-height)) 0 0;
+    z-index: 330;
+    pointer-events: none;
+    display: grid;
+    place-items: center;
+}
+.tour-fx--retro {
+    bottom: var(--tourbar-h);
+    background: var(--pb-bg);
+    font-family: 'VT323', monospace;
+    color: var(--pb-primary);
+    align-content: center;
+    gap: 0.8rem;
+}
+.tour-fx--retro .tour-fx__txt {
+    font-size: clamp(1.3rem, 4vw, 2.2rem);
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    border-right: 0.5em solid var(--pb-primary);
+    animation: tf-type 0.8s steps(24) 0.1s forwards;
+    max-width: 92vw;
+}
+.tour-fx__bar { width: min(22rem, 70vw); height: 1rem; border: 2px solid var(--pb-primary); padding: 2px; }
+.tour-fx__bar i { display: block; height: 100%; background: repeating-linear-gradient(90deg, var(--pb-primary) 0 8px, transparent 8px 11px); transform-origin: left; transform: scaleX(0); animation: tf-load 0.9s steps(10) 0.75s forwards; }
+@keyframes tf-type { to { width: 24ch; } }
+@keyframes tf-load { to { transform: scaleX(1); } }
+
+/* Gamer : rideau de pixels + écran de niveau */
+.tour-fx--gamer { z-index: 950; }
+.tour-fx__pix { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(12, 1fr); grid-template-rows: repeat(8, 1fr); }
+.tour-fx__pix i { background: var(--pb-bg-secondary); transform: scale(0); transition: transform 0.2s steps(3) var(--d); }
+.tour-fx__pix i:nth-child(4n) { background: #6D28D9; }
+.tour-fx__pix i:nth-child(7n) { background: #FF3EA5; }
+.tour-fx--gamer.is-on .tour-fx__pix i { transform: scale(1.02); }
+.tour-fx--gamer.is-out .tour-fx__pix i { transform: scale(0); }
+.tour-fx__card {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.4rem 2rem;
+    background: #130B26;
+    color: #fff;
+    font-family: 'Press Start 2P', monospace;
+    box-shadow: 0 -4px 0 #FF3EA5, 0 4px 0 #FF3EA5, -4px 0 0 #FF3EA5, 4px 0 0 #FF3EA5, 8px 8px 0 rgba(0, 0, 0, 0.5);
+    transform: scale(0);
+    text-align: center;
+    max-width: 90vw;
+}
+.tour-fx__card b { font-size: clamp(1rem, 4vw, 1.8rem); color: #A3FF12; text-shadow: 3px 3px 0 #000; }
+.tour-fx__card span { font-size: clamp(0.55rem, 2vw, 0.85rem); line-height: 1.6; }
+.tour-fx--gamer.is-on .tour-fx__card { animation: tf-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s forwards; }
+.tour-fx--gamer.is-out .tour-fx__card { animation: tf-unpop 0.25s steps(3) forwards; transform: scale(1); }
+@keyframes tf-pop { to { transform: scale(1); } }
+@keyframes tf-unpop { to { transform: scale(0); } }
+
+@media (prefers-reduced-motion: reduce) {
+    .tour-out, .tour-in, .tour-crt-off, .tour-crt-on, .tour-fold, .tour-arrive, #pb-cockpit.is-warp { animation: none !important; }
+}

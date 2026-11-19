@@ -1,0 +1,55 @@
+/* ==========================================================================
+   Visite guidée : une étape à la fois (<html data-pb-tour="guided">)
+   Chaque section devient un écran plein (sous le header, au-dessus de la
+   barre de visite) ; seule l'étape courante (is-current) est visible.
+   Le HUD laisse la place à la barre (sauf l'XP Gamer) et les messages se
+   centrent au-dessus d'elle.
+   ========================================================================== */
+
+:root { --tourbar-h: 4.4rem; }
+@media (max-width: 600px) { :root { --tourbar-h: 4rem; } }
+
+:root[data-pb-tour="guided"] body { overflow: hidden; height: 100vh; height: 100dvh; padding-bottom: 0; }
+:root[data-pb-tour="guided"] main#haut {
+    position: fixed;
+    top: var(--xp-header-h, var(--pb-header-height));
+    left: 0;
+    right: 0;
+    bottom: var(--tourbar-h);
+    overflow: hidden;
+    padding-top: 0;
+}
+:root[data-pb-tour="guided"][data-pb-exp="gamer"] main#haut { top: calc(var(--xp-header-h, var(--pb-header-height)) + 1.7rem); }
+:root[data-pb-tour="guided"] main#haut > section {
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    display: flex;
+    flex-direction: column;
+    visibility: hidden;
+    opacity: 0;
+    border-top: 0;
+    border-bottom: 0;
+}
+:root[data-pb-tour="guided"] main#haut > section > .wrap { margin-block: auto; }
+:root[data-pb-tour="guided"] main#haut > section.is-current,
+:root[data-pb-tour="guided"] main#haut > section.is-leaving { visibility: visible; opacity: 1; }
+:root[data-pb-tour="guided"] main#haut > section.is-leaving { z-index: 1; pointer-events: none; }
+:root[data-pb-tour="guided"] body > footer { display: none; }
+/* La barre de visite remplace les indicateurs de défilement (sauf l'XP Gamer) */
+:root[data-pb-tour="guided"] .xp-hud:not(.xp-hud--gamer) { display: none; }
+/* Messages : un seul, centré juste au-dessus de la barre de visite */
+:root[data-pb-tour="guided"] .xp-toasts {
+    top: auto;
+    right: auto;
+    left: 50%;
+    bottom: calc(var(--tourbar-h) + 0.7rem);
+    transform: translateX(-50%);
+    width: min(24rem, calc(100vw - 1.5rem));
+}
+:root[data-pb-tour="guided"] .xp-toast { transform: translateY(14px); }
+:root[data-pb-tour="guided"] .xp-toast.is-in { transform: none; }
+:root.tour-more .xp-toasts { bottom: calc(var(--tourbar-h) + 2.8rem); }

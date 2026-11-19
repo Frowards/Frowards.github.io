@@ -1,0 +1,45 @@
+/* ==========================================================================
+   Onglets (composant Tabs, js/components/Tabs.js)
+
+   Barre d'onglets role="tablist" collée en haut de sa zone défilante ;
+   l'onglet actif est repéré par aria-selected="true".
+   ========================================================================== */
+
+.theme-tabs {
+    display: flex;
+    gap: 0.25rem;
+    border-bottom: var(--pb-border-w) solid var(--pb-border);
+    margin-bottom: 1rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: var(--pb-bg-secondary);
+}
+.theme-tabs::-webkit-scrollbar { display: none; }
+
+.theme-tabs button {
+    flex: none;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: none;
+    color: var(--pb-text-secondary);
+    font-family: var(--pb-font-family);
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding: 0.55rem 0.8rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color var(--pb-transition-fast), border-color var(--pb-transition-fast);
+}
+.theme-tabs button:hover { color: var(--pb-text); }
+.theme-tabs button[aria-selected="true"] {
+    color: var(--pb-primary);
+    border-bottom-color: var(--pb-primary);
+    font-weight: 600;
+}
+.theme-tabs button:focus-visible { outline: 2px solid var(--pb-primary); outline-offset: -2px; }
+
+/* Volet d'onglet masqué */
+.theme-pane[hidden] { display: none; }

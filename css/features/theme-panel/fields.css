@@ -1,0 +1,89 @@
+/* ==========================================================================
+   Panneau de personnalisation : champs de réglage
+
+   Rubriques (.theme-field + .theme-label), lignes « libellé + contrôle »
+   (couleur, liste déroulante), petits boutons, notes et messages.
+   Les curseurs, interrupteurs et pastilles sont des composants partagés
+   (css/components/range.css, switch.css, swatch.css).
+   ========================================================================== */
+
+.theme-field { margin-bottom: 1.1rem; }
+.theme-label {
+    display: block;
+    font-family: var(--pb-font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pb-primary);
+    margin-bottom: 0.5rem;
+}
+
+/* ---------- Ligne couleur (libellé + pastille + bouton) ---------- */
+.color-row {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.3rem 0;
+    color: var(--pb-text);
+    font-size: 0.9rem;
+}
+.color-row > span { width: 6rem; flex: none; }
+
+/* ---------- Petit bouton arrondi (Auto, Aperçu, Réglages d'origine...) ---------- */
+.mini-btn {
+    border: var(--pb-border-w) solid var(--pb-border);
+    background: var(--pb-surface-subtle);
+    color: var(--pb-text-secondary);
+    font-family: var(--pb-font-family);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.3rem 0.7rem;
+    border-radius: var(--pb-radius-full);
+    cursor: pointer;
+    transition: border-color var(--pb-transition-fast), background var(--pb-transition-fast), color var(--pb-transition-fast);
+}
+.mini-btn:hover { border-color: var(--pb-primary); color: var(--pb-text); }
+.mini-btn.active {
+    background: var(--pb-primary-alpha);
+    border-color: var(--pb-primary);
+    color: var(--pb-primary);
+    font-weight: 600;
+}
+
+/* ---------- Liste déroulante (polices, réglages d'effet, décorations) ---------- */
+.select-row {
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.3rem 0;
+    color: var(--pb-text);
+    font-size: 0.9rem;
+}
+.pb-select {
+    width: 100%;
+    padding: 0.4rem 0.6rem;
+    border-radius: var(--pb-radius-md);
+    border: var(--pb-border-w) solid var(--pb-border);
+    background: var(--pb-surface-subtle);
+    color: var(--pb-text);
+    font-family: var(--pb-font-family);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: border-color var(--pb-transition-fast);
+}
+.pb-select:hover { border-color: var(--pb-primary); }
+.pb-select option { background: var(--pb-bg-secondary); color: var(--pb-text); }
+
+/* ---------- Notes et messages ---------- */
+.theme-note {
+    font-size: 0.82rem;
+    color: var(--pb-text-secondary);
+    line-height: 1.45;
+    margin-bottom: 0.6rem;
+}
+.theme-note--status:empty { display: none; }
+.theme-note--status.is-error { color: #E5484D; }
+
+/* ---------- Onglet Partage ---------- */
+.share-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }

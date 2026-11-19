@@ -1,0 +1,94 @@
+/* ==========================================================================
+   Thème clair : greige « papier » (palette reprise du design system Ceres)
+
+   Deux cas l'activent :
+     1. le mode « Auto » sur un appareil réglé en clair (pas de data-theme) ;
+     2. le mode « Clair » forcé par le visiteur (data-theme="light").
+   Une media query ne pouvant pas se combiner à un sélecteur, la palette est
+   écrite pour chacun des deux cas : toute modification doit être reportée
+   dans les deux blocs, qui restent strictement identiques.
+   ========================================================================== */
+
+/* 1. Appareil en clair, aucun mode forcé */
+@media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+        --pb-primary: #0E7490;
+        --pb-primary-hover: #155E75;
+        --pb-primary-light: #164E63;
+        --pb-primary-rgb: 14, 116, 144;
+        --pb-primary-alpha: rgba(14, 116, 144, 0.14);
+
+        --pb-success: #15803D;
+        --pb-danger: #B91C1C;
+        --pb-warning: #B45309;
+
+        --pb-bg: #ddd8cc;
+        --pb-bg-gradient: linear-gradient(180deg, #ebe7e0 0%, #d4cfc4 100%);
+        --pb-bg-secondary: #e0dad0;
+        --pb-bg-tertiary: #c9c3b6;
+        --pb-bg-hover: #b9b3a6;
+
+        --pb-text: #25231d;
+        --pb-text-secondary: #4f4b40;
+        --pb-text-muted: #74705f;
+        --pb-text-on-color: #ffffff;
+
+        --pb-border: #a59e8d;
+        --pb-border-light: #887f6e;
+
+        --pb-header-bg: rgba(218, 213, 203, 0.78);
+        --pb-card-bg: rgba(226, 220, 208, 0.92);
+        --pb-surface-glass: rgba(232, 228, 217, 0.45);
+        --pb-surface-subtle: rgba(55, 50, 35, 0.03);
+        --pb-overlay-backdrop: rgba(40, 35, 25, 0.45);
+
+        --pb-shadow-sm: 0 1px 3px rgba(55, 50, 35, 0.10);
+        --pb-shadow-md: 0 4px 12px rgba(55, 50, 35, 0.12);
+        --pb-shadow-lg: 0 8px 24px rgba(55, 50, 35, 0.14);
+        --pb-shadow-primary: 0 4px 14px rgba(var(--pb-primary-rgb), 0.22);
+        --pb-inset-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+
+        --pb-logo-gradient: linear-gradient(180deg, #C99400, #A87500, #7D5600);
+    }
+}
+
+/* 2. Mode clair forcé par le visiteur */
+:root[data-theme="light"] {
+    --pb-primary: #0E7490;
+    --pb-primary-hover: #155E75;
+    --pb-primary-light: #164E63;
+    --pb-primary-rgb: 14, 116, 144;
+    --pb-primary-alpha: rgba(14, 116, 144, 0.14);
+
+    --pb-success: #15803D;
+    --pb-danger: #B91C1C;
+    --pb-warning: #B45309;
+
+    --pb-bg: #ddd8cc;
+    --pb-bg-gradient: linear-gradient(180deg, #ebe7e0 0%, #d4cfc4 100%);
+    --pb-bg-secondary: #e0dad0;
+    --pb-bg-tertiary: #c9c3b6;
+    --pb-bg-hover: #b9b3a6;
+
+    --pb-text: #25231d;
+    --pb-text-secondary: #4f4b40;
+    --pb-text-muted: #74705f;
+    --pb-text-on-color: #ffffff;
+
+    --pb-border: #a59e8d;
+    --pb-border-light: #887f6e;
+
+    --pb-header-bg: rgba(218, 213, 203, 0.78);
+    --pb-card-bg: rgba(226, 220, 208, 0.92);
+    --pb-surface-glass: rgba(232, 228, 217, 0.45);
+    --pb-surface-subtle: rgba(55, 50, 35, 0.03);
+    --pb-overlay-backdrop: rgba(40, 35, 25, 0.45);
+
+    --pb-shadow-sm: 0 1px 3px rgba(55, 50, 35, 0.10);
+    --pb-shadow-md: 0 4px 12px rgba(55, 50, 35, 0.12);
+    --pb-shadow-lg: 0 8px 24px rgba(55, 50, 35, 0.14);
+    --pb-shadow-primary: 0 4px 14px rgba(var(--pb-primary-rgb), 0.22);
+    --pb-inset-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+
+    --pb-logo-gradient: linear-gradient(180deg, #C99400, #A87500, #7D5600);
+}

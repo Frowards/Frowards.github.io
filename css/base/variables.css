@@ -1,0 +1,43 @@
+/* ==========================================================================
+   Jetons structurels (hors couleurs)
+   Polices, espacements, bordures, arrondis, courbes d'animation, hauteurs et
+   plans d'empilement - architecture calquée sur CeresCSS. Les couleurs sont
+   déclarées dans css/themes ; le panneau de thème ajuste certaines valeurs.
+   ========================================================================== */
+
+:root {
+    /* --- Fonts --- */
+    --pb-font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    --pb-font-title: 'Cinzel', 'Georgia', serif;
+    --pb-font-mono: 'Cascadia Code', 'JetBrains Mono', 'Consolas', monospace;
+
+    /* --- Espacements --- */
+    --pb-space-xs: 0.25rem;
+    --pb-space-sm: 0.5rem;
+    --pb-space-md: 1rem;
+    --pb-space-lg: 1.5rem;
+    --pb-space-xl: 2rem;
+    --pb-space-2xl: 3rem;
+
+    /* --- Bordures (pilotables par le panneau de personnalisation) --- */
+    --pb-border-w: 1px;
+
+    /* --- Border radius (pilotables par le panneau de personnalisation) --- */
+    --pb-radius-sm: 4px;
+    --pb-radius-md: 8px;
+    --pb-radius-lg: 12px;
+    --pb-radius-full: 9999px;
+
+    /* --- Courbes d'easing (reprises de Ceres) --- */
+    --pb-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --pb-ease-snappy: cubic-bezier(0.4, 0, 0.2, 1);
+    --pb-transition-fast: 150ms var(--pb-ease-snappy);
+    --pb-transition: 250ms var(--pb-ease-out);
+
+    /* --- Header --- */
+    --pb-header-height: 56px;
+
+    /* --- Z-index --- */
+    --pb-z-sticky: 200;
+    --pb-z-panel: 400;
+}

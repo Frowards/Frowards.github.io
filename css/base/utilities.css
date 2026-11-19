@@ -1,0 +1,38 @@
+/* ==========================================================================
+   États globaux
+   Apparition au défilement (js/components/Reveal.js), transparence réduite
+   et préférence « réduire les animations ». Ce dernier bloc doit rester en
+   fin de base : il neutralise les règles précédentes.
+   ========================================================================== */
+
+/* --- Apparition douce au défilement --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s var(--pb-ease-out), transform 0.6s var(--pb-ease-out);
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* --- Mode "transparence réduite" (toggle du panneau de thème) --- */
+:root.pb-no-blur {
+    --pb-card-bg: var(--pb-bg-secondary);
+    --pb-header-bg: var(--pb-bg-secondary);
+    --pb-surface-glass: var(--pb-bg-tertiary);
+}
+:root.pb-no-blur .glass,
+:root.pb-no-blur .topbar {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* --- Préférence "réduire les animations" (Ceres) --- */
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+    #pb-particles { display: none; }
+}

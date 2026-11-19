@@ -1,0 +1,25 @@
+/* ==========================================================================
+   Panneau de personnalisation : carte de démonstration
+
+   Aperçu en direct des réglages (couleurs, arrondis, bordures, transparence)
+   dans la colonne de droite du panneau.
+   ========================================================================== */
+
+.demo-card { padding: 1rem 1.1rem; }
+.demo-card__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    margin-bottom: 0.4rem;
+}
+.demo-card__head b { font-family: var(--pb-font-title); font-size: 0.95rem; color: var(--pb-text); }
+.demo-card p { font-size: 0.85rem; color: var(--pb-text-secondary); margin-bottom: 0.8rem; }
+.demo-card__row { display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap; }
+.demo-card__kpi {
+    font-family: var(--pb-font-title);
+    font-weight: 900;
+    font-size: 1.4rem;
+    color: var(--pb-primary);
+    margin-left: auto;
+}

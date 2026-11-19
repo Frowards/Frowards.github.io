@@ -1,0 +1,19 @@
+/* ==========================================================================
+   Section Compétences
+   ========================================================================== */
+
+/* ---------- Compétences ---------- */
+.skills {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+    gap: 1.1rem;
+}
+.skill-group { padding: 1.3rem 1.2rem; }
+.skill-group h3 {
+    font-family: var(--pb-font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pb-primary);
+    margin-bottom: 0.9rem;
+}

@@ -1,0 +1,41 @@
+/* ==========================================================================
+   Messages éphémères (js/components/Toast.js)
+   Pile en haut à droite, sous le header (--xp-header-h) ; chaque message
+   glisse depuis la droite (is-in). Placement en visite guidée et sur
+   téléphone : css/features/tour/layout.css, experience/adjustments.css.
+   ========================================================================== */
+
+.xp-toasts {
+    position: fixed;
+    z-index: 350;
+    top: calc(var(--xp-header-h, var(--pb-header-height)) + 2.4rem);
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: min(20rem, calc(100vw - 2rem));
+    pointer-events: none;
+}
+.xp-toast {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.7rem 0.9rem;
+    background: var(--pb-card-bg);
+    border: var(--pb-border-w) solid var(--pb-primary);
+    border-radius: var(--pb-radius-md);
+    box-shadow: var(--pb-shadow-lg);
+    color: var(--pb-text);
+    font-size: 0.85rem;
+    opacity: 0;
+    transform: translateX(110%);
+    transition: transform 0.4s var(--pb-ease-out), opacity 0.4s;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+.xp-toast.is-in { opacity: 1; transform: none; }
+.xp-toast b { color: var(--pb-primary); }
+
+@media (prefers-reduced-motion: reduce) {
+    .xp-toast { transition: none; }
+}

@@ -1,0 +1,181 @@
+/* ==========================================================================
+   Écran « Choisissez votre expérience » (js/features/experience/Welcome.js)
+   Structure de l'écran d'accueil, cartes d'expérience, choix clair / sombre
+   et choix du type de visite. Voir aussi welcome-previews.css (mini-scènes
+   des cartes), welcome-live-preview.css et welcome-space.css (l'écran
+   s'habille en direct dans le style choisi).
+   ========================================================================== */
+
+/* Première visite : rien n'apparaît avant l'écran d'accueil */
+html.pb-welcome-pending body > *:not(#pb-welcome) { visibility: hidden; }
+body.xp-open { overflow: hidden; }
+
+.xp-welcome {
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: clamp(1rem, 4vh, 3rem) 1rem;
+    opacity: 0;
+    transition: opacity 0.35s var(--pb-ease-out);
+    color: var(--pb-text);
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+}
+.xp-welcome[hidden] { display: none; }
+.xp-welcome.is-in { opacity: 1; }
+.xp-welcome__bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+        radial-gradient(60rem 40rem at 15% 10%, rgba(var(--pb-primary-rgb), 0.18), transparent 60%),
+        radial-gradient(50rem 40rem at 90% 90%, rgba(139, 92, 246, 0.14), transparent 60%),
+        var(--pb-bg);
+}
+.xp-welcome__box {
+    width: min(68rem, 100%);
+    margin: auto 0;
+    text-align: center;
+    transform: translateY(14px);
+    transition: transform 0.5s var(--pb-ease-out);
+}
+.xp-welcome.is-in .xp-welcome__box { transform: none; }
+.xp-welcome__top {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+}
+.xp-chip {
+    border: 1px solid var(--pb-border);
+    background: var(--pb-surface-subtle);
+    color: var(--pb-text-secondary);
+    font: inherit;
+    font-size: 0.8rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    cursor: pointer;
+}
+.xp-chip:hover { color: var(--pb-text); border-color: var(--pb-primary); }
+.xp-welcome__hello {
+    font-family: 'Cascadia Code', 'JetBrains Mono', Consolas, monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pb-primary);
+    margin-bottom: 0.6rem;
+}
+.xp-welcome__title {
+    font-family: 'Cinzel', Georgia, serif;
+    font-weight: 900;
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    line-height: 1.15;
+    max-width: none;
+    margin: 0 auto 0.7rem;
+    color: var(--pb-text);
+    letter-spacing: normal;
+    text-transform: none;
+    text-shadow: none;
+}
+.xp-welcome__sub {
+    color: var(--pb-text-secondary);
+    max-width: 52ch;
+    margin: 0 auto clamp(1.2rem, 3vh, 2rem);
+    font-size: 0.98rem;
+}
+
+/* Cartes d'expérience */
+.xp-cards {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.9rem;
+    margin-bottom: clamp(1.2rem, 3vh, 1.8rem);
+}
+@media (max-width: 900px) { .xp-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.xp-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    text-align: left;
+    padding: 0.6rem 0.6rem 0.9rem;
+    border: 2px solid var(--pb-border);
+    border-radius: 14px;
+    background: var(--pb-card-bg);
+    color: var(--pb-text);
+    font: inherit;
+    cursor: pointer;
+    transition: transform 0.2s var(--pb-ease-out), border-color 0.2s, box-shadow 0.2s;
+}
+.xp-card:hover { transform: translateY(-3px); border-color: rgba(var(--pb-primary-rgb), 0.6); }
+.xp-card:focus-visible { outline: 3px solid var(--pb-primary); outline-offset: 3px; }
+.xp-card.is-selected {
+    border-color: var(--pb-primary);
+    box-shadow: 0 0 0 3px rgba(var(--pb-primary-rgb), 0.25), 0 10px 30px rgba(0, 0, 0, 0.25);
+    transform: translateY(-3px);
+}
+.xp-card__name { font-weight: 700; font-size: 1.02rem; padding: 0.3rem 0.3rem 0; }
+.xp-card__desc { font-size: 0.82rem; color: var(--pb-text-secondary); padding: 0 0.3rem; line-height: 1.4; }
+@media (max-width: 520px) {
+    .xp-cards { gap: 0.6rem; }
+    .xp-card { padding: 0.45rem 0.45rem 0.7rem; }
+    .xp-card__name { font-size: 0.92rem; }
+    .xp-card__desc { font-size: 0.74rem; }
+}
+
+/* Mode clair / sombre */
+.xp-mode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.9rem;
+    margin-bottom: clamp(1.2rem, 3vh, 1.8rem);
+}
+.xp-mode__label { font-size: 0.85rem; font-weight: 600; color: var(--pb-text-secondary); }
+.xp-seg button { display: inline-flex; align-items: center; gap: 0.4rem; }
+.xp-seg .li { width: 1rem; height: 1rem; stroke: currentColor; }
+.xp-mode__detected { flex-basis: 100%; font-size: 0.78rem; color: var(--pb-text-muted); }
+.xp-go { font-size: 1.05rem; padding: 0.85rem 2.4rem; justify-content: center; }
+.xp-welcome__note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: var(--pb-text-muted);
+}
+.xp-welcome__note .li { width: 1.05rem; height: 1.05rem; color: var(--pb-primary); flex: none; }
+
+/* Choix du type de visite (écran d'accueil) */
+.xp-tour { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; margin-bottom: clamp(1.2rem, 3vh, 1.8rem); }
+.xp-tour__opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; width: min(34rem, 100%); }
+.xp-tour__opt {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-align: left;
+    padding: 0.7rem 0.9rem;
+    border: 2px solid var(--pb-border);
+    border-radius: 12px;
+    background: var(--pb-card-bg);
+    color: var(--pb-text);
+    font: inherit;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.xp-tour__opt .li { width: 1.6rem; height: 1.6rem; flex: none; }
+.xp-tour__opt b { display: block; font-size: 0.92rem; }
+.xp-tour__opt small { display: block; font-size: 0.76rem; color: var(--pb-text-secondary); line-height: 1.35; }
+.xp-tour__opt:hover { border-color: rgba(var(--pb-primary-rgb), 0.6); }
+.xp-tour__opt.is-selected { border-color: var(--pb-primary); box-shadow: 0 0 0 3px rgba(var(--pb-primary-rgb), 0.22); }
+.xp-tour__opt:focus-visible { outline: 3px solid var(--pb-primary); outline-offset: 3px; }
+@media (max-width: 420px) { .xp-tour__opt { padding: 0.55rem 0.6rem; gap: 0.45rem; } .xp-tour__opt small { font-size: 0.7rem; } }
+
+@media (prefers-reduced-motion: reduce) {
+    .xp-welcome, .xp-welcome__box { transition: none; }
+}

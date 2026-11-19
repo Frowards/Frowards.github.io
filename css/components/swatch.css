@@ -1,0 +1,50 @@
+/* ==========================================================================
+   Pastilles de couleur
+
+   - .swatch         : pastille d'une couleur proposée (couleur dans --sw)
+   - .swatch-custom  : pastille arc-en-ciel qui ouvre le sélecteur de couleur
+                       natif (input type="color" invisible posé dessus)
+   - .swatch-value   : variante qui montre la couleur réglée (--sw) au lieu
+                       de l'arc-en-ciel
+   ========================================================================== */
+
+.swatches { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+
+.swatch {
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 50%;
+    border: 2px solid var(--pb-border);
+    background: var(--sw);
+    cursor: pointer;
+    padding: 0;
+    transition: transform var(--pb-transition-fast), border-color var(--pb-transition-fast), box-shadow var(--pb-transition-fast);
+}
+.swatch:hover { transform: scale(1.12); }
+.swatch.active { border-color: var(--pb-text); box-shadow: 0 0 0 2px var(--pb-primary); }
+
+.swatch-custom {
+    position: relative;
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 50%;
+    border: 2px dashed var(--pb-border-light);
+    overflow: hidden;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: conic-gradient(#EF4444, #F59E0B, #22C55E, #06B6D4, #7C5CFF, #EF4444);
+}
+.swatch-custom.active { border-style: solid; border-color: var(--pb-text); box-shadow: 0 0 0 2px var(--pb-primary); }
+.swatch-custom input {
+    position: absolute;
+    inset: -50%;
+    width: 200%;
+    height: 200%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Pastille qui montre la couleur réglée (et non l'arc-en-ciel du choix libre) */
+.swatch-custom.swatch-value { background: var(--sw); border-style: solid; border-color: var(--pb-border-light); }

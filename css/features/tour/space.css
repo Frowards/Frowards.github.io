@@ -1,0 +1,73 @@
+/* ==========================================================================
+   Spatial : vaisseau dans le cyberespace (js/features/tour/space/Starfield.js)
+   Canvas du ciel étoilé, palette sombre forcée, panneaux holographiques
+   flottant devant le pare-brise, en visite guidée comme libre.
+   ========================================================================== */
+
+#pb-space {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse 60% 45% at 25% 20%, rgba(90, 40, 170, 0.32), transparent 70%),
+        radial-gradient(ellipse 55% 45% at 80% 85%, rgba(0, 140, 190, 0.26), transparent 70%),
+        radial-gradient(ellipse 35% 25% at 70% 30%, rgba(255, 62, 165, 0.12), transparent 70%),
+        #02030a;
+}
+#pb-space[hidden] { display: none; }
+:root[data-pb-exp="future"] :is(#pb-particles, #pb-fluid, #pb-page-bg) { display: none !important; }
+
+/* Spatial sombre : ciel étoilé (palette forcée, visite guidée ou libre) */
+:root:root[data-pb-exp="future"][data-pb-mode="dark"] {
+    --pb-bg: #02030a;
+    --pb-bg-gradient: none;
+    --pb-bg-secondary: #0A1222;
+    --pb-bg-tertiary: #0F1A30;
+    --pb-bg-hover: #13223D;
+    --pb-text: #DDF6FF;
+    --pb-text-secondary: #A5C6DA;
+    --pb-text-muted: #7F9BB0;
+    --pb-text-on-color: #02030a;
+    --pb-border: rgba(0, 229, 255, 0.26);
+    --pb-border-light: rgba(0, 229, 255, 0.45);
+    --pb-header-bg: rgba(3, 7, 16, 0.78);
+    --pb-card-bg: rgba(6, 16, 32, 0.62);
+    --pb-surface-glass: rgba(6, 16, 32, 0.55);
+    --pb-surface-subtle: rgba(0, 229, 255, 0.035);
+    --pb-overlay-backdrop: rgba(2, 4, 10, 0.7);
+    --pb-shadow-sm: 0 0 14px rgba(0, 229, 255, 0.1);
+    --pb-shadow-md: 0 0 22px rgba(0, 229, 255, 0.14);
+    --pb-shadow-lg: 0 0 40px rgba(0, 229, 255, 0.18);
+    --pb-inset-highlight: inset 0 1px 0 rgba(0, 229, 255, 0.25);
+    --pb-logo-gradient: linear-gradient(90deg, #00E5FF, #8B5CF6, #FF3EA5);
+    --pb-primary: #00E5FF;
+    --pb-primary-hover: #00B8D4;
+    --pb-primary-light: #67F0FF;
+    --pb-primary-rgb: 0, 229, 255;
+    --pb-primary-alpha: rgba(0, 229, 255, 0.15);
+}
+:root[data-pb-exp="future"][data-pb-mode="dark"] body { background: #02030a; }
+:root[data-pb-exp="future"] main#haut > section { background: transparent; border-color: transparent; }
+
+/* Chaque zone = panneau holographique flottant devant le pare-brise */
+:root[data-pb-exp="future"] main#haut > section > .wrap {
+    width: min(100% - 2rem, 92rem);
+    margin-inline: auto;
+    padding-block: clamp(1.4rem, 3vw, 2.4rem);
+    background: linear-gradient(180deg, rgba(4, 12, 28, 0.72), rgba(4, 10, 24, 0.55));
+    border: 1px solid rgba(0, 229, 255, 0.28);
+    box-shadow: 0 0 40px rgba(0, 229, 255, 0.08), inset 0 0 60px rgba(0, 229, 255, 0.04);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px));
+}
+:root[data-pb-exp="future"][data-pb-tour="guided"] main#haut > section { padding: clamp(0.8rem, 2.5vh, 2rem) 0 clamp(1.4rem, 4vh, 3rem); }
+/* Visite libre : les panneaux défilent sous le pare-brise, l'analyse est dans le cockpit */
+:root[data-pb-exp="future"]:not([data-pb-tour="guided"]) main#haut > section { padding: clamp(1rem, 3vw, 2rem) 0; }
+:root[data-pb-exp="future"]:not([data-pb-tour="guided"]) main#haut { padding-top: 1.6rem; }
+:root[data-pb-exp="future"] .xp-hud--future { display: none; }
+:root[data-pb-exp="future"]:not([data-pb-tour="guided"]) body > footer { position: relative; z-index: 1; padding-bottom: 2.5rem; }
+:root[data-pb-exp="future"] main#haut { overflow-x: clip; }

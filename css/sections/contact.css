@@ -1,0 +1,44 @@
+/* ==========================================================================
+   Section Contact
+   ========================================================================== */
+
+/* ---------- Contact ---------- */
+.contact-card {
+    border-color: rgba(var(--pb-primary-rgb), 0.4);
+    box-shadow: var(--pb-shadow-primary), var(--pb-inset-highlight);
+    padding: clamp(1.8rem, 4vw, 3.5rem) clamp(1.4rem, 4vw, 4rem);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+}
+@media (min-width: 760px) {
+    .contact-card { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); }
+}
+.contact-card h2 { margin-bottom: 0.6rem; }
+.contact-card > div > p { color: var(--pb-text-secondary); max-width: 60ch; }
+.contact-list { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+.contact-list a {
+    color: var(--pb-text);
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    word-break: break-word;
+}
+.contact-list a:hover { color: var(--pb-primary); }
+.contact-list svg { width: 1.15rem; height: 1.15rem; }
+@media (max-width: 420px) { .contact-list a, .contact-list span.plain { font-size: 0.86rem; } }
+.contact-list span.plain {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 600;
+    color: var(--pb-text);
+}
+
+/* Très grand écran : les contacts passent en rangée */
+@media (min-width: 1600px) {
+    .contact-list { flex-direction: row; flex-wrap: wrap; gap: 1rem 2.5rem; }
+}

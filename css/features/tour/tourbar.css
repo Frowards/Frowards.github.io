@@ -1,0 +1,152 @@
+/* ==========================================================================
+   Barre de visite (js/features/tour/TourBar.js)
+   Indicateur « Faites défiler pour lire la suite » et fondu en bas de
+   l'étape (<html class="tour-more">), puis la barre : Précédent / Suivant,
+   nom et pastilles des étapes, « Visite libre » ; habillage par expérience.
+   ========================================================================== */
+
+/* Indicateur « Faites défiler pour lire la suite » + fondu en bas de l'étape */
+.tourbar__more {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 0.55rem);
+    transform: translate(-50%, 6px);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.8rem 0.3rem 0.55rem;
+    border-radius: 999px;
+    background: var(--pb-primary);
+    color: var(--pb-text-on-color);
+    font-family: var(--pb-font-family);
+    font-size: 0.78rem;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: var(--pb-shadow-md);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+}
+.tourbar__more .li { width: 1rem; height: 1rem; stroke: currentColor; animation: tm-bounce 1.4s ease-in-out infinite; }
+:root.tour-more .tourbar__more { opacity: 1; transform: translate(-50%, 0); }
+@keyframes tm-bounce { 0%, 100% { transform: translateY(-1px); } 50% { transform: translateY(3px); } }
+:root[data-pb-exp="retro"] .tourbar__more, :root[data-pb-exp="gamer"] .tourbar__more { border-radius: 0; }
+:root[data-pb-exp="gamer"] .tourbar__more { font-family: 'Press Start 2P', monospace; font-size: 0.5rem; padding: 0.5rem 0.7rem; }
+:root[data-pb-exp="future"] .tourbar__more { font-family: 'Orbitron', sans-serif; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 0; }
+:root[data-pb-tour="guided"] main#haut::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3.5rem;
+    background: linear-gradient(transparent, var(--pb-bg));
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 2;
+}
+:root.tour-more[data-pb-tour="guided"] main#haut::after { opacity: 0.9; }
+:root[data-pb-exp="future"][data-pb-tour="guided"] main#haut::after { background: linear-gradient(transparent, rgba(2, 3, 10, 0.95)); }
+:root[data-pb-tour="guided"] .topbar { transition: transform 0.35s var(--pb-ease-out); }
+
+.tourbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--tourbar-h);
+    z-index: 320;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.6rem, 3vw, 2rem);
+    padding: 0 1rem;
+    background: var(--pb-header-bg);
+    border-top: var(--pb-border-w) solid var(--pb-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: transform 0.35s var(--pb-ease-out);
+}
+.tourbar[hidden] { display: none; }
+.tourbar__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.1rem;
+    border-radius: var(--pb-radius-md);
+    border: var(--pb-border-w) solid var(--pb-border);
+    background: var(--pb-surface-glass);
+    color: var(--pb-text);
+    font-family: var(--pb-font-family);
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform var(--pb-transition-fast), background var(--pb-transition-fast), border-color var(--pb-transition-fast);
+}
+.tourbar__btn:hover:not(:disabled) { transform: translateY(-1px); border-color: var(--pb-primary); }
+.tourbar__btn:disabled { opacity: 0.35; cursor: default; }
+.tourbar__btn .li, .tourbar__exit .li { width: 1.1rem; height: 1.1rem; stroke: currentColor; }
+.tourbar__next { background: var(--pb-primary); border-color: var(--pb-primary); color: var(--pb-text-on-color); box-shadow: var(--pb-shadow-primary); }
+.tourbar__next:hover { background: var(--pb-primary-hover); }
+.tourbar__mid { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; min-width: 11rem; }
+.tourbar__count { font-family: var(--pb-font-mono); font-size: 0.7rem; letter-spacing: 0.1em; color: var(--pb-text-muted); }
+.tourbar__name { font-family: var(--pb-font-title); font-weight: 700; font-size: 1rem; color: var(--pb-text); line-height: 1.2; }
+.tourbar__dots { display: flex; gap: 0.35rem; margin-top: 0.15rem; }
+.tourbar__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    padding: 0;
+    border-radius: 999px;
+    border: 1px solid var(--pb-border-light);
+    background: transparent;
+    cursor: pointer;
+    transition: width 0.25s var(--pb-ease-out), background 0.25s;
+}
+.tourbar__dot.is-on { width: 1.3rem; background: var(--pb-primary); border-color: var(--pb-primary); }
+.tourbar__exit {
+    position: absolute;
+    right: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: 999px;
+    border: var(--pb-border-w) solid var(--pb-border);
+    background: transparent;
+    color: var(--pb-text-secondary);
+    font-family: var(--pb-font-family);
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+.tourbar__exit:hover { color: var(--pb-text); border-color: var(--pb-primary); }
+@media (max-width: 900px) {
+    .tourbar__exit { position: static; }
+}
+@media (max-width: 600px) {
+    .tourbar { gap: 0.45rem; padding: 0 0.6rem; }
+    .tourbar__btn { padding: 0.65rem 0.75rem; }
+    .tourbar__btn span, .tourbar__exit span { display: none; }
+    .tourbar__exit { padding: 0.55rem; }
+    .tourbar__mid { min-width: 0; flex: 1; }
+    .tourbar__name { font-size: 0.9rem; text-align: center; }
+}
+
+/* Barre selon l'expérience */
+:root[data-pb-exp="retro"] .tourbar { background: var(--pb-bg-secondary); border-top-width: 2px; }
+:root[data-pb-exp="retro"] .tourbar__btn, :root[data-pb-exp="retro"] .tourbar__exit { border-radius: 0; text-transform: uppercase; font-size: 1.05rem; }
+:root[data-pb-exp="retro"] .tourbar__dot { border-radius: 0; }
+:root[data-pb-exp="gamer"] .tourbar { background: var(--pb-bg-secondary); border-top: 3px solid var(--pb-border); }
+:root[data-pb-exp="gamer"] .tourbar__btn { border-radius: 0; font-family: 'Press Start 2P', monospace; font-size: 0.55rem; text-transform: uppercase; box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4); }
+:root[data-pb-exp="gamer"] .tourbar__btn:active:not(:disabled) { transform: translate(3px, 3px); box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4); }
+:root[data-pb-exp="gamer"] .tourbar__name { font-size: 0.62rem; line-height: 1.6; }
+:root[data-pb-exp="gamer"] .tourbar__dot, :root[data-pb-exp="gamer"] .tourbar__exit { border-radius: 0; }
+:root[data-pb-exp="future"] .tourbar__btn, :root[data-pb-exp="future"] .tourbar__exit {
+    border-radius: 0;
+    clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px));
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+:root[data-pb-exp="future"] .tourbar__name { text-transform: uppercase; letter-spacing: 0.08em; }

@@ -1,0 +1,31 @@
+/* ==========================================================================
+   Cartes à icône (sections Ceres et Philosophie)
+   Icône et titre sur une ligne, texte en dessous sur toute la largeur.
+   ========================================================================== */
+
+/* ---------- Cartes de la section Ceres ---------- */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+    gap: 1.1rem;
+}
+/* Icône et titre sur la même ligne, texte en dessous sur toute la largeur */
+.card {
+    padding: 1.4rem 1.3rem;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 0.75rem;
+    row-gap: 0.65rem;
+    align-items: center;
+    align-content: start;
+    transition: border-color var(--pb-transition-fast), box-shadow var(--pb-transition-fast), transform var(--pb-transition-fast);
+}
+
+.card:hover {
+    border-color: var(--pb-primary);
+    box-shadow: var(--pb-shadow-primary), var(--pb-inset-highlight);
+    transform: translateY(-2px);
+}
+.card > svg { grid-column: 1; width: 1.7rem; height: 1.7rem; }
+.card h3 { grid-column: 2; font-size: 1.02rem; }
+.card p { grid-column: 1 / -1; font-size: 0.93rem; color: var(--pb-text-secondary); }

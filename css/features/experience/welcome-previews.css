@@ -1,0 +1,180 @@
+/* ==========================================================================
+   Aperçus des cartes de l'écran d'accueil
+   Une mini-scène dessinée en CSS par expérience, aux palettes fixes
+   (indépendantes du thème), en clair comme en sombre.
+   ========================================================================== */
+
+.xp-pv {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 10;
+    border-radius: 9px;
+    overflow: hidden;
+}
+/* Classique : points reliés + titre doré */
+.xp-pv--classic { background: radial-gradient(circle at 30% 20%, #16202e, #0A0B10 70%); }
+.xp-pv__dots i {
+    position: absolute;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: #06B6D4;
+    box-shadow: 0 0 6px #06B6D4;
+}
+.xp-pv__dots i:nth-child(1) { left: 12%; top: 22%; }
+.xp-pv__dots i:nth-child(2) { left: 34%; top: 60%; }
+.xp-pv__dots i:nth-child(3) { left: 62%; top: 30%; }
+.xp-pv__dots i:nth-child(4) { left: 82%; top: 70%; }
+.xp-pv__dots i:nth-child(5) { left: 50%; top: 82%; }
+.xp-pv--classic::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(32deg, transparent 49.6%, rgba(6, 182, 212, 0.35) 50%, transparent 50.4%),
+        linear-gradient(-28deg, transparent 49.6%, rgba(6, 182, 212, 0.25) 50%, transparent 50.4%);
+}
+.xp-pv__title {
+    position: absolute;
+    right: 10%; top: 12%;
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: 1.6rem;
+    background: linear-gradient(180deg, #FFE9A8, #FDC900, #E8960C);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.xp-pv__line { position: absolute; left: 10%; bottom: 26%; width: 50%; height: 4px; border-radius: 4px; background: rgba(228, 230, 235, 0.35); }
+.xp-pv__line--short { bottom: 16%; width: 32%; }
+/* Rétro : terminal ambre */
+.xp-pv--retro {
+    background: #0A0803;
+    font-family: 'VT323', monospace;
+    color: #FFB000;
+    text-shadow: 0 0 6px rgba(255, 176, 0, 0.7);
+}
+.xp-pv--retro::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.35) 0 1px, transparent 1px 3px);
+    pointer-events: none;
+}
+.xp-pv__crt { position: absolute; left: 9%; top: 18%; right: 6%; font-size: 1.05rem; line-height: 1.2; }
+.xp-pv__cursor { display: inline-block; width: 0.5em; height: 0.9em; background: #FFB000; vertical-align: -0.1em; margin-left: 2px; animation: xp-blink 1s steps(1) infinite; }
+/* Spatial : affichage tête haute (le hublot étoilé est plus bas) */
+.xp-pv__hud { position: absolute; left: 8%; bottom: 10%; font-family: 'Orbitron', sans-serif; font-size: 0.62rem; letter-spacing: 0.18em; color: #00E5FF; }
+/* Gamer : niveau, XP, cœur et pièce en pixels */
+.xp-pv--gamer { background: #130B26; }
+.xp-pv__lvl { position: absolute; left: 8%; top: 12%; font-family: 'Press Start 2P', monospace; font-size: 0.6rem; color: #FF3EA5; text-shadow: 2px 2px 0 #000; }
+.xp-pv__xp { position: absolute; left: 8%; right: 8%; top: 32%; height: 10px; background: #2B1D55; box-shadow: 0 -2px 0 #6D28D9, 0 2px 0 #6D28D9, -2px 0 0 #6D28D9, 2px 0 0 #6D28D9; }
+.xp-pv__xp i { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, #A3FF12 0 8px, #7ED400 8px 10px); transform-origin: left; animation: xp-fill 3s steps(10) infinite; }
+.xp-pv__heart {
+    position: absolute;
+    left: 14%; bottom: 22%;
+    width: 4px; height: 4px;
+    color: #FF3EA5;
+    box-shadow:
+        4px 0, 8px 0, 16px 0, 20px 0,
+        0 4px, 4px 4px, 8px 4px, 12px 4px, 16px 4px, 20px 4px, 24px 4px,
+        0 8px, 4px 8px, 8px 8px, 12px 8px, 16px 8px, 20px 8px, 24px 8px,
+        4px 12px, 8px 12px, 12px 12px, 16px 12px, 20px 12px,
+        8px 16px, 12px 16px, 16px 16px,
+        12px 20px;
+}
+.xp-pv__coin { position: absolute; right: 18%; bottom: 22%; width: 18px; height: 18px; background: #FFD23F; box-shadow: inset -3px -3px 0 #E0A800, 0 0 0 2px #7A4D00; animation: xp-bounce 1.2s steps(4) infinite; }
+/* Aperçus en clair (choix « Clair ») */
+.xp-welcome[data-preview-mode="light"] .xp-pv--classic { background: radial-gradient(circle at 30% 20%, #f3efe6, #ddd8cc 70%); }
+.xp-welcome[data-preview-mode="light"] .xp-pv__dots i { background: #0E7490; box-shadow: none; }
+.xp-welcome[data-preview-mode="light"] .xp-pv__line { background: rgba(37, 35, 29, 0.3); }
+.xp-welcome[data-preview-mode="light"] .xp-pv--retro { background: repeating-linear-gradient(180deg, #F4ECD6 0 12px, #E4EDD3 12px 24px); color: #7A5200; text-shadow: none; }
+.xp-welcome[data-preview-mode="light"] .xp-pv--retro::after { opacity: 0.25; }
+.xp-welcome[data-preview-mode="light"] .xp-pv__cursor { background: #7A5200; }
+.xp-welcome[data-preview-mode="light"] .xp-pv--gamer { background: #FFF8E7; }
+.xp-welcome[data-preview-mode="light"] .xp-pv__xp { background: #FFE3A3; }
+
+@keyframes xp-blink { 50% { opacity: 0; } }
+@keyframes xp-fill { 0% { transform: scaleX(0.05); } 100% { transform: scaleX(1); } }
+@keyframes xp-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+/* Aperçu Classique animé (comme les trois autres) : points qui dérivent,
+   liens qui scintillent, reflet sur le titre doré, lignes qui se remplissent */
+.xp-pv__dots i { animation: xp-drift 6s ease-in-out infinite; }
+.xp-pv__dots i:nth-child(2) { animation-duration: 7.5s; animation-delay: -2s; }
+.xp-pv__dots i:nth-child(3) { animation-duration: 5.5s; animation-delay: -4s; }
+.xp-pv__dots i:nth-child(4) { animation-duration: 8s; animation-delay: -1s; }
+.xp-pv__dots i:nth-child(5) { animation-duration: 6.5s; animation-delay: -3s; }
+@keyframes xp-drift {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(6px, -5px); }
+    50% { transform: translate(-4px, -9px); }
+    75% { transform: translate(-7px, 3px); }
+}
+.xp-pv--classic::before { animation: xp-links 4s ease-in-out infinite; }
+@keyframes xp-links { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+.xp-pv__title {
+    background: linear-gradient(110deg, #E8960C 0%, #FDC900 35%, #FFF6D5 50%, #FDC900 65%, #E8960C 100%);
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: xp-shine 3.2s ease-in-out infinite;
+}
+@keyframes xp-shine { 0% { background-position: 100% 0; } 60%, 100% { background-position: -50% 0; } }
+.xp-pv__line { transform-origin: left; animation: xp-type-line 3.6s ease-in-out infinite; }
+.xp-pv__line--short { animation-delay: 0.5s; }
+@keyframes xp-type-line { 0% { transform: scaleX(0.1); } 45%, 80% { transform: scaleX(1); } 100% { transform: scaleX(0.1); } }
+@media (prefers-reduced-motion: reduce) { .xp-pv__dots i, .xp-pv--classic::before, .xp-pv__title, .xp-pv__line { animation: none; } }
+
+/* Spatial : hublot de cockpit sur les étoiles, champ d'astéroïdes en clair */
+.xp-pv--future { background: radial-gradient(ellipse at 40% 30%, rgba(90, 40, 170, 0.45), transparent 60%), #02030a; }
+.xp-pv__stars {
+    position: absolute;
+    inset: -40%;
+    background-image:
+        radial-gradient(1.2px 1.2px at 18% 30%, #fff 99%, transparent),
+        radial-gradient(1px 1px at 70% 20%, #bdf3ff 99%, transparent),
+        radial-gradient(1.4px 1.4px at 80% 70%, #fff 99%, transparent),
+        radial-gradient(1px 1px at 40% 80%, #d8c8ff 99%, transparent),
+        radial-gradient(1.2px 1.2px at 55% 50%, #fff 99%, transparent);
+    background-size: 90px 90px;
+    animation: xp-space-fly 4s linear infinite;
+}
+.xp-pv__stars--b { background-size: 60px 60px; animation-delay: -2s; }
+.xp-pv__cockpit {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(2, 6, 15, 0.95) 0 9%, transparent 9%),
+        linear-gradient(0deg, rgba(2, 6, 15, 0.95) 0 13%, transparent 13%),
+        linear-gradient(135deg, rgba(2, 6, 15, 0.95) 0 11%, transparent 11%),
+        linear-gradient(225deg, rgba(2, 6, 15, 0.95) 0 11%, transparent 11%);
+    box-shadow: inset 0 0 0 1px rgba(0, 229, 255, 0.35);
+}
+.xp-pv--future .xp-pv__hud { color: #00E5FF; bottom: 3%; z-index: 1; }
+.xp-welcome[data-preview-mode="light"] .xp-pv--future {
+    background:
+        radial-gradient(ellipse 170% 135% at 60% 225%, #5d8fbd 0, #8fbfe0 80%, #cfe6f6 95%, #f6fbff 99%, rgba(170, 215, 255, 0.6) 100%, transparent 106%),
+        linear-gradient(180deg, #F3F6FC 0%, #D3DEF2 100%);
+}
+.xp-welcome[data-preview-mode="light"] .xp-pv__stars {
+    background-image:
+        radial-gradient(3px 2.5px at 18% 30%, #6f7686 99%, transparent),
+        radial-gradient(2px 2px at 70% 20%, #8a8f9c 99%, transparent),
+        radial-gradient(4px 3px at 80% 70%, #6f7686 99%, transparent),
+        radial-gradient(1.5px 1.5px at 40% 80%, #5c6270 99%, transparent),
+        radial-gradient(2.5px 2px at 55% 50%, #a39486 99%, transparent);
+}
+.xp-welcome[data-preview-mode="light"] .xp-pv__cockpit {
+    background:
+        linear-gradient(180deg, rgba(236, 241, 250, 0.96) 0 9%, transparent 9%),
+        linear-gradient(0deg, rgba(236, 241, 250, 0.96) 0 13%, transparent 13%),
+        linear-gradient(135deg, rgba(236, 241, 250, 0.96) 0 11%, transparent 11%),
+        linear-gradient(225deg, rgba(236, 241, 250, 0.96) 0 11%, transparent 11%);
+    box-shadow: inset 0 0 0 1px rgba(0, 110, 160, 0.4);
+}
+.xp-welcome[data-preview-mode="light"] .xp-pv--future .xp-pv__hud { color: #0078AA; }
+
+@media (prefers-reduced-motion: reduce) {
+    .xp-pv__stars { animation: none; opacity: 1; transform: none; }
+    .xp-pv * { animation: none !important; }
+}

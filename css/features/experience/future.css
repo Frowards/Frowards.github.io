@@ -1,0 +1,107 @@
+/* ==========================================================================
+   Expérience Spatial : HUD néon (sombre) / interface de verre (clair)
+   Palette de base, coins biseautés, crochets lumineux et apparition holographique.
+   Le ciel étoilé et le cockpit sont dans css/features/tour (space*.css, cockpit.css).
+   ========================================================================== */
+
+:root[data-pb-exp="future"]:not([data-theme="light"]) {
+    --pb-bg: #04060E;
+    --pb-bg-gradient: none;
+    --pb-bg-secondary: #0A1222;
+    --pb-bg-tertiary: #0F1A30;
+    --pb-bg-hover: #13223D;
+    --pb-text: #DDF6FF;
+    --pb-text-secondary: #94B8CE;
+    --pb-text-muted: #7894A8;
+    --pb-text-on-color: #04060E;
+    --pb-border: rgba(0, 229, 255, 0.26);
+    --pb-border-light: rgba(0, 229, 255, 0.45);
+    --pb-header-bg: rgba(4, 8, 18, 0.72);
+    --pb-card-bg: rgba(8, 18, 36, 0.58);
+    --pb-surface-glass: rgba(8, 18, 36, 0.5);
+    --pb-surface-subtle: rgba(0, 229, 255, 0.035);
+    --pb-overlay-backdrop: rgba(2, 4, 10, 0.7);
+    --pb-shadow-sm: 0 0 14px rgba(0, 229, 255, 0.1);
+    --pb-shadow-md: 0 0 22px rgba(0, 229, 255, 0.14);
+    --pb-shadow-lg: 0 0 40px rgba(0, 229, 255, 0.18);
+    --pb-inset-highlight: inset 0 1px 0 rgba(0, 229, 255, 0.25);
+    --pb-logo-gradient: linear-gradient(90deg, #00E5FF, #8B5CF6, #FF3EA5);
+}
+@media (prefers-color-scheme: light) {
+    :root[data-pb-exp="future"]:not([data-theme="dark"]) {
+        --pb-bg: #EEF4FB;
+        --pb-bg-gradient: none;
+        --pb-bg-secondary: #E3EDF8;
+        --pb-bg-tertiary: #D3E2F2;
+        --pb-bg-hover: #C3D6EB;
+        --pb-text: #0B1B2B;
+        --pb-text-secondary: #33506A;
+        --pb-text-muted: #56708A;
+        --pb-text-on-color: #FFFFFF;
+        --pb-border: rgba(0, 110, 160, 0.28);
+        --pb-border-light: rgba(0, 110, 160, 0.48);
+        --pb-header-bg: rgba(238, 244, 251, 0.75);
+        --pb-card-bg: rgba(255, 255, 255, 0.62);
+        --pb-surface-glass: rgba(255, 255, 255, 0.5);
+        --pb-surface-subtle: rgba(0, 110, 160, 0.04);
+        --pb-overlay-backdrop: rgba(20, 40, 70, 0.35);
+        --pb-shadow-sm: 0 2px 10px rgba(0, 90, 140, 0.08);
+        --pb-shadow-md: 0 6px 20px rgba(0, 90, 140, 0.1);
+        --pb-shadow-lg: 0 10px 34px rgba(0, 90, 140, 0.14);
+        --pb-inset-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        --pb-logo-gradient: linear-gradient(90deg, #0078AA, #6D28D9, #C2185B);
+    }
+}
+:root[data-pb-exp="future"][data-theme="light"] {
+    --pb-bg: #EEF4FB;
+    --pb-bg-gradient: none;
+    --pb-bg-secondary: #E3EDF8;
+    --pb-bg-tertiary: #D3E2F2;
+    --pb-bg-hover: #C3D6EB;
+    --pb-text: #0B1B2B;
+    --pb-text-secondary: #33506A;
+    --pb-text-muted: #56708A;
+    --pb-text-on-color: #FFFFFF;
+    --pb-border: rgba(0, 110, 160, 0.28);
+    --pb-border-light: rgba(0, 110, 160, 0.48);
+    --pb-header-bg: rgba(238, 244, 251, 0.75);
+    --pb-card-bg: rgba(255, 255, 255, 0.62);
+    --pb-surface-glass: rgba(255, 255, 255, 0.5);
+    --pb-surface-subtle: rgba(0, 110, 160, 0.04);
+    --pb-overlay-backdrop: rgba(20, 40, 70, 0.35);
+    --pb-shadow-sm: 0 2px 10px rgba(0, 90, 140, 0.08);
+    --pb-shadow-md: 0 6px 20px rgba(0, 90, 140, 0.1);
+    --pb-shadow-lg: 0 10px 34px rgba(0, 90, 140, 0.14);
+    --pb-inset-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    --pb-logo-gradient: linear-gradient(90deg, #0078AA, #6D28D9, #C2185B);
+}
+:root[data-pb-exp="future"] :is(h1, h2) { text-transform: uppercase; letter-spacing: 0.04em; }
+:root[data-pb-exp="future"] h1 { font-size: clamp(1.7rem, 3vw, 3.1rem); line-height: 1.15; }
+:root[data-pb-exp="future"] h2 { font-size: clamp(1.3rem, 2vw, 2rem); }
+:root[data-pb-exp="future"] h3 { letter-spacing: 0.03em; }
+:root[data-pb-exp="future"]:not([data-theme="light"]) :is(h1, h2) { text-shadow: 0 0 18px rgba(0, 229, 255, 0.25); }
+/* Coins biseautés + crochets lumineux aux angles des cartes */
+:root[data-pb-exp="future"] :is(.btn, .chip) { clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px)); border-radius: 0; }
+:root[data-pb-exp="future"]:not([data-pb-deco]) .glass {
+    background-image:
+        linear-gradient(var(--pb-primary), var(--pb-primary)), linear-gradient(var(--pb-primary), var(--pb-primary)),
+        linear-gradient(var(--pb-primary), var(--pb-primary)), linear-gradient(var(--pb-primary), var(--pb-primary));
+    background-repeat: no-repeat;
+    background-size: 14px 2px, 2px 14px, 14px 2px, 2px 14px;
+    background-position: left top, left top, right bottom, right bottom;
+}
+:root[data-pb-exp="future"] .btn-primary { box-shadow: 0 0 18px rgba(var(--pb-primary-rgb), 0.45); }
+:root[data-pb-exp="future"] [data-exp-tag]::before {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    text-shadow: 0 0 10px rgba(var(--pb-primary-rgb), 0.6);
+}
+/* Apparition : mise au point holographique */
+:root[data-pb-exp="future"] .reveal {
+    opacity: 0;
+    transform: perspective(800px) rotateX(14deg) translateY(26px);
+    filter: blur(6px);
+    transition: opacity 0.7s var(--pb-ease-out), transform 0.8s var(--pb-ease-out), filter 0.7s var(--pb-ease-out);
+}
+:root[data-pb-exp="future"] .reveal.visible { opacity: 1; transform: none; filter: none; }

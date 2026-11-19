@@ -1,0 +1,14 @@
+/* ==========================================================================
+   Carte verre (.glass)
+   Surface translucide commune aux cartes, indicateurs et fenêtres.
+   ========================================================================== */
+
+/* ---------- Carte verre (disposition CeresCard) ---------- */
+.glass {
+    background: var(--pb-card-bg);
+    border: var(--pb-border-w) solid var(--pb-border);
+    border-radius: var(--pb-radius-lg);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    box-shadow: var(--pb-shadow-sm), var(--pb-inset-highlight);
+}

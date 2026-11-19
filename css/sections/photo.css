@@ -1,0 +1,31 @@
+/* ==========================================================================
+   Photo et identité (héros et contact)
+   Portrait rond, nom et finitions propres à chaque expérience.
+   ========================================================================== */
+
+/* ---------- Photo (héros + contact) ---------- */
+.hero-id { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.1rem; }
+.hero-id__txt { display: flex; flex-direction: column; align-items: flex-start; gap: 0.45rem; min-width: 0; }
+.hero-id .status-pill { margin-bottom: 0; }
+.hero-name { font-family: var(--pb-font-title); font-size: 1.15rem; font-weight: 700; line-height: 1.2; color: var(--pb-text); }
+.pb-photo {
+    display: block;
+    flex: none;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid var(--pb-primary);
+    box-shadow: 0 0 0 4px rgba(var(--pb-primary-rgb), 0.18), var(--pb-shadow-md);
+    background: var(--pb-bg-secondary);
+}
+.hero-photo { width: 5.2rem; height: 5.2rem; }
+.contact-id { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.4rem; }
+.contact-photo { width: 3rem; height: 3rem; box-shadow: 0 0 0 3px rgba(var(--pb-primary-rgb), 0.18); }
+@media (max-width: 440px) {
+    .hero-photo { width: 4.2rem; height: 4.2rem; }
+    .hero-name { font-size: 1rem; }
+}
+/* Finitions selon l'expérience */
+:root[data-pb-exp="retro"] .pb-photo { border-radius: 0; filter: grayscale(1) sepia(1) saturate(2.2) hue-rotate(-12deg) contrast(1.05); box-shadow: 0 0 12px rgba(var(--pb-primary-rgb), 0.45); }
+:root[data-pb-exp="gamer"] .pb-photo { border-radius: 0; border-width: 3px; box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.45); }
+:root[data-pb-exp="future"] .pb-photo { box-shadow: 0 0 0 4px rgba(var(--pb-primary-rgb), 0.12), 0 0 16px rgba(var(--pb-primary-rgb), 0.55); }
+@media (max-width: 440px) { :root[data-pb-exp="retro"] .hero-photo { width: 3.5rem; height: 3.5rem; } }

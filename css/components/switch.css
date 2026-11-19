@@ -1,0 +1,43 @@
+/* ==========================================================================
+   Interrupteur (esprit CeresSwitch)
+
+   <span class="switch"><input type="checkbox"><span class="track"></span></span>
+   La case native reste focalisable ; .track dessine le rail et le curseur.
+   .switch-row aligne un libellé à gauche et l'interrupteur à droite.
+   ========================================================================== */
+
+.switch-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.35rem 0;
+    color: var(--pb-text);
+    font-size: 0.9rem;
+}
+
+.switch { position: relative; display: inline-block; width: 2.6rem; height: 1.4rem; flex: none; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.switch .track {
+    position: absolute;
+    inset: 0;
+    background: var(--pb-bg-tertiary);
+    border: var(--pb-border-w) solid var(--pb-border);
+    border-radius: var(--pb-radius-full);
+    transition: background var(--pb-transition-fast), border-color var(--pb-transition-fast);
+}
+.switch .track::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0.15rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: var(--pb-text-secondary);
+    transform: translateY(-50%);
+    transition: transform var(--pb-transition-fast), background var(--pb-transition-fast);
+}
+.switch input:checked + .track { background: var(--pb-primary-alpha); border-color: var(--pb-primary); }
+.switch input:checked + .track::before { transform: translate(1.15rem, -50%); background: var(--pb-primary); }
+.switch input:focus-visible + .track { outline: 2px solid var(--pb-primary); outline-offset: 2px; }

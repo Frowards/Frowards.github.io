@@ -1,0 +1,29 @@
+/* ==========================================================================
+   Boutons (.btn)
+   Bouton plein .btn-primary et bouton discret .btn-ghost.
+   ========================================================================== */
+
+/* ---------- Boutons ---------- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.3rem;
+    border-radius: var(--pb-radius-md);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: var(--pb-border-w) solid transparent;
+    cursor: pointer;
+    transition: transform var(--pb-transition-fast), background var(--pb-transition-fast),
+                color var(--pb-transition-fast), box-shadow var(--pb-transition-fast);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary {
+    background: var(--pb-primary);
+    color: var(--pb-text-on-color);
+    box-shadow: var(--pb-shadow-primary), var(--pb-inset-highlight);
+}
+.btn-primary:hover { background: var(--pb-primary-hover); color: var(--pb-text-on-color); }
+.btn-ghost { border-color: var(--pb-border); color: var(--pb-text); background: var(--pb-surface-glass); }
+.btn-ghost:hover { background: var(--pb-bg-hover); color: var(--pb-text); }

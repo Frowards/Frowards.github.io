@@ -1,0 +1,36 @@
+/* ==========================================================================
+   Infobulle (data-tip)
+   Termes soulignés en pointillés et bulle unique #pb-tooltip
+   (js/components/Tooltip.js).
+   ========================================================================== */
+
+/* ---------- Infobulles (termes complexes, data-tip="CLE" i18n) ---------- */
+[data-tip] { cursor: help; }
+h3[data-tip], .term[data-tip] {
+    text-decoration: underline dotted;
+    text-decoration-color: var(--pb-text-muted);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+}
+#pb-tooltip {
+    position: fixed;
+    z-index: calc(var(--pb-z-panel) + 100);
+    max-width: 300px;
+    padding: 0.6rem 0.8rem;
+    background: var(--pb-bg-secondary);
+    border: var(--pb-border-w) solid var(--pb-border);
+    border-radius: var(--pb-radius-md);
+    box-shadow: var(--pb-shadow-lg);
+    color: var(--pb-text);
+    font-size: 0.8rem;
+    font-family: var(--pb-font-family);
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: normal;
+    line-height: 1.5;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity var(--pb-transition-fast), transform var(--pb-transition-fast);
+}
+#pb-tooltip.show { opacity: 1; transform: none; }

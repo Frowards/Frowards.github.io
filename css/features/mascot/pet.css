@@ -1,0 +1,18 @@
+/* ==========================================================================
+   Mascotte : le dragon (Pet.js) et la pomme du jeu (FetchGame.js), placés
+   en JS par transform depuis le coin haut gauche de l'écran
+   ========================================================================== */
+.mascot-pet, .mascot-toy {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 317;
+    pointer-events: none;
+    will-change: transform;
+}
+.mascot-pet[hidden], .mascot-toy[hidden] { display: none; }
+.mascot-toy { z-index: 318; }
+.mascot-pet__sprite, .mascot-toy__sprite { background-repeat: no-repeat; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3)); }
+
+/* Cachés pendant l'écran d'accueil */
+body.xp-open .mascot-pet, body.xp-open .mascot-toy { display: none; }

@@ -1,0 +1,128 @@
+/* ==========================================================================
+   Aperçu en direct sur l'écran d'accueil
+   Un clic sur une expérience (et sur Clair / Sombre) habille tout l'écran
+   dans ce style. Les variables --pb-* redéfinies sur .xp-welcome ne
+   concernent que l'écran d'accueil.
+   ========================================================================== */
+
+.xp-welcome, .xp-welcome__bg, .xp-card, .xp-tour__opt, .xp-chip, .xp-welcome .btn {
+    transition: background-color 0.45s, color 0.45s, border-color 0.45s, box-shadow 0.45s;
+}
+.xp-welcome { font-family: var(--xp-font-body, 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif); }
+.xp-welcome .xp-welcome__title { font-family: var(--xp-font-title, 'Cinzel', Georgia, serif); }
+
+/* --- Classique --- */
+.xp-welcome[data-preview="classic"][data-preview-mode="dark"] {
+    --pb-primary: #06B6D4; --pb-primary-hover: #0891B2; --pb-primary-rgb: 6, 182, 212; --pb-text-on-color: #ffffff;
+    --pb-bg: #0A0B10; --pb-card-bg: rgba(30, 34, 48, 0.7); --pb-text: #e4e6eb; --pb-text-secondary: #a0a4b0; --pb-text-muted: #9CA3AF;
+    --pb-border: #2a2e3d; --pb-border-light: #353945; --pb-surface-subtle: rgba(255, 255, 255, 0.03); --pb-surface-glass: rgba(25, 28, 36, 0.55);
+    --xp-font-title: 'Cinzel', Georgia, serif;
+}
+.xp-welcome[data-preview="classic"][data-preview-mode="light"] {
+    --pb-primary: #0E7490; --pb-primary-hover: #155E75; --pb-primary-rgb: 14, 116, 144; --pb-text-on-color: #ffffff;
+    --pb-bg: #ddd8cc; --pb-card-bg: rgba(226, 220, 208, 0.92); --pb-text: #25231d; --pb-text-secondary: #4f4b40; --pb-text-muted: #74705f;
+    --pb-border: #a59e8d; --pb-border-light: #887f6e; --pb-surface-subtle: rgba(55, 50, 35, 0.03); --pb-surface-glass: rgba(232, 228, 217, 0.45);
+    --xp-font-title: 'Cinzel', Georgia, serif;
+}
+
+/* --- Rétro : terminal ambre / listing papier --- */
+.xp-welcome[data-preview="retro"] {
+    --xp-font-title: 'VT323', 'Consolas', monospace;
+    --xp-font-body: 'VT323', 'Consolas', monospace;
+    font-size: 1.12rem;
+}
+.xp-welcome[data-preview="retro"][data-preview-mode="dark"] {
+    --pb-primary: #FFB000; --pb-primary-hover: #E09A00; --pb-primary-rgb: 255, 176, 0; --pb-text-on-color: #0A0803;
+    --pb-bg: #0A0803; --pb-card-bg: rgba(18, 14, 5, 0.94); --pb-text: #FFC861; --pb-text-secondary: #D7A24A; --pb-text-muted: #A88238;
+    --pb-border: #4A3613; --pb-border-light: #6A4E1C; --pb-surface-subtle: rgba(255, 176, 0, 0.035); --pb-surface-glass: rgba(18, 14, 5, 0.85);
+}
+.xp-welcome[data-preview="retro"][data-preview-mode="light"] {
+    --pb-primary: #A36A00; --pb-primary-hover: #7A4F00; --pb-primary-rgb: 163, 106, 0; --pb-text-on-color: #ffffff;
+    --pb-bg: #F4ECD6; --pb-card-bg: rgba(251, 246, 230, 0.97); --pb-text: #2B2108; --pb-text-secondary: #574515; --pb-text-muted: #7A6A3A;
+    --pb-border: #9C8350; --pb-border-light: #7E6838; --pb-surface-subtle: rgba(90, 70, 20, 0.04); --pb-surface-glass: rgba(251, 246, 230, 0.9);
+}
+.xp-welcome[data-preview="retro"] .xp-welcome__bg {
+    background:
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0 1px, transparent 1px 3px),
+        radial-gradient(ellipse at 50% 35%, rgba(var(--pb-primary-rgb), 0.14), transparent 65%),
+        var(--pb-bg);
+}
+.xp-welcome[data-preview="retro"][data-preview-mode="light"] .xp-welcome__bg {
+    background: repeating-linear-gradient(180deg, #F4ECD6 0 2.2rem, #E6EDD4 2.2rem 4.4rem);
+}
+.xp-welcome[data-preview="retro"] .xp-welcome__title { text-transform: uppercase; font-size: clamp(2.2rem, 6vw, 3.6rem); letter-spacing: 0.02em; }
+.xp-welcome[data-preview="retro"][data-preview-mode="dark"] .xp-welcome__title { text-shadow: 0 0 10px rgba(255, 176, 0, 0.5); }
+.xp-welcome[data-preview="retro"] .xp-welcome__title::after { content: "_"; animation: xp-blink 1s steps(1) infinite; }
+.xp-welcome[data-preview="retro"] :is(.xp-card, .xp-tour__opt, .xp-chip, .seg, .xp-go) { border-radius: 0; }
+.xp-welcome[data-preview="retro"] .xp-card__desc, .xp-welcome[data-preview="retro"] .xp-tour__opt small { font-size: 0.95rem; }
+.xp-welcome[data-preview="retro"] .xp-go { text-transform: uppercase; font-size: 1.3rem; }
+.xp-welcome[data-preview="retro"] .xp-go::before { content: "[ "; white-space: pre; }
+.xp-welcome[data-preview="retro"] .xp-go::after { content: " ]"; white-space: pre; }
+
+/* --- Futuriste : néons et grille --- */
+.xp-welcome[data-preview="future"] {
+    --xp-font-title: 'Orbitron', 'Segoe UI', sans-serif;
+    --xp-font-body: 'Exo 2', 'Segoe UI', sans-serif;
+}
+.xp-welcome[data-preview="future"][data-preview-mode="dark"] {
+    --pb-primary: #00E5FF; --pb-primary-hover: #00B8D4; --pb-primary-rgb: 0, 229, 255; --pb-text-on-color: #04060E;
+    --pb-bg: #04060E; --pb-card-bg: rgba(8, 18, 36, 0.62); --pb-text: #DDF6FF; --pb-text-secondary: #94B8CE; --pb-text-muted: #7894A8;
+    --pb-border: rgba(0, 229, 255, 0.26); --pb-border-light: rgba(0, 229, 255, 0.45); --pb-surface-subtle: rgba(0, 229, 255, 0.035); --pb-surface-glass: rgba(8, 18, 36, 0.5);
+}
+.xp-welcome[data-preview="future"][data-preview-mode="light"] {
+    --pb-primary: #0078AA; --pb-primary-hover: #005F87; --pb-primary-rgb: 0, 120, 170; --pb-text-on-color: #ffffff;
+    --pb-bg: #E6ECF8; --pb-card-bg: rgba(255, 255, 255, 0.78); --pb-text: #0B1B2B; --pb-text-secondary: #33506A; --pb-text-muted: #56708A;
+    --pb-border: rgba(0, 100, 150, 0.28); --pb-border-light: rgba(0, 100, 150, 0.48); --pb-surface-subtle: rgba(0, 100, 150, 0.04); --pb-surface-glass: rgba(255, 255, 255, 0.6);
+}
+.xp-welcome[data-preview="future"] .xp-welcome__bg {
+    background:
+        linear-gradient(rgba(var(--pb-primary-rgb), 0.07) 1px, transparent 1px) 0 0 / 46px 46px,
+        linear-gradient(90deg, rgba(var(--pb-primary-rgb), 0.07) 1px, transparent 1px) 0 0 / 46px 46px,
+        radial-gradient(50rem 30rem at 20% 10%, rgba(139, 92, 246, 0.2), transparent 65%),
+        radial-gradient(50rem 30rem at 85% 90%, rgba(var(--pb-primary-rgb), 0.16), transparent 65%),
+        var(--pb-bg);
+}
+.xp-welcome[data-preview="future"] .xp-welcome__title { text-transform: uppercase; letter-spacing: 0.06em; font-size: clamp(1.4rem, 3.4vw, 2.4rem); }
+.xp-welcome[data-preview="future"][data-preview-mode="dark"] .xp-welcome__title { text-shadow: 0 0 22px rgba(0, 229, 255, 0.35); }
+.xp-welcome[data-preview="future"] :is(.xp-card, .xp-tour__opt, .xp-go) {
+    border-radius: 0;
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+}
+.xp-welcome[data-preview="future"] .xp-card.is-selected, .xp-welcome[data-preview="future"] .xp-tour__opt.is-selected { box-shadow: inset 0 0 0 1px var(--pb-primary), 0 0 24px rgba(var(--pb-primary-rgb), 0.35); }
+.xp-welcome[data-preview="future"] .xp-go { text-transform: uppercase; letter-spacing: 0.12em; font-family: 'Orbitron', sans-serif; font-size: 0.9rem; box-shadow: 0 0 22px rgba(var(--pb-primary-rgb), 0.5); }
+
+/* --- Gamer : arcade pixel --- */
+.xp-welcome[data-preview="gamer"] { --xp-font-title: 'Press Start 2P', monospace; }
+.xp-welcome[data-preview="gamer"][data-preview-mode="dark"] {
+    --pb-primary: #FF3EA5; --pb-primary-hover: #E0218A; --pb-primary-rgb: 255, 62, 165; --pb-text-on-color: #ffffff;
+    --pb-bg: #130B26; --pb-card-bg: #1C1238; --pb-text: #FFFFFF; --pb-text-secondary: #CFC4F7; --pb-text-muted: #A796DB;
+    --pb-border: #6D28D9; --pb-border-light: #8B5CF6; --pb-surface-subtle: rgba(255, 255, 255, 0.035); --pb-surface-glass: rgba(28, 18, 56, 0.94);
+}
+.xp-welcome[data-preview="gamer"][data-preview-mode="light"] {
+    --pb-primary: #C2185B; --pb-primary-hover: #9C1349; --pb-primary-rgb: 194, 24, 91; --pb-text-on-color: #ffffff;
+    --pb-bg: #FFF8E7; --pb-card-bg: #FFFFFF; --pb-text: #1B1036; --pb-text-secondary: #463673; --pb-text-muted: #66579A;
+    --pb-border: #6D28D9; --pb-border-light: #5B21B6; --pb-surface-subtle: rgba(109, 40, 217, 0.04); --pb-surface-glass: rgba(255, 255, 255, 0.95);
+}
+.xp-welcome[data-preview="gamer"] .xp-welcome__bg {
+    background:
+        radial-gradient(2px 2px at 12% 18%, #FFE66D 99%, transparent),
+        radial-gradient(2px 2px at 72% 12%, #A3FF12 99%, transparent),
+        radial-gradient(2px 2px at 88% 64%, #FFE66D 99%, transparent),
+        radial-gradient(2px 2px at 30% 82%, #FF3EA5 99%, transparent),
+        radial-gradient(2px 2px at 54% 44%, #8B5CF6 99%, transparent),
+        radial-gradient(ellipse at 50% 0%, rgba(109, 40, 217, 0.45), transparent 60%),
+        var(--pb-bg);
+}
+.xp-welcome[data-preview="gamer"][data-preview-mode="light"] .xp-welcome__bg {
+    background: radial-gradient(ellipse at 50% 0%, #FFE9F4 0%, #FFF8E7 60%);
+}
+.xp-welcome[data-preview="gamer"] .xp-welcome__title { font-size: clamp(1rem, 2.6vw, 1.7rem); line-height: 1.5; text-shadow: 3px 3px 0 rgba(var(--pb-primary-rgb), 0.45); }
+.xp-welcome[data-preview="gamer"] :is(.xp-card, .xp-tour__opt, .xp-chip, .seg, .xp-go) { border-radius: 0; }
+.xp-welcome[data-preview="gamer"] :is(.xp-card, .xp-tour__opt) { border-width: 3px; box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.35); }
+.xp-welcome[data-preview="gamer"] :is(.xp-card, .xp-tour__opt).is-selected { box-shadow: 5px 5px 0 var(--pb-primary); }
+.xp-welcome[data-preview="gamer"] .xp-card__name { font-family: 'Press Start 2P', monospace; font-size: 0.7rem; line-height: 1.6; }
+.xp-welcome[data-preview="gamer"] .xp-go { font-family: 'Press Start 2P', monospace; font-size: 0.72rem; text-transform: uppercase; box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.4); }
+.xp-welcome[data-preview="gamer"] .xp-go:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4); }
+@media (prefers-reduced-motion: reduce) {
+    .xp-welcome[data-preview="retro"] .xp-welcome__title::after { animation: none; }
+}

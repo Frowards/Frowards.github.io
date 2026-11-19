@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="Portfolio de Pierre Bernard-Darmann, développeur full-stack orienté front-end et UX : du jeu vidéo VR à l'ERP web d'un groupe de distribution. Framework front maison, API PHP 8, PostgreSQL, UI/UX.">
+<title>Pierre Bernard-Darmann - Développeur full-stack, front-end et UX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=JetBrains+Mono:wght@400;600&family=VT323&family=Orbitron:wght@500;700;900&family=Exo+2:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<!-- Thème et expérience appliqués avant le premier affichage (script classique, bloquant) -->
+<script src="js/boot/anti-flash.js"></script>
+</head>
+<body>
+
+<!-- ================= FONDS ANIMÉS (particules, fluide WebGL) ================= -->
+<canvas id="pb-particles" hidden aria-hidden="true"></canvas>
+<canvas id="pb-fluid" hidden aria-hidden="true"></canvas>
+
+<!-- ================= EN-TÊTE ================= -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#haut">
+      <span class="brand-name logo-text">Pierre Bernard-Darmann</span>
+    </a>
+    <nav class="topnav" aria-label="Navigation principale">
+      <a href="#ceres" class="nav-ceres" aria-label="Ceres"><img class="ceres-logo-sm" src="assets/img/ceres-logo.svg" alt="" aria-hidden="true"><span class="nav-txt">Ceres</span></a>
+      <a href="#parcours" data-i18n-aria="NAV.JOURNEY" aria-label="Parcours"><svg data-icon="flag" class="nav-ico"></svg><span class="nav-txt" data-i18n="NAV.JOURNEY">Parcours</span></a>
+      <a href="#competences" data-i18n-aria="NAV.SKILLS" aria-label="Compétences"><svg data-icon="grid" class="nav-ico"></svg><span class="nav-txt" data-i18n="NAV.SKILLS">Compétences</span></a>
+      <a href="#projets" data-i18n-aria="NAV.PROJECTS" aria-label="Projets"><svg data-icon="bulb" class="nav-ico"></svg><span class="nav-txt" data-i18n="NAV.PROJECTS">Projets</span></a>
+      <a class="cta" href="#contact" data-i18n-aria="NAV.CONTACT" aria-label="Me contacter"><svg data-icon="mail" class="nav-ico"></svg><span class="nav-txt" data-i18n="NAV.CONTACT">Me contacter</span></a>
+    </nav>
+    <div class="topbar-actions">
+      <button type="button" class="toggle-btn" id="btn-mode" aria-label="Passer en mode clair">
+        <svg data-icon="sun" class="mode-sun"></svg>
+        <svg data-icon="moon" class="mode-moon" hidden></svg>
+      </button>
+      <button type="button" class="toggle-btn" id="btn-theme" data-i18n-aria="THEME.OPEN_ARIA" aria-label="Personnaliser le thème">
+        <svg data-icon="settings"></svg>
+      </button>
+      <button type="button" class="toggle-btn" id="btn-lang" aria-label="Switch language">
+        <!-- Drapeaux : petites illustrations multicolores (couleurs officielles),
+             pas des pictos monochromes du registre d'icônes : gardés en ligne -->
+        <svg class="flag flag-en" viewBox="0 0 60 30" aria-hidden="true"><rect width="60" height="30" fill="#012169"/><path d="M0,0 60,30 M60,0 0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 60,30 M60,0 0,30" stroke="#C8102E" stroke-width="3.5"/><path d="M30,0 V30 M0,15 H60" stroke="#fff" stroke-width="10"/><path d="M30,0 V30 M0,15 H60" stroke="#C8102E" stroke-width="6"/></svg>
+        <svg class="flag flag-fr" viewBox="0 0 60 30" aria-hidden="true" hidden><rect width="20" height="30" fill="#0055A4"/><rect x="20" width="20" height="30" fill="#fff"/><rect x="40" width="20" height="30" fill="#EF4135"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ================= PANNEAU DE PERSONNALISATION DU THÈME ================= -->
+<div class="theme-panel" id="theme-panel" hidden>
+  <div class="theme-panel__backdrop" data-close></div>
+  <div class="theme-panel__card" role="dialog" aria-modal="true" aria-labelledby="theme-panel-title">
+    <div class="theme-panel__head">
+      <h3 id="theme-panel-title" data-i18n="THEME.TITLE">Personnaliser le thème</h3>
+      <button type="button" class="toggle-btn" data-close data-i18n-aria="THEME.CLOSE" aria-label="Fermer">
+        <svg data-icon="close"></svg>
+      </button>
+    </div>
+    <div class="theme-panel__cols">
+      <div class="theme-panel__body">
+        <div class="theme-tabs" role="tablist" data-i18n-aria="THEME.TABS_ARIA" aria-label="Sections du thème">
+          <button type="button" role="tab" id="tab-colors" data-tab="colors" aria-controls="pane-colors" aria-selected="true" data-i18n="THEME.TAB_COLORS">Couleurs</button>
+          <button type="button" role="tab" id="tab-style" data-tab="style" aria-controls="pane-style" aria-selected="false" tabindex="-1" data-i18n="THEME.TAB_STYLE">Style</button>
+          <button type="button" role="tab" id="tab-ambience" data-tab="ambience" aria-controls="pane-ambience" aria-selected="false" tabindex="-1" data-i18n="THEME.TAB_AMBIENCE">Fond et effets</button>
+          <button type="button" role="tab" id="tab-share" data-tab="share" aria-controls="pane-share" aria-selected="false" tabindex="-1" data-i18n="THEME.TAB_SHARE">Partage</button>
+        </div>
+
+        <!-- Onglet Couleurs -->
+        <div class="theme-pane" id="pane-colors" role="tabpanel" aria-labelledby="tab-colors" data-pane="colors">
+          <div class="theme-field">
+            <span class="theme-label" data-i18n="THEME.MODE">Mode</span>
+            <div class="seg" id="opt-mode">
+              <button type="button" data-mode="auto" data-i18n="THEME.MODE_AUTO">Auto</button>
+              <button type="button" data-mode="light" data-i18n="THEME.MODE_LIGHT">Clair</button>
+              <button type="button" data-mode="dark" data-i18n="THEME.MODE_DARK">Sombre</button>
+            </div>
+          </div>
+          <div class="theme-field">
+            <span class="theme-label" data-i18n="THEME.ACCENT">Couleur d'accent</span>
+            <div class="swatches" id="opt-accent">
+              <button type="button" class="swatch" data-accent="#06B6D4" data-default style="--sw:#06B6D4" aria-label="Cyan"></button>
+              <button type="button" class="swatch" data-accent="#10B981" style="--sw:#10B981" aria-label="Émeraude"></button>
+              <button type="button" class="swatch" data-accent="#7C5CFF" style="--sw:#7C5CFF" aria-label="Violet"></button>
+              <button type="button" class="swatch" data-accent="#3498db" style="--sw:#3498db" aria-label="Bleu"></button>
+              <button type="button" class="swatch" data-accent="#F59E0B" style="--sw:#F59E0B" aria-label="Ambre"></button>
+              <button type="button" class="swatch" data-accent="#F43F5E" style="--sw:#F43F5E" aria-label="Rose"></button>
+              <button type="button" class="swatch" data-accent="#93C318" style="--sw:#93C318" aria-label="Lime"></button>
+              <label class="swatch-custom" data-i18n-title="THEME.ACCENT_CUSTOM" title="Couleur personnalisée">
+                <input type="color" id="opt-accent-custom" value="#06B6D4" data-i18n-aria="THEME.ACCENT_CUSTOM" aria-label="Couleur personnalisée">
+              </label>
+            </div>
+          </div>
+          <div class="theme-field">
+            <span class="theme-label" data-i18n="THEME.BORDER_COLOR_TITLE">Couleur des bordures</span>
+            <div class="color-row">
+              <span data-i18n="THEME.BORDER_COLOR">Couleur</span>
+              <label class="swatch-custom" data-i18n-title="THEME.BORDER_COLOR" title="Couleur">
+                <input type="color" id="opt-bordercolor" value="#2a2e3d" data-i18n-aria="THEME.BORDER_COLOR" aria-label="Couleur">
+              </label>
+              <button type="button" class="mini-btn" id="opt-bordercolor-auto" data-i18n="THEME.BORDER_AUTO">Auto</button>
+            </div>
+          </div>
+          <p class="theme-note" id="opt-event-note" hidden></p>
+        </div>
+
+        <!-- Onglet Style -->
+        <div class="theme-pane" id="pane-style" role="tabpanel" aria-labelledby="tab-style" data-pane="style" hidden>
+          <div class="theme-field">
+            <span class="theme-label" data-i18n="THEME.BORDERS">Bordures</span>
+            <label class="slider-row">
+              <span data-i18n="THEME.RADIUS">Arrondis</span>
+              <input type="range" id="opt-radius" min="0" max="200" step="5" value="100">
+              <output id="opt-radius-val">100%</output>
+            </label>
+            <label class="slider-row">
+              <span data-i18n="THEME.BORDER_W">Épaisseur</span>
+              <input type="range" id="opt-borderw" min="1" max="4" step="1" value="1">
+              <output id="opt-borderw-val">1px</output>
+            </label>
+          </div>
+          <div class="theme-field">
+            <span class="theme-label" data-i18n="THEME.FONTS">Polices</span>
+            <label class="select-row">
+              <span data-i18n="THEME.FONT_TITLE">Titres</span>
+              <select id="opt-font-title" class="pb-select">
+                <option value="cinzel" data-i18n="THEME.FONT_CINZEL">Cinzel</option>
+                <option value="serif" data-i18n="THEME.FONT_SERIF">Serif</option>
+                <option value="system" data-i18n="THEME.FONT_SYSTEM">Système</option>
+                <option value="mono" data-i18n="THEME.FONT_MONO">Mono</option>
+                <option value="terminal" data-i18n="THEME.FONT_TERMINAL">Terminal</option>
+                <option value="orbitron" data-i18n="THEME.FONT_ORBITRON">Orbitron</option>
+                <option value="exo" data-i18n="THEME.FONT_EXO">Exo</option>
+                <option value="pixel" data-i18n="THEME.FONT_PIXEL">Pixel</option>
+              </select>
+            </label>
+            <label class="select-row">
+              <span data-i18n="THEME.FONT_BODY">Texte</span>
+              <select id="opt-font-body" class="pb-select">
+                <option value="system" data-i18n="THEME.FONT_SYSTEM">Système</option>
+                <option value="serif" data-i18n="THEME.FONT_SERIF">Serif</option>
+                <option value="cinzel" data-i18n="THEME.FONT_CINZEL">Cinzel</option>
+                <option value="mono" data-i18n="THEME.FONT_MONO">Mono</option>
+                <option value="terminal" data-i18n="THEME.FONT_TERMINAL">Terminal</option>
+                <option value="orbitron" data-i18n="THEME.FONT_ORBITRON">Orbitron</option>
+                <option value="exo" data-i18n="THEME.FONT_EXO">Exo</option>
+                <option value="pixel" data-i18n="THEME.FONT_PIXEL">Pixel</option>
+              </select>
+            </label>
+            <label class="slider-row">
+              <span data-i18n="THEME.FONT_SCALE">Taille du texte</span>
+              <input type="range" id="opt-fontscale" min="80" max="125" step="5" value="100">
+              <output id="opt-fontscale-val">100%</output>
+            </label>
+          </div>
+          <div class="theme-field">
+            <span class="theme-label" data-i18n="THEME.EFFECTS">Effets</span>
+            <label class="switch-row">
+              <span data-i18n="THEME.GLASS">Transparence (verre)</span>
+              <span class="switch"><input type="checkbox" id="opt-glass"><span class="track"></span></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Onglet Fond et effets -->
+        <div class="theme-pane" id="pane-ambience" role="tabpanel" aria-labelledby="tab-ambience" data-pane="ambience" hidden>
+          <div class="theme-field">
+            <span class="theme-label" data-i18n="THEME.FX">Effet de fond</span>
+            <div class="fx-grid" id="opt-fx">
+              <button type="button" data-fx="default" data-i18n="THEME.FX_DEFAULT">Points reliés</button>
+              <button type="button" data-fx="snow" data-i18n="THEME.FX_SNOW">Neige</button>
+              <button type="button" data-fx="flakes" data-i18n="THEME.FX_FLAKES">Flocons</button>
+              <button type="button" data-fx="stars" data-i18n="THEME.FX_STARS">Étoiles</button>
+              <button type="button" data-fx="bubbles" data-i18n="THEME.FX_BUBBLES">Bulles</button>
+              <button type="button" data-fx="fireflies" data-i18n="THEME.FX_FIREFLIES">Lucioles</button>
+              <button type="button" data-fx="confetti" data-i18n="THEME.FX_CONFETTI">Confettis</button>
+              <button type="button" data-fx="halloween" data-i18n="THEME.FX_HALLOWEEN">Halloween</button>
+              <button type="button" data-fx="easter" data-i18n="THEME.FX_EASTER">Pâques</button>
+              <button type="button" data-fx="ribbons" data-i18n="THEME.FX_RIBBONS">Rubans</button>
+              <button type="button" data-fx="hexgrid" data-i18n="THEME.FX_HEXGRID">Grille hexagonale</button>
+              <button type="button" data-fx="coderain" data-i18n="THEME.FX_CODERAIN">Pluie de code</button>
+              <button type="button" data-fx="fluid" data-i18n="THEME.FX_FLUID">Fluide</button>
+              <button type="button" data-fx="off" data-i18n="THEME.FX_OFF">Désactivé</button>
+            </div>
+            <div class="fx-params" id="opt-fx-params" hidden></div>
+          </div>
+          <div class="theme-field">
+            <span class="theme-label" data-i18n="THEME.INTER">Interaction souris</span>
+            <div class="fx-grid" id="opt-inter">
+              <button type="button" data-inter="default" data-i18n="THEME.INTER_DEFAULT">Auto (selon l'effet)</button>
+              <button type="button" data-inter="none" data-i18n="THEME.INTER_NONE">Aucune</button>
+              <button type="button" data-inter="repulse" data-i18n="THEME.INTER_REPULSE">Répulsion</button>
+              <button type="button" data-inter="attract" data-i18n="THEME.INTER_ATTRACT">Attraction</button>
+              <button type="button" data-inter="grab" data-i18n="THEME.INTER_GRAB">Toile</button>
+              <button type="button" data-inter="bubble" data-i18n="THEME.INTER_BUBBLE">Loupe</button>
+              <button type="button" data-inter="blackhole" data-i18n="THEME.INTER_BLACKHOLE">Trou noir</button>
+            </div>
+          </div>
+          <div class="theme-field">
+            <span class="theme-label" data-i18n="THEME.PAGEBG">Fond de page</span>
+            <div class="fx-grid fx-grid--4" id="opt-pagebg">
+              <button type="button" data-bg="default" data-i18n="THEME.PAGEBG_DEFAULT">Standard</button>
+              <button type="button" data-bg="gradient" data-i18n="THEME.PAGEBG_GRADIENT">Dégradé</button>
+              <button type="button" data-bg="underwater" data-i18n="THEME.PAGEBG_UNDERWATER">Sous l'eau</button>
+              <button type="button" data-bg="image" data-i18n="THEME.PAGEBG_IMAGE">Image</button>
+            </div>
+            <div class="fx-params" id="opt-pagebg-params" hidden></div>
+            <input type="file" id="opt-pagebg-file" accept="image/*" hidden>
+          </div>
+          <div class="theme-field">
+            <span class="theme-label" data-i18n="THEME.DECO">Décorations des cartes</span>
+            <div class="deco-grid" id="opt-deco"></div>
+          </div>
+        </div>
+
+        <!-- Onglet Partage -->
+        <div class="theme-pane" id="pane-share" role="tabpanel" aria-labelledby="tab-share" data-pane="share" hidden>
+          <div class="theme-field">
+            <span class="theme-label" data-i18n="THEME.SHARE">Partager mon thème</span>
+            <p class="theme-note" data-i18n="THEME.SHARE_TEXT">Enregistrez votre thème dans un fichier pour le retrouver plus tard ou l'envoyer à quelqu'un : couleurs, style, effets, fond de page et décorations.</p>
+            <div class="share-actions">
+              <button type="button" class="btn btn-primary btn-sm" id="opt-export" data-i18n="THEME.EXPORT">Exporter le thème</button>
+              <button type="button" class="btn btn-ghost btn-sm" id="opt-import" data-i18n="THEME.IMPORT">Importer un thème</button>
+              <input type="file" id="opt-import-file" accept=".json,application/json" hidden>
+            </div>
+            <p class="theme-note theme-note--status" id="opt-share-msg" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+      </div>
+      <aside class="theme-panel__side">
+        <span class="theme-label" data-i18n="THEME.DEMO">Aperçu</span>
+        <div class="demo-card glass">
+          <div class="demo-card__head">
+            <b data-i18n="THEME.DEMO_TITLE">Carte de démonstration</b>
+            <button type="button" class="toggle-btn" id="opt-random" data-i18n-aria="THEME.RANDOM" aria-label="Thème aléatoire">
+              <svg data-icon="dice"></svg>
+            </button>
+          </div>
+          <p data-i18n="THEME.DEMO_TEXT">Ce bloc reflète en direct vos réglages : couleurs, arrondis, bordures et transparence.</p>
+          <div class="demo-card__row">
+            <span class="chip"><svg data-icon="globe"></svg><span data-i18n="THEME.DEMO_CHIP">Exemple</span></span>
+            <span class="btn btn-primary btn-sm" data-i18n="THEME.DEMO_BTN">Bouton</span>
+            <b class="demo-card__kpi">42</b>
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary btn-sm" id="opt-reset" data-i18n="THEME.RESET">Revenir au thème de base</button>
+        <div class="events-box">
+          <span class="theme-label" data-i18n="THEME.EVENTS">Thèmes d'événements</span>
+          <p class="theme-note" data-i18n="THEME.EVENTS_TEXT">Pendant leur période, ils remplacent l'accent, l'effet et les décorations.</p>
+          <ul class="events-list" id="opt-events"></ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<main id="haut">
+
+  <!-- ================= HÉROS ================= -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="hero-id">
+          <img class="pb-photo hero-photo" src="assets/img/pierre.jpg" width="360" height="360" alt="Pierre Bernard-Darmann">
+          <div class="hero-id__txt">
+            <strong class="hero-name">Pierre Bernard-Darmann</strong>
+            <span class="status-pill"><span class="status-dot" aria-hidden="true"></span><span data-i18n="HERO.STATUS">Ouvert aux nouvelles opportunités</span></span>
+          </div>
+        </div>
+        <span class="eyebrow" data-i18n="HERO.EYEBROW">Développeur full-stack - Front-end et UX</span>
+        <h1><span data-i18n="HERO.TITLE_1">Du pixel à la</span> <span class="logo-text" data-i18n="HERO.TITLE_2">base de données</span>.</h1>
+        <p class="lead" data-i18n="HERO.LEAD">
+          Formé au jeu vidéo, passé par la VR et les serious games, je conçois aujourd'hui
+          l'ERP web d'un groupe de distribution, utilisé chaque jour par des centaines de personnes :
+          interfaces, logique métier, API et bases de données. Et ce que je préfère,
+          c'est la partie que l'on voit et que l'on touche : l'UX et l'UI.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contact" data-i18n="HERO.BTN_CONTACT">Me contacter</a>
+          <a class="btn btn-ghost" href="#ceres" data-i18n="HERO.BTN_WORK">Voir mon travail</a>
+        </div>
+      </div>
+
+      <!-- Élément signature : la fenêtre-lanceur, clin d'oeil aux écosystèmes
+           d'applications que je construis au quotidien -->
+      <div class="launcher-wrap">
+        <canvas class="launcher-fx" aria-hidden="true"></canvas>
+        <div class="launcher glass" role="img" data-i18n-aria="LAUNCH.ARIA" aria-label="Fenêtre d'application listant mes domaines : interfaces web, design system, API PHP, PostgreSQL, Delphi, expérience utilisateur">
+          <div class="launcher-chrome">
+            <span class="launcher-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+            <span class="launcher-title" data-i18n="LAUNCH.TITLE">mon-quotidien.app</span>
+          </div>
+          <div class="launcher-grid" aria-hidden="true">
+            <div class="tile">
+              <svg data-icon="monitor"></svg>
+              <b data-i18n="LAUNCH.T1">Interfaces web</b><small data-i18n="LAUNCH.S1">130+ écrans métier</small>
+            </div>
+            <div class="tile">
+              <svg data-icon="grid"></svg>
+              <b>Design system</b><small data-i18n="LAUNCH.S2">30+ composants</small>
+            </div>
+            <div class="tile">
+              <svg data-icon="php"></svg>
+              <b>API PHP 8</b><small data-i18n="LAUNCH.S3">REST, sur mesure</small>
+            </div>
+            <div class="tile">
+              <svg data-icon="postgresql"></svg>
+              <b>PostgreSQL</b><small data-i18n="LAUNCH.S4">modélisation, audit</small>
+            </div>
+            <div class="tile">
+              <svg data-icon="delphi"></svg>
+              <b>Delphi</b><small data-i18n="LAUNCH.S5">outils historiques</small>
+            </div>
+            <div class="tile">
+              <svg data-icon="user"></svg>
+              <b>UI / UX</b><small data-i18n="LAUNCH.S6">de l'idée à l'écran</small>
+            </div>
+          </div>
+          <div class="launcher-status" aria-hidden="true">
+            <span data-i18n="LAUNCH.STATUS">6 domaines chargés</span>
+            <span class="ok" data-i18n="LAUNCH.PROD">● en production</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CERES ================= -->
+  <section id="ceres" class="alt">
+    <div class="wrap split">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-i18n="CERES.EYEBROW">Projet principal</span>
+        <div class="title-logo-row">
+          <!-- Logo Ceres : image multicolore (fichier), pas une icône du registre -->
+          <img class="ceres-logo" src="assets/img/ceres-logo.svg" alt="" aria-hidden="true">
+          <h2 data-i18n-html="CERES.TITLE">Ceres : faire passer l'<span class="term" data-tip="TIP.ERP">ERP</span> d'un groupe de distribution au web</h2>
+        </div>
+        <p data-i18n="CERES.INTRO">
+          Chez le Groupe Blachère, acteur national de la distribution de fruits et légumes
+          avec plus de 160 magasins (Mangeons Frais, Provenc'Halles et d'autres enseignes),
+          je suis à l'initiative de la migration de l'ERP interne : des applications Delphi
+          vers Ceres, une plateforme web moderne, de la proposition à la mise en œuvre en
+          passant par la conception. Achats, tarifs, prévisions, logistique, facturation,
+          supervision : plus de 130 écrans métier, construits sur un framework maison dont
+          j'ai co-élaboré les logiques de création, et dont environ 90 % de l'interface est
+          de ma main, du design au code.
+        </p>
+      </div>
+
+      <div class="section-body">
+        <!-- Mini-graphiques des indicateurs : chaque tracé est propre à son KPI et
+             animé en CSS (stats.css) ; illustrations uniques, gardées en ligne -->
+        <div class="stats reveal">
+          <div class="stat glass">
+            <div class="stat-top"><b>130+</b>
+              <svg class="stat-viz" viewBox="0 0 64 28" aria-hidden="true">
+                <path class="viz-area" d="M2 24 L12 20 L22 21 L32 14 L42 12 L52 8 L62 4 V26 H2 Z"/>
+                <path class="viz-line" d="M2 24 L12 20 L22 21 L32 14 L42 12 L52 8 L62 4"/>
+              </svg>
+            </div>
+            <span data-i18n="CERES.STAT_1">écrans métier, et plus de 100 onglets</span>
+          </div>
+          <div class="stat glass">
+            <div class="stat-top"><b>30+</b>
+              <svg class="stat-viz" viewBox="0 0 64 28" aria-hidden="true"><g class="viz-bars">
+                  <rect x="4" y="16" width="7" height="10" rx="1.5"/>
+                  <rect x="15" y="12" width="7" height="14" rx="1.5"/>
+                  <rect x="26" y="18" width="7" height="8" rx="1.5"/>
+                  <rect x="37" y="8" width="7" height="18" rx="1.5"/>
+                  <rect x="48" y="4" width="7" height="22" rx="1.5"/>
+              </g></svg>
+            </div>
+            <span data-i18n="CERES.STAT_2">composants réutilisables du design system</span>
+          </div>
+          <div class="stat glass">
+            <div class="stat-top"><b>2</b>
+              <svg class="stat-viz stat-viz--donut" viewBox="0 0 28 28" aria-hidden="true">
+                <circle class="viz-donut-track" cx="14" cy="14" r="10"/>
+                <circle class="viz-donut-seg" cx="14" cy="14" r="10" transform="rotate(-90 14 14)"/>
+              </svg>
+            </div>
+            <span data-i18n="CERES.STAT_3">langues gérées nativement (FR / EN)</span>
+          </div>
+          <div class="stat glass" data-tip="TIP.STAT0">
+            <div class="stat-top"><b>0</b>
+              <svg class="stat-viz" viewBox="0 0 64 28" aria-hidden="true">
+                <path class="viz-line viz-flat" d="M2 22 L62 22"/>
+              </svg>
+            </div>
+            <span data-i18n="CERES.STAT_4">framework front externe : tout est maison</span>
+          </div>
+        </div>
+
+        <div class="cards">
+          <div class="card glass reveal">
+            <svg data-icon="file-text"></svg>
+            <h3 data-i18n="CERES.CARD_1_T" data-tip="TIP.FRAMEWORK">Architecture front</h3>
+            <p data-i18n="CERES.CARD_1_P">Co-conception d'un framework en JavaScript natif (modules ES) : routage, composants, cache, gestion des droits, internationalisation, versioning et déploiement par page.</p>
+          </div>
+          <div class="card glass reveal fav">
+            <svg data-icon="focus"></svg>
+            <!-- Cœur « liquide » : illustration animée (vague découpée par un clipPath
+                 dont l'id doit être unique dans la page), gardée en ligne -->
+            <span class="fav-badge" data-tip="FAV.BADGE" data-i18n-aria="FAV.BADGE" aria-label="Ce que je préfère" role="img"><svg viewBox="0 1.25 24 24" aria-hidden="true"><defs><clipPath id="favclip-a"><path d="M12 21s-7.5-4.6-9.5-9.2C1.2 8.6 3.4 5.5 6.5 5.5c2 0 3.7 1.2 5.5 3.2 1.8-2 3.5-3.2 5.5-3.2 3.1 0 5.3 3.1 4 6.3C19.5 16.4 12 21 12 21z"/></clipPath></defs><path class="fav-heart-outline" d="M12 21s-7.5-4.6-9.5-9.2C1.2 8.6 3.4 5.5 6.5 5.5c2 0 3.7 1.2 5.5 3.2 1.8-2 3.5-3.2 5.5-3.2 3.1 0 5.3 3.1 4 6.3C19.5 16.4 12 21 12 21z"/><g clip-path="url(#favclip-a)"><g class="fav-liquid-bob"><path class="fav-liquid" d="M0 12.8 Q3 9.6 6 12.8 T12 12.8 T18 12.8 T24 12.8 T30 12.8 T36 12.8 T42 12.8 T48 12.8 V26 H0 Z"/></g></g></svg></span>
+            <h3 data-i18n="CERES.CARD_2_T">UI / UX de bout en bout</h3>
+            <p data-i18n="CERES.CARD_2_P">Environ 90 % de l'interface de Ceres, du design au code : design system, système de thèmes très poussé (effets de fond animés, fluide WebGL, fonds de page, décorations, thèmes d'événements, export / import) et bien plus encore. Le panneau de personnalisation de ce site (roue crantée en haut à droite) en reprend les grandes idées : essayez-le !</p>
+          </div>
+          <div class="card glass reveal">
+            <svg data-icon="terminal"></svg>
+            <h3 data-i18n="CERES.CARD_3_T">API et logique métier</h3>
+            <p data-i18n="CERES.CARD_3_P">Une large part du back-end : API REST en PHP 8, routage par attributs, couche Entity / Repository, authentification, multi-société, génération de PDF.</p>
+          </div>
+          <div class="card glass reveal">
+            <svg data-icon="database"></svg>
+            <h3 data-i18n="CERES.CARD_4_T">Bases de données</h3>
+            <p data-i18n="CERES.CARD_4_P">Participation à la conception de la base PostgreSQL et création de tables pour les nouvelles fonctionnalités, requêtes complexes, journaux d'audit, et dialogue avec l'ERP Oracle historique du groupe.</p>
+          </div>
+          <div class="card glass reveal">
+            <svg data-icon="list"></svg>
+            <h3 data-i18n="CERES.CARD_5_T">Intégrations</h3>
+            <p data-i18n="CERES.CARD_5_P">Connexion de la plateforme à son écosystème : ERP Oracle, caisses des magasins, outils décisionnels, et collaboration avec des partenaires comme Yooz, Evoliz ou Carrefour - API, échanges et gestion de fichiers.</p>
+          </div>
+          <div class="card glass reveal">
+            <svg data-icon="cart"></svg>
+            <h3 data-i18n="CERES.CARD_8_T">Portail de commandes des magasins</h3>
+            <p data-i18n="CERES.CARD_8_P">Front repris seul : évolutions, passage sous Git, déploiement automatisé. Une bonne partie du back refaite, dont la correction de lenteurs qui allaient jusqu'à 17 secondes de chargement.</p>
+          </div>
+          <div class="card glass reveal">
+            <svg data-icon="shield-check"></svg>
+            <h3 data-i18n="CERES.CARD_6_T" data-tip="TIP.HA">Production et fiabilité</h3>
+            <p data-i18n="CERES.CARD_6_P">Participation au déploiement et au suivi en production : conteneurs Docker, haute disponibilité, supervision, analyse et résolution d'incidents.</p>
+          </div>
+          <div class="card glass reveal">
+            <svg data-icon="presentation"></svg>
+            <h3 data-i18n="CERES.CARD_7_T">Organisation et transmission</h3>
+            <p data-i18n="CERES.CARD_7_P">Mise en place d'un Trello pour répartir les tâches et savoir qui fait quoi, encadrement de stagiaires, ateliers de présentation et de formation des utilisateurs pour tous les pôles du groupe : comptabilité, acheteurs, direction, logistique. Prochaine étape : encadrer une équipe.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PARCOURS ================= -->
+  <section id="parcours">
+    <div class="wrap split">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-i18n="TL.EYEBROW">Parcours</span>
+        <h2 data-i18n="TL.TITLE">Trois univers, un même métier : construire</h2>
+        <p data-i18n="TL.INTRO">Du moteur de jeu aux outils d'entreprise, chaque étape m'a appris une façon différente de créer du logiciel qui sert vraiment ses utilisateurs.</p>
+      </div>
+
+      <div class="section-body">
+        <div class="timeline">
+          <div class="tl-item now reveal">
+            <span class="tl-date" data-i18n="TL.T1_DATE">Mai 2025 - aujourd'hui</span>
+            <h3 data-i18n="TL.T1_TITLE">Analyste programmeur - CDI</h3>
+            <div class="tl-org"><a href="https://www.groupe-blachere.com/" target="_blank" rel="noopener" data-i18n="TL.T1_ORG">Groupe Blachère - DSI F&amp;L, Châteaurenard (13), distribution de fruits et légumes, plus de 160 magasins (Mangeons Frais, Provenc'Halles, entre autres)</a></div>
+            <ul>
+              <li data-i18n="TL.T1_L1">À l'initiative de la migration de l'ERP interne, d'applications Delphi vers Ceres, une plateforme web moderne : proposition, conception, mise en œuvre.</li>
+              <li data-i18n="TL.T1_L2">Environ 90 % de l'interface de Ceres, du design au code : plus de 130 écrans métier et 100 onglets, design system, système de thèmes et bien plus encore.</li>
+              <li data-i18n="TL.T1_L3">Une large part du back : API REST en PHP 8, conception de la base PostgreSQL, intégrations (ERP Oracle, caisses des magasins, Yooz, Evoliz, Carrefour).</li>
+              <li data-i18n="TL.T1_L4">Portail de commandes des magasins : front repris seul (évolutions, passage sous Git, déploiement automatisé) et une bonne partie du back refaite, dont des lenteurs corrigées (jusqu'à 17 s de chargement).</li>
+              <li data-i18n="TL.T1_L5">Organisation de l'équipe avec un Trello pour répartir les tâches, encadrement de stagiaires, ateliers de formation des utilisateurs pour tous les pôles (comptabilité, acheteurs, direction, logistique).</li>
+              <li data-i18n="TL.T1_L6">Maintenance des applications Delphi historiques et mise en production : Docker, haute disponibilité, supervision, résolution d'incidents.</li>
+            </ul>
+          </div>
+          <div class="tl-item reveal">
+            <span class="tl-date">2023 - 2025</span>
+            <h3 data-i18n="TL.T5_TITLE">Projet entrepreneurial : création d'une salle de réalité virtuelle</h3>
+            <div class="tl-org"><a href="https://www.bge.asso.fr/" target="_blank" rel="noopener" data-i18n="TL.T5_ORG">Accompagné par la B.G.E - certification « Construire et conduire un projet entrepreneurial » (2023)</a></div>
+            <p data-i18n="TL.T5_P">Un projet d'entreprise mené de bout en bout : étude de marché, business plan, montage financier, démarches juridiques. Une autre façon de construire, côté entreprise cette fois.</p>
+          </div>
+          <div class="tl-item reveal">
+            <span class="tl-date">2021 - 2023</span>
+            <h3 data-i18n="TL.T2_TITLE">Technicien support informatique et digital</h3>
+            <div class="tl-org"><a href="https://capvr.fr/" target="_blank" rel="noopener" data-i18n="TL.T2_ORG">Cap'VR - salle de jeux en réalité virtuelle</a></div>
+            <ul>
+              <li data-i18n="TL.T2_L1">Refonte et entretien des sites web de l'entreprise (WordPress).</li>
+              <li data-i18n="TL.T2_L2">Développement sous Unity d'une application de présentation des jeux VR aux clients.</li>
+              <li data-i18n="TL.T2_L3">Gestion du parc informatique : montage, réparation et maintenance des machines.</li>
+            </ul>
+          </div>
+          <div class="tl-item reveal">
+            <span class="tl-date">2020 - 2021</span>
+            <h3 data-i18n-html="TL.T3_TITLE">Programmeur <span class="term" data-tip="TIP.SERIOUS">serious game</span></h3>
+            <div class="tl-org"><a href="https://imascience.com/" target="_blank" rel="noopener" data-i18n="TL.T3_ORG">Imascience (ex-Com par l'image) - studio de serious games</a></div>
+            <ul>
+              <li data-i18n="TL.T3_L1">Digirail (SNCF) : simulateur de conduite de train en VR, calculs de vitesses et de freinage, contrôleurs physiques sur mesure.</li>
+              <li data-i18n="TL.T3_L2">Sanofi Pasteur : showroom interactif de sensibilisation à la vaccination, avec contrôleurs Phidgets.</li>
+              <li data-i18n="TL.T3_L3">Sanofi : visite d'usine en VR, du scénario à l'intégration de l'UI, des modèles 3D et des animations.</li>
+              <li data-i18n="TL.T3_L4">Les Forges de la Hunaudière : application mobile multiplateforme avec QR codes, GPS et vidéos 360°.</li>
+            </ul>
+          </div>
+          <div class="tl-item reveal">
+            <span class="tl-date">2015 - 2019</span>
+            <h3 data-i18n="TL.T4_TITLE">Master Analyste Programmeur Jeux Vidéo</h3>
+            <div class="tl-org"><a href="https://www.creajeux.fr/" target="_blank" rel="noopener" data-i18n="TL.T4_ORG">Créajeux - école du jeu vidéo, Nîmes</a></div>
+            <p data-i18n="TL.T4_P">Programmation C, C++ et C#, moteurs de jeu (Unity), gameplay, calculs de collisions, gestion de la 3D, déclenchement d'animations - projets en équipe dans les conditions d'un studio.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= COMPÉTENCES ================= -->
+  <section id="competences" class="alt">
+    <div class="wrap split">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-i18n="NAV.SKILLS">Compétences</span>
+        <h2 data-i18n="SK.TITLE">Une boîte à outils complète</h2>
+        <p data-i18n="SK.INTRO">Je couvre toute la chaîne : de la maquette à la base de données, en passant par l'API et le déploiement - avec une préférence assumée pour l'interface et l'expérience utilisateur.</p>
+      </div>
+      <div class="section-body">
+        <div class="skills">
+          <div class="skill-group glass reveal fav">
+            <!-- Cœur « liquide » : voir le premier badge (id du clipPath distinct) -->
+            <span class="fav-badge" data-tip="FAV.BADGE" data-i18n-aria="FAV.BADGE" aria-label="Ce que je préfère" role="img"><svg viewBox="0 1.25 24 24" aria-hidden="true"><defs><clipPath id="favclip-b"><path d="M12 21s-7.5-4.6-9.5-9.2C1.2 8.6 3.4 5.5 6.5 5.5c2 0 3.7 1.2 5.5 3.2 1.8-2 3.5-3.2 5.5-3.2 3.1 0 5.3 3.1 4 6.3C19.5 16.4 12 21 12 21z"/></clipPath></defs><path class="fav-heart-outline" d="M12 21s-7.5-4.6-9.5-9.2C1.2 8.6 3.4 5.5 6.5 5.5c2 0 3.7 1.2 5.5 3.2 1.8-2 3.5-3.2 5.5-3.2 3.1 0 5.3 3.1 4 6.3C19.5 16.4 12 21 12 21z"/><g clip-path="url(#favclip-b)"><g class="fav-liquid-bob"><path class="fav-liquid" d="M0 12.8 Q3 9.6 6 12.8 T12 12.8 T18 12.8 T24 12.8 T30 12.8 T36 12.8 T42 12.8 T48 12.8 V26 H0 Z"/></g></g></svg></span>
+            <h3 data-i18n="SK.G1">Front et UX</h3>
+            <div class="chips">
+              <span class="chip"><svg data-icon="javascript"></svg>JavaScript (ES modules)</span>
+              <span class="chip"><svg data-icon="pen"></svg>UI / UX design</span>
+              <span class="chip"><svg data-icon="html5"></svg>HTML / CSS / SCSS</span>
+              <span class="chip" data-tip="TIP.DS"><svg data-icon="grid"></svg>Design system</span>
+              <span class="chip"><svg data-icon="accessibility"></svg><span data-i18n="SK.CHIP_A11Y">Accessibilité</span></span>
+              <span class="chip" data-tip="TIP.I18N"><svg data-icon="globe"></svg>i18n</span>
+              <span class="chip" data-tip="TIP.PWA"><svg data-icon="pwa"></svg>PWA</span>
+            </div>
+          </div>
+          <div class="skill-group glass reveal">
+            <h3 data-i18n="SK.G2">Back et données</h3>
+            <div class="chips">
+              <span class="chip"><svg data-icon="php"></svg>PHP 8</span>
+              <span class="chip" data-tip="TIP.PGSQL"><svg data-icon="postgresql"></svg>PostgreSQL</span>
+              <span class="chip" data-tip="TIP.API"><svg data-icon="transfer"></svg>API REST</span>
+              <span class="chip" data-tip="TIP.ORACLE"><svg data-icon="oracle"></svg>Oracle (SQL)</span>
+              <span class="chip"><svg data-icon="mysql"></svg>MySQL</span>
+              <span class="chip"><svg data-icon="dbeaver"></svg>pgAdmin / DBeaver</span>
+              <span class="chip"><svg data-icon="file"></svg><span data-i18n="SK.CHIP_PDF">Génération PDF</span></span>
+            </div>
+          </div>
+          <div class="skill-group glass reveal">
+            <h3 data-i18n="SK.G3">Autres langages</h3>
+            <div class="chips">
+              <span class="chip"><svg data-icon="dotnet"></svg>C# / .NET</span>
+              <span class="chip" data-tip="TIP.DELPHI"><svg data-icon="delphi"></svg>Delphi / Pascal</span>
+              <span class="chip"><svg data-icon="c"></svg>C</span>
+              <span class="chip"><svg data-icon="cplusplus"></svg>C++</span>
+              <span class="chip"><svg data-icon="python"></svg>Python</span>
+              <span class="chip"><svg data-icon="nodejs"></svg><span data-i18n="SK.CHIP_NODE">Node.js</span></span>
+              <span class="chip" data-tip="TIP.AHK"><svg data-icon="autohotkey"></svg>AutoHotkey</span>
+            </div>
+          </div>
+          <div class="skill-group glass reveal">
+            <h3 data-i18n="SK.G4">Environnements</h3>
+            <div class="chips">
+              <span class="chip"><svg data-icon="github"></svg>Git / GitHub</span>
+              <span class="chip" data-tip="TIP.DOCKER"><svg data-icon="docker"></svg>Docker</span>
+              <span class="chip"><svg data-icon="linux"></svg><span data-i18n="SK.CHIP_LINUX">Linux (prod)</span></span>
+              <span class="chip"><svg data-icon="apache"></svg>Apache</span>
+              <span class="chip" data-tip="TIP.MREMOTE"><svg data-icon="server"></svg><span data-i18n="SK.CHIP_MREMOTE">mRemoteNG (multi-serveurs)</span></span>
+              <span class="chip" data-tip="TIP.DEVEXPRESS"><svg data-icon="devexpress"></svg>DevExpress</span>
+              <span class="chip"><svg data-icon="claude"></svg><span data-i18n="SK.CHIP_CLAUDE">Claude Code (dev assisté par IA)</span></span>
+              <span class="chip" data-tip="TIP.UNITY"><svg data-icon="unity"></svg>Unity</span>
+              <span class="chip"><svg data-icon="oculus"></svg>VR (Oculus, Vive)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROJETS PERSOS ================= -->
+  <section id="projets">
+    <div class="wrap split">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-i18n="PJ.EYEBROW">À côté</span>
+        <h2 data-i18n="PJ.TITLE">Projets personnels</h2>
+        <p data-i18n="PJ.INTRO">Construire ne s'arrête pas au bureau : applications web, outils et bots développés sur mon temps libre.</p>
+      </div>
+      <div class="section-body">
+        <!-- Frise serpentine : rangée 1 de gauche à droite, virage, rangée 2 en sens inverse -->
+        <div class="pj-road reveal">
+          <div class="pj-row">
+            <div class="pj-stop">
+              <span class="pj-dot" aria-hidden="true"></span>
+              <span class="tag" data-i18n="PJ.TAG_3">2021 - Bot</span>
+              <h3>TwiceTargets</h3>
+              <p data-i18n="PJ.P3">Bot Discord complet développé pour une association : commandes, automatisations et gestion de communauté.</p>
+            </div>
+            <div class="pj-stop">
+              <span class="pj-dot" aria-hidden="true"></span>
+              <span class="tag" data-i18n="PJ.TAG_4">2022 - Windows</span>
+              <h3 data-i18n="PJ.P4_T">Contrôle de tablette depuis le PC</h3>
+              <p data-i18n="PJ.P4">Application Windows pour piloter une tablette directement depuis son PC : écran, saisie et actions à distance, sans lâcher son clavier.</p>
+            </div>
+            <div class="pj-stop">
+              <span class="pj-dot" aria-hidden="true"></span>
+              <span class="tag">2023 - Unity</span>
+              <h3>PresCapVR</h3>
+              <p data-i18n="PJ.P2">Application PC de présentation interactive d'un catalogue de jeux VR, utilisée directement en salle avec les clients.</p>
+            </div>
+            <div class="pj-stop">
+              <span class="pj-dot" aria-hidden="true"></span>
+              <span class="tag" data-i18n="PJ.TAG_6">2024 - Windows</span>
+              <h3 data-i18n="PJ.P6_T">Renommage de factures en masse</h3>
+              <p data-i18n="PJ.P6">Logiciel de renommage de fichiers en masse pour la comptabilité : un fichier Excel de correspondances clients pilote le renommage automatique des factures.</p>
+            </div>
+          </div>
+          <div class="pj-row pj-row--back">
+            <div class="pj-stop">
+              <span class="pj-dot" aria-hidden="true"></span>
+              <span class="tag" data-i18n="PJ.TAG_5">2024 - Windows</span>
+              <h3 data-i18n="PJ.P5_T">Automatisations en blueprint</h3>
+              <p data-i18n="PJ.P5">Outil de création d'automatisations par blueprints visuels : des noeuds à relier entre eux, des liaisons de macros et des déclencheurs - automatiser son poste sans écrire une ligne de code.</p>
+            </div>
+            <div class="pj-stop">
+              <span class="pj-dot" aria-hidden="true"></span>
+              <span class="tag" data-i18n="PJ.TAG_1">2025 - Web</span>
+              <h3>FroZone VR</h3>
+              <p data-i18n="PJ.P1">Conception et développement complet du site vitrine d'une salle de réalité virtuelle, en HTML et CSS sur mesure.</p>
+            </div>
+            <div class="pj-stop">
+              <span class="pj-dot" aria-hidden="true"></span>
+              <span class="tag" data-i18n="PJ.TAG_0">2026 - Web</span>
+              <h3>Frodget</h3>
+              <p data-i18n="PJ.P0">Application web conçue et développée seul (JavaScript natif, Node.js, PostgreSQL) : un budget avec objectifs d'épargne et saisie par dictée vocale, un carnet de recettes partageable, des jeux en ligne et bien plus encore.</p>
+            </div>
+          </div>
+          <span class="pj-turn" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PHILOSOPHIE ================= -->
+  <section id="philosophie" class="alt">
+    <div class="wrap split">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-i18n="PH.EYEBROW">Philosophie</span>
+        <h2 data-i18n="PH.TITLE">Le code est au service de ceux qui l'utilisent</h2>
+        <p data-i18n="PH.INTRO">En tant que développeur, je ne travaille pas pour la machine : je travaille pour les personnes qui vont cliquer, chercher, se tromper, recommencer. Tout ce que je construis part de là.</p>
+      </div>
+      <div class="section-body">
+        <div class="cards">
+          <div class="card glass reveal">
+            <svg data-icon="heart"></svg>
+            <h3 data-i18n="PH.C1_T">Au service des utilisateurs</h3>
+            <p data-i18n="PH.C1_P">Un site ou une application réussis n'ont pas besoin de manuel : tout doit être facile et instinctif à utiliser. Si l'utilisateur doit réfléchir à l'outil au lieu de son travail, c'est à moi de revoir ma copie.</p>
+          </div>
+          <div class="card glass reveal">
+            <svg data-icon="refresh"></svg>
+            <h3 data-i18n="PH.C2_T">Faire, refaire, façonner</h3>
+            <p data-i18n="PH.C2_P">Il ne faut pas avoir peur de faire et refaire plusieurs fois les mêmes choses : chaque passage affine la forme. Une bonne interface n'est pas trouvée du premier coup, elle est façonnée.</p>
+          </div>
+          <div class="card glass reveal">
+            <svg data-icon="sparkles"></svg>
+            <h3 data-i18n="PH.C3_T">Mon plaisir coupable</h3>
+            <p data-i18n="PH.C3_P">Glisser un peu de fun dans mes applications pour les rendre plus attrayantes : un détail animé, une touche de personnalité, une surprise bien cachée - sans jamais rompre avec le côté professionnel.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-card glass reveal">
+        <div>
+          <div class="contact-id">
+            <img class="pb-photo contact-photo" src="assets/img/pierre.jpg" width="360" height="360" alt="" loading="lazy">
+            <span class="eyebrow">Contact</span>
+          </div>
+          <h2 data-i18n="CT.TITLE">Envie d'en discuter ?</h2>
+          <p data-i18n="CT.P">Un projet, une équipe à encadrer, une question sur mon parcours : écrivez-moi, je réponds volontiers.</p>
+        </div>
+        <ul class="contact-list">
+          <li>
+            <a href="#contact" data-pb-contact="mail">
+              <svg data-icon="mail"></svg>
+              <span data-pb-contact-text>E-mail</span>
+            </a>
+          </li>
+          <li>
+            <a href="#contact" data-pb-contact="tel">
+              <svg data-icon="phone"></svg>
+              <span data-pb-contact-text>Téléphone</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/pierre-bernard-darmann-b636a7172/" rel="me noopener" target="_blank">
+              <svg data-icon="linkedin-square"></svg>
+              LinkedIn - Pierre Bernard-Darmann
+            </a>
+          </li>
+          <li>
+            <a href="https://www.openstreetmap.org/?mlat=43.9439&mlon=4.6806#map=6/43.944/4.681" target="_blank" rel="noopener">
+              <svg data-icon="map-pin"></svg>
+              <span data-i18n="CT.LOC">Saze (30), France</span>
+            </a>
+          </li>
+          <li>
+            <span class="plain">
+              <svg data-icon="globe"></svg>
+              <span data-i18n="CT.AVAIL">Ouvert aux opportunités en France, en Belgique, au Luxembourg et au Québec - nationalités française et belge.</span>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= PIED DE PAGE ================= -->
+<footer>
+  <div class="wrap">
+    Pierre Bernard-Darmann - <span id="annee">2026</span>. <span data-i18n="FOOT.TEXT">Site conçu et développé à la main, sans framework.</span>
+  </div>
+</footer>
+
+<!-- Point d'entrée de l'application (modules ES, exécutés une fois la page analysée) -->
+<script type="module" src="js/main.js"></script>
+
+</body>
+</html>

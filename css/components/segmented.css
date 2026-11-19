@@ -1,0 +1,26 @@
+/* ==========================================================================
+   Contrôle segmenté (composant SegmentedControl, js/components/SegmentedControl.js)
+
+   Rangée de boutons accolés dont un seul est actif (classe .active).
+   ========================================================================== */
+
+.seg {
+    display: inline-flex;
+    border: var(--pb-border-w) solid var(--pb-border);
+    border-radius: var(--pb-radius-md);
+    overflow: hidden;
+}
+.seg button {
+    border: 0;
+    background: transparent;
+    color: var(--pb-text-secondary);
+    font-family: var(--pb-font-family);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.45rem 0.9rem;
+    cursor: pointer;
+    transition: background var(--pb-transition-fast), color var(--pb-transition-fast);
+}
+.seg button + button { border-left: var(--pb-border-w) solid var(--pb-border); }
+.seg button:hover { background: var(--pb-bg-hover); color: var(--pb-text); }
+.seg button.active { background: var(--pb-primary); color: var(--pb-text-on-color); }

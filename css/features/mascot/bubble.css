@@ -1,0 +1,87 @@
+/* ==========================================================================
+   Mascotte : bulle de contact (Bubble.js), ancrée au-dessus de Pierre ;
+   --tail place sa pointe face à lui
+   ========================================================================== */
+.mascot-bubble {
+    position: fixed;
+    z-index: 360;
+    width: min(19.5rem, calc(100vw - 16px));
+    padding: 0.95rem 1rem 0.8rem;
+    background: var(--pb-card-bg);
+    color: var(--pb-text);
+    border: var(--pb-border-w) solid var(--pb-primary);
+    border-radius: var(--pb-radius-lg);
+    box-shadow: var(--pb-shadow-lg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    font-family: var(--pb-font-family);
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+    transform-origin: var(--tail, 50%) 100%;
+    transition: opacity 0.2s, transform 0.25s var(--pb-ease-out);
+}
+.mascot-bubble[hidden] { display: none; }
+.mascot-bubble.is-in { opacity: 1; transform: none; }
+.mascot-bubble::after {
+    content: "";
+    position: absolute;
+    left: var(--tail, 50%);
+    bottom: -7px;
+    width: 12px;
+    height: 12px;
+    margin-left: -6px;
+    background: inherit;
+    border-right: var(--pb-border-w) solid var(--pb-primary);
+    border-bottom: var(--pb-border-w) solid var(--pb-primary);
+    transform: rotate(45deg);
+    backdrop-filter: none;
+}
+.mascot-bubble__close {
+    position: absolute;
+    top: 0.45rem;
+    right: 0.45rem;
+    width: 1.9rem;
+    height: 1.9rem;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--pb-text-secondary);
+    cursor: pointer;
+}
+.mascot-bubble__close:hover { background: var(--pb-bg-hover); color: var(--pb-text); }
+.mascot-bubble__close .li { width: 1rem; height: 1rem; stroke: currentColor; }
+.mascot-bubble__title { font-family: var(--pb-font-title); font-weight: 700; font-size: 1rem; padding-right: 1.8rem; margin-bottom: 0.3rem; }
+.mascot-bubble__text { font-size: 0.85rem; color: var(--pb-text-secondary); line-height: 1.45; margin-bottom: 0.65rem; }
+.mascot-bubble__list { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+.mascot-bubble__list a, .mascot-bubble__list button {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.5rem 0.6rem;
+    border: var(--pb-border-w) solid var(--pb-border);
+    border-radius: var(--pb-radius-md);
+    background: var(--pb-surface-subtle);
+    color: var(--pb-text);
+    font: inherit;
+    font-size: 0.86rem;
+    font-weight: 600;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color var(--pb-transition-fast), background var(--pb-transition-fast);
+}
+.mascot-bubble__list a:hover, .mascot-bubble__list button:hover { border-color: var(--pb-primary); background: var(--pb-primary-alpha); }
+.mascot-bubble__list .li { width: 1.05rem; height: 1.05rem; flex: none; }
+.mascot-bubble__status { font-size: 0.78rem; color: var(--pb-success); margin-top: 0.45rem; min-height: 1em; }
+.mascot-bubble__status:empty { display: none; }
+.mascot-bubble__tip { margin-top: 0.55rem; font-size: 0.74rem; color: var(--pb-text-muted); }
+
+/* Cachée pendant l'écran d'accueil */
+body.xp-open .mascot-bubble { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+    .mascot-bubble { transition: none; }
+}

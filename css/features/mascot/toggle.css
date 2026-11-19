@@ -1,0 +1,44 @@
+/* ==========================================================================
+   Mascotte : bouton masquer / afficher (Toggle.js), en bas à gauche
+   ========================================================================== */
+.mascot-toggle {
+    position: fixed;
+    left: 0.7rem;
+    bottom: calc(var(--mascot-floor) + 0.7rem);
+    z-index: 316;
+    width: 2.3rem;
+    height: 2.3rem;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border-radius: 50%;
+    border: var(--pb-border-w) solid var(--pb-border);
+    background: var(--pb-surface-glass);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--pb-text-secondary);
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s, border-color 0.2s, bottom 0.35s var(--pb-ease-out);
+}
+.mascot-toggle:hover, .mascot-toggle:focus-visible, .mascot-toggle.is-off { opacity: 1; }
+.mascot-toggle:hover { border-color: var(--pb-primary); }
+.mascot-toggle .li { width: 1.05rem; height: 1.05rem; stroke: currentColor; }
+
+/* Masquée : le bouton montre la tête de Pierre (case 0 de la planche) */
+.mascot-toggle.is-off { border-color: var(--pb-primary); overflow: hidden; animation: mascot-call 2.4s ease-in-out infinite; }
+.mascot-toggle__face {
+    width: 100%;
+    height: 100%;
+    background: url("../../../assets/sprites/mascotte-pierre.png") no-repeat;
+    background-size: 1314px auto;
+    background-position: -40px -4px;
+}
+@keyframes mascot-call { 0%, 100% { box-shadow: 0 0 0 0 rgba(var(--pb-primary-rgb), 0); } 50% { box-shadow: 0 0 0 5px rgba(var(--pb-primary-rgb), 0.25); } }
+
+/* Caché pendant l'écran d'accueil */
+body.xp-open .mascot-toggle { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+    .mascot-toggle.is-off { animation: none; }
+}

@@ -1,0 +1,48 @@
+/* ==========================================================================
+   Spatial : saut en hyperespace entre deux étapes
+   L'hologramme se replie, les menus s'escamotent, flash d'arrivée et
+   nouvelle zone qui surgit de la profondeur.
+   ========================================================================== */
+
+/* Repli : l'hologramme se referme en une ligne de lumière */
+.tour-fold { animation: tf-fold 0.5s ease-in forwards; transform-origin: 50% 50%; }
+@keyframes tf-fold {
+    0% { transform: none; filter: none; opacity: 1; }
+    55% { transform: scaleY(0.03); filter: brightness(2.5) saturate(1.6); opacity: 1; }
+    100% { transform: scaleY(0.03) scaleX(0); filter: brightness(3); opacity: 0; }
+}
+/* Arrivée : la nouvelle zone surgit de la profondeur */
+.tour-arrive { animation: tf-arrive 1.05s cubic-bezier(0.16, 0.84, 0.24, 1) both; }
+@keyframes tf-arrive {
+    0% { transform: perspective(900px) translateZ(-900px); opacity: 0; filter: blur(12px) brightness(2.2); }
+    55% { opacity: 1; filter: blur(0) brightness(1.5); }
+    100% { transform: none; opacity: 1; filter: none; }
+}
+/* Pendant le saut, la barre de visite et le HUD se replient
+   (le header reste toujours visible) */
+:root.tour-warping .tourbar { transform: translateY(110%); }
+:root.tour-warping .xp-hud { opacity: 0; }
+
+.tour-fx--future { background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 30%, rgba(0, 229, 255, 0.06) 60%, transparent 75%); }
+.tour-fx--future::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(220, 250, 255, 0.95), rgba(0, 229, 255, 0.35) 35%, transparent 70%);
+    opacity: 0;
+    animation: tf-flash 2.1s ease-in forwards;
+}
+@keyframes tf-flash { 0%, 84% { opacity: 0; } 95% { opacity: 1; } 100% { opacity: 0.7; } }
+.tour-fx--future .tour-fx__txt {
+    position: relative;
+    z-index: 2;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: clamp(0.75rem, 2.2vw, 1.15rem);
+    letter-spacing: 0.32em;
+    color: #DDF6FF;
+    text-shadow: 0 0 14px rgba(0, 229, 255, 0.9);
+    text-align: center;
+    padding: 0 1.2rem;
+    animation: xp-flicker 0.5s steps(5) infinite;
+}

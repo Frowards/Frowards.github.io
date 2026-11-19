@@ -1,0 +1,114 @@
+/* ==========================================================================
+   HUD de visite et étiquettes de section (js/features/experience/Hud.js, journey.js)
+   Indicateur de progression habillé selon l'expérience : barre (Classique),
+   ligne de commande (Rétro), boîtier d'analyse (Spatial), barre d'XP (Gamer).
+   ========================================================================== */
+
+.xp-hud { position: fixed; z-index: 300; pointer-events: none; }
+body.xp-open .xp-hud, body.xp-open .xp-toasts { display: none; }
+
+/* Classique : fine barre de progression sous le header */
+.xp-hud--classic { top: var(--xp-header-h, var(--pb-header-height)); left: 0; right: 0; height: 3px; }
+.xp-hud--classic .xp-hud__fill {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--pb-primary), var(--pb-primary-light));
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.15s linear;
+}
+
+/* Rétro : ligne de commande en bas de l'écran */
+.xp-hud--retro {
+    left: 0; right: 0; bottom: 0;
+    height: 1.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0 0.9rem;
+    font-family: 'VT323', monospace;
+    font-size: 1.15rem;
+    color: var(--pb-primary);
+    background: var(--pb-bg-secondary);
+    border-top: 2px solid var(--pb-border);
+}
+.xp-hud--retro .xp-hud__path { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; min-width: 0; }
+.xp-hud__cursor { width: 0.55em; height: 1em; background: var(--pb-primary); animation: xp-blink 1s steps(1) infinite; flex: none; }
+.xp-hud--retro .xp-hud__pct { margin-left: auto; padding-left: 1rem; flex: none; }
+
+/* Futuriste : boîtier d'analyse en bas à droite */
+.xp-hud--future {
+    right: 1rem; bottom: 1rem;
+    width: 15.5rem;
+    padding: 0.7rem 0.85rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.25rem 0.6rem;
+    font-family: 'Orbitron', sans-serif;
+    color: var(--pb-primary);
+    background: var(--pb-card-bg);
+    border: 1px solid var(--pb-border-light);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    box-shadow: 0 0 22px rgba(var(--pb-primary-rgb), 0.18);
+}
+.xp-hud--future .xp-hud__label { grid-column: 1 / -1; font-size: 0.55rem; letter-spacing: 0.22em; opacity: 0.75; }
+.xp-hud--future .xp-hud__sec { font-size: 0.66rem; letter-spacing: 0.12em; color: var(--pb-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.xp-hud--future .xp-hud__pct { font-size: 0.75rem; font-weight: 700; }
+.xp-hud__meter { grid-column: 1 / -1; height: 4px; background: rgba(var(--pb-primary-rgb), 0.15); overflow: hidden; }
+.xp-hud__meter .xp-hud__fill {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--pb-primary), #8B5CF6);
+    transform-origin: left;
+    transform: scaleX(0);
+    box-shadow: 0 0 8px var(--pb-primary);
+    transition: transform 0.2s linear;
+}
+
+/* Gamer : barre d'XP pixelisée sous le header */
+.xp-hud--gamer {
+    top: var(--xp-header-h, var(--pb-header-height)); left: 0; right: 0;
+    height: 1.7rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0 0.9rem;
+    background: var(--pb-bg-secondary);
+    border-bottom: 3px solid var(--pb-border);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.5rem;
+    color: var(--pb-text);
+}
+.xp-hud--gamer .xp-hud__lvl { white-space: nowrap; color: var(--pb-primary); flex: none; max-width: 45%; overflow: hidden; text-overflow: ellipsis; }
+.xp-hud__bar { flex: 1; height: 0.6rem; background: rgba(255, 255, 255, 0.08); box-shadow: 0 -2px 0 var(--pb-border), 0 2px 0 var(--pb-border), -2px 0 0 var(--pb-border), 2px 0 0 var(--pb-border); overflow: hidden; }
+.xp-hud__bar .xp-hud__fill {
+    display: block;
+    height: 100%;
+    background: repeating-linear-gradient(90deg, #A3FF12 0 10px, #7ED400 10px 12px);
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.25s steps(8);
+}
+.xp-hud--gamer .xp-hud__xp { flex: none; color: #A3FF12; }
+:root[data-theme="light"] .xp-hud--gamer .xp-hud__xp { color: #3F7D00; }
+@media (max-width: 520px) {
+    .xp-hud--future { left: 0.6rem; right: 0.6rem; bottom: 0.6rem; width: auto; }
+    .xp-hud--gamer { gap: 0.45rem; padding: 0 0.6rem; font-size: 0.42rem; }
+    .xp-hud--retro { font-size: 1rem; }
+}
+
+/* Étiquette de section (« NIVEAU 2 », « // SECTEUR 02 », « C:\> CD CERES ») */
+[data-exp-tag]::before {
+    content: attr(data-exp-tag);
+    display: block;
+    margin-bottom: 0.7rem;
+    color: var(--pb-primary);
+}
+.eyebrow[data-exp-tag] { display: flex; flex-direction: column; align-items: flex-start; gap: 0.35rem; }
+.eyebrow[data-exp-tag]::before { margin-bottom: 0.2rem; }
+
+@media (prefers-reduced-motion: reduce) {
+    .xp-hud * { animation: none !important; }
+}

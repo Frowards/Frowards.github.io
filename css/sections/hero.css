@@ -1,0 +1,64 @@
+/* ==========================================================================
+   Section Héros
+   Grille texte + fenêtre-lanceur, pastille de disponibilité, titre principal
+   et appels à l'action.
+   ========================================================================== */
+
+/* ---------- Héros ---------- */
+.hero { padding: clamp(2.5rem, 6vw, 5rem) 0 clamp(2.5rem, 5vw, 4.5rem); overflow: hidden; }
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 4vw, 4.5rem);
+    align-items: center;
+}
+.hero .launcher-wrap { width: 100%; max-width: 680px; justify-self: center; }
+
+/* Tablette large et PC : héros sur deux colonnes */
+@media (min-width: 920px) {
+    .hero-grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); }
+    .hero .launcher-wrap { justify-self: end; }
+}
+
+/* Pastille « ouvert aux opportunités » (héros) */
+.status-pill {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 0.34rem 0.8rem;
+    border: var(--pb-border-w) solid var(--pb-success);
+    border-radius: var(--pb-radius-full);
+    color: var(--pb-success);
+    font-family: var(--pb-font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.status-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: currentColor;
+    animation: status-pulse 1.8s ease-in-out infinite;
+}
+@keyframes status-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.35; transform: scale(0.75); }
+}
+@media (prefers-reduced-motion: reduce) { .status-dot { animation: none; } }
+
+h1 {
+    font-weight: 900;
+    font-size: clamp(1.9rem, 3.4vw, 3.6rem);
+    line-height: 1.12;
+    margin-bottom: 1.3rem;
+}
+.hero p.lead {
+    font-size: clamp(1rem, 1.1vw, 1.25rem);
+    color: var(--pb-text-secondary);
+    max-width: 62ch;
+    margin-bottom: 1.8rem;
+}
+.hero-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }

@@ -1,0 +1,57 @@
+/* ==========================================================================
+   Section Parcours : frise chronologique
+   ========================================================================== */
+
+/* ---------- Frise du parcours (pleine largeur, non centrée) ---------- */
+.timeline { position: relative; }
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 0.55rem;
+    top: 0.4rem;
+    bottom: 0.4rem;
+    width: 2px;
+    background: var(--pb-border);
+}
+.tl-item { position: relative; padding: 0 0 2.2rem 2.4rem; }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.42rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background: var(--pb-bg);
+    border: 3px solid var(--pb-primary);
+}
+.tl-item.now::before {
+    background: var(--pb-primary);
+    box-shadow: 0 0 10px rgba(var(--pb-primary-rgb), 0.6);
+}
+.tl-date {
+    font-family: var(--pb-font-mono);
+    font-size: 0.75rem;
+    color: var(--pb-primary);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+.tl-item h3 { font-size: 1.08rem; margin: 0.15rem 0 0.1rem; }
+.tl-org { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.45rem; }
+.tl-org, .tl-org a { color: var(--pb-warning); }
+.tl-org a { text-decoration: none; }
+.tl-org a:hover { text-decoration: underline; color: var(--pb-warning); }
+.tl-item p { font-size: 0.95rem; color: var(--pb-text-secondary); max-width: 80ch; }
+.tl-item ul { margin: 0.45rem 0 0 1.1rem; font-size: 0.95rem; color: var(--pb-text-secondary); max-width: 80ch; }
+.tl-item li { margin-bottom: 0.25rem; }
+
+/* Très grand écran : les points de chaque poste passent sur deux colonnes */
+@media (min-width: 1600px) {
+    .tl-item ul {
+        columns: 2;
+        column-gap: 2.5rem;
+        max-width: none;
+    }
+    .tl-item li { break-inside: avoid; }
+}

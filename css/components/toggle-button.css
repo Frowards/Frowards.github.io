@@ -1,0 +1,35 @@
+/* ==========================================================================
+   Bouton d'icône (.toggle-btn)
+   Boutons carrés de l'en-tête et du panneau de thème : icône seule ou
+   drapeau de langue.
+   ========================================================================== */
+
+/* ---------- Boutons d'icône du header ---------- */
+.toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    min-width: 2.2rem;
+    height: 2.2rem;
+    padding: 0 0.55rem;
+    border-radius: var(--pb-radius-md);
+    border: var(--pb-border-w) solid var(--pb-border);
+    background: var(--pb-surface-glass);
+    color: var(--pb-text);
+    cursor: pointer;
+    font-family: var(--pb-font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: border-color var(--pb-transition-fast), background var(--pb-transition-fast);
+}
+.toggle-btn:hover { border-color: var(--pb-primary); background: var(--pb-bg-hover); }
+.toggle-btn svg { width: 1.05rem; height: 1.05rem; }
+.toggle-btn .flag {
+    width: 1.5rem;
+    height: 0.75rem; /* fixe (ratio 2:1 du viewBox) : le bouton ne bouge plus au changement */
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px var(--pb-border);
+}
+.toggle-btn .flag[hidden] { display: none; }
+.toggle-btn svg[hidden] { display: none; }

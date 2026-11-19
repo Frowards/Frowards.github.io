@@ -1,0 +1,99 @@
+/* ==========================================================================
+   Section Projets personnels : frise serpentine
+   ========================================================================== */
+
+/* ---------- Projets persos : frise serpentine ----------
+   Rangée 1 de gauche à droite, virage à droite (positionné en JS),
+   rangée 2 en sens inverse, flèche au bout. Pas de cartes. */
+.pj-road {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+    padding-right: 1.1rem;
+}
+.pj-row {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.6rem;
+}
+.pj-row::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0.5rem;
+    height: 2px;
+    background: var(--pb-border);
+}
+.pj-row--back { direction: rtl; }
+.pj-row--back .pj-stop { direction: ltr; }
+/* Flèche au bout de la 2e rangée (pointe vers la gauche : la suite...) */
+.pj-row--back::after {
+    content: "";
+    position: absolute;
+    left: -2px;
+    top: calc(0.5rem + 1px);
+    transform: translateY(-50%);
+    border: 6px solid transparent;
+    border-left: none;
+    border-right: 9px solid var(--pb-border);
+}
+.pj-stop { position: relative; padding-top: 1.5rem; }
+.pj-dot {
+    position: absolute;
+    top: 0.22rem;
+    left: 0;
+    width: 0.72rem;
+    height: 0.72rem;
+    border-radius: 50%;
+    background: var(--pb-primary);
+    box-shadow: 0 0 0 4px var(--pb-primary-alpha);
+}
+.pj-turn {
+    position: absolute;
+    right: -0.1rem;
+    width: 1.3rem;
+    border: 2px solid var(--pb-border);
+    border-left: none;
+    border-radius: 0 1.5rem 1.5rem 0;
+}
+/* Canvas des particules qui longent la frise (sens de lecture).
+   z-index : au-dessus des traits (::before des rangées) et du virage,
+   pour que la comète passe SUR la ligne, jamais dessous */
+.pj-flow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+.pj-stop .tag {
+    font-family: var(--pb-font-mono);
+    font-size: 0.7rem;
+    color: var(--pb-warning);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.pj-stop h3 { font-size: 1.05rem; margin: 0.25rem 0 0.4rem; }
+.pj-stop p { font-size: 0.93rem; color: var(--pb-text-secondary); }
+
+/* Écrans étroits : frise verticale simple (ligne à gauche, points dessus) */
+@media (max-width: 899px) {
+    .pj-road { gap: 1.9rem; padding-right: 0; }
+    .pj-road::before {
+        content: "";
+        position: absolute;
+        left: 0.31rem;
+        top: 0.4rem;
+        bottom: 0.4rem;
+        width: 2px;
+        background: var(--pb-border);
+    }
+    .pj-row { grid-template-columns: 1fr; gap: 1.9rem; }
+    .pj-row::before, .pj-row--back::after { display: none; }
+    .pj-row--back { direction: ltr; }
+    .pj-turn { display: none; }
+    .pj-stop { padding: 0 0 0 1.7rem; }
+    .pj-dot { top: 0.3rem; }
+}

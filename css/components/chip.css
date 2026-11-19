@@ -1,0 +1,22 @@
+/* ==========================================================================
+   Pastilles (.chips / .chip)
+   Groupes de pastilles à icône (compétences, aperçu du thème).
+   ========================================================================== */
+
+/* ---------- Chips (disposition CeresChipGroup) ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    font-size: 0.83rem;
+    font-weight: 500;
+    padding: 0.3rem 0.7rem;
+    border-radius: var(--pb-radius-full);
+    background: var(--pb-surface-subtle);
+    border: var(--pb-border-w) solid var(--pb-border);
+    color: var(--pb-text-secondary);
+    transition: border-color var(--pb-transition-fast), background var(--pb-transition-fast), color var(--pb-transition-fast);
+}
+.chip:hover { border-color: var(--pb-primary); color: var(--pb-text); }
+.chip svg { width: 0.95rem; height: 0.95rem; }

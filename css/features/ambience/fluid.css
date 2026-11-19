@@ -1,0 +1,19 @@
+/* ==========================================================================
+   Ambiance : canvas du fluide WebGL (js/effects/fluid)
+
+   Même couche que le canvas des particules, derrière le contenu.
+   ========================================================================== */
+
+#pb-fluid {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+#pb-fluid[hidden] { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+    #pb-fluid { display: none; }
+}

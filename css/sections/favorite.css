@@ -1,0 +1,52 @@
+/* ==========================================================================
+   Badge « ce que je préfère »
+   Cœur au liquide animé posé sur les cartes .fav (Ceres et Compétences).
+   ========================================================================== */
+
+/* ---------- Badge « ce que je préfère » (UX / UI mis en avant) ---------- */
+.fav {
+    position: relative;
+    border-color: rgba(var(--pb-primary-rgb), 0.45);
+}
+/* Le titre est désormais sur la ligne de l'icône : réserver le coin du coeur */
+.card.fav h3 { padding-right: 2.4rem; }
+/* Coeur seul, toujours rouge, sans pastille ; libellé « Ce que je préfère » en infobulle */
+.fav-badge {
+    position: absolute;
+    top: 0.9rem;
+    right: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #E11D48;
+}
+/* Battement de coeur : double pulsation puis repos, en continu */
+.fav-badge svg {
+    display: block;
+    width: 1.3rem;
+    height: 1.3rem;
+    animation: fav-beat 1.7s ease-in-out infinite;
+}
+@keyframes fav-beat {
+    0%, 30%, 60%, 100% { transform: scale(1); }
+    12% { transform: scale(1.22); }
+    45% { transform: scale(1.12); }
+}
+.fav-heart-outline {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linejoin: round;
+}
+/* Liquide dans le coeur : vague qui défile + léger ballottement vertical */
+.fav-liquid {
+    fill: currentColor;
+    opacity: 0.85;
+    animation: fav-wave 1.8s linear infinite;
+}
+.fav-liquid-bob { animation: fav-bob 2.6s ease-in-out infinite alternate; }
+@keyframes fav-wave { from { transform: translateX(0); } to { transform: translateX(-12px); } }
+@keyframes fav-bob { from { transform: translateY(1.4px); } to { transform: translateY(-2.2px); } }
+@media (prefers-reduced-motion: reduce) {
+    .fav-liquid, .fav-liquid-bob, .fav-badge svg { animation: none; }
+}
