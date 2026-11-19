@@ -51,7 +51,9 @@
 .ck-read--r { right: 1.2rem; }
 @media (max-width: 1100px) { .ck-read--r { display: none; } }
 .ck-glare { position: absolute; inset: 0; background: linear-gradient(112deg, transparent 38%, rgba(255, 255, 255, 0.035) 46%, transparent 54%); }
-#pb-cockpit.is-warp { animation: ck-shake 0.14s steps(2) infinite; }
+/* Saut : seule la coque tremble ; le bandeau « Navigation » et les cadrans
+   restent verrouillés à leur place */
+#pb-cockpit.is-warp .ck-frame { animation: ck-shake 0.14s steps(2) infinite; }
 #pb-cockpit.is-warp .ck-line { stroke: rgba(160, 245, 255, 0.95); }
 @keyframes ck-shake { 0% { transform: translate(0, 0); } 50% { transform: translate(1px, -1px); } 100% { transform: translate(-1px, 1px); } }
 /* Visite guidée futuriste : barre de visite intégrée à la console */

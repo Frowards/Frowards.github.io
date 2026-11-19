@@ -54,5 +54,11 @@ export function trackStep(index, step, count) {
  */
 export function announceArrival(exp, wasFirst) {
     if (exp === 'gamer') notify(t('EXP.ACH_START_T'), t('EXP.ACH_START'));
-    else if (wasFirst) notify(t('EXP.WELCOME_T'), t(Tour.active ? 'EXP.WELCOME_GUIDED' : `EXP.WELCOME_${exp.toUpperCase()}`));
+    else if (wasFirst) notify(t('EXP.WELCOME_T'), t(Tour.active ? guidedTipKey() : `EXP.WELCOME_${exp.toUpperCase()}`));
+}
+
+/** Conseil de visite guidée : flèches du clavier sur ordinateur, balayage sur écran tactile */
+function guidedTipKey() {
+    const touch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    return touch ? 'EXP.WELCOME_GUIDED_TOUCH' : 'EXP.WELCOME_GUIDED';
 }

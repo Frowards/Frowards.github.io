@@ -58,7 +58,8 @@ export default {
     "EXP.TOUR_GUIDED_DESC": "Step by step, staged to match the experience.",
     "EXP.TOUR_FREE": "Free visit",
     "EXP.TOUR_FREE_DESC": "The whole page, at your own pace.",
-    "EXP.WELCOME_GUIDED": "Move on with Next, the arrow keys or by swiping.",
+    "EXP.WELCOME_GUIDED": "Move on with Next or the arrow keys.",
+    "EXP.WELCOME_GUIDED_TOUCH": "Move on with Next or by swiping.",
     // Textes de décor (commandes, affichages de machine) : identiques dans
     // les deux langues, mais centralisés ici comme tout texte affiché.
     "EXP.PV_RETRO_CMD": "C:\\> RUN PIERRE.EXE",
