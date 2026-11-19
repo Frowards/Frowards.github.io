@@ -113,7 +113,6 @@ export function welcomeMarkup({ closable, detected }) {
         `<button type="button" class="xp-chip xp-chip--flag" data-xp-lang aria-label="${tx('LANG.SWITCH_ARIA')}" title="${tx('LANG.SWITCH_ARIA')}">${Flag.svg(Flag.target(Lang.lang))}</button>`,
         '</div>',
         `<h2 id="xp-title" class="xp-welcome__title">${tx('EXP.TITLE')}</h2>`,
-        `<p class="xp-welcome__sub">${tx('EXP.SUB')}</p>`,
         `<div class="xp-cards" role="radiogroup" aria-label="${tx('EXP.TITLE')}">${EXPERIENCES.map(cardMarkup).join('')}</div>`,
         pickMarkup(),
         modeMarkup(detected),

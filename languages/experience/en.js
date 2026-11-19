@@ -4,7 +4,6 @@
 export default {
     "EXP.HELLO": "Welcome to my portfolio",
     "EXP.TITLE": "Choose your experience",
-    "EXP.SUB": "The same journey, four ways to explore it. Each one has its own colors, animations and finishing touches.",
     "EXP.CLASSIC": "Classic",
     "EXP.CLASSIC_DESC": "Clean and elegant: the reference version.",
     "EXP.RETRO": "Retro",

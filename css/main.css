@@ -73,6 +73,7 @@
 @import url("features/experience/welcome-live-preview.css");
 @import url("features/experience/welcome-space.css");
 @import url("features/experience/welcome-compact.css");
+@import url("features/experience/welcome-stable.css");
 
 /* Visite guidée : mise en page, barre, transitions, espace et cockpit */
 @import url("features/tour/layout.css");

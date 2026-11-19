@@ -101,17 +101,11 @@ body.xp-covered > *:not(#pb-welcome, .xp-trans, .orient-hint) { visibility: hidd
     font-size: clamp(1.6rem, 4vw, 2.8rem);
     line-height: 1.15;
     max-width: none;
-    margin: 0 auto 0.7rem;
+    margin: 0 auto clamp(1.2rem, 3vh, 2rem);
     color: var(--pb-text);
     letter-spacing: normal;
     text-transform: none;
     text-shadow: none;
-}
-.xp-welcome__sub {
-    color: var(--pb-text-secondary);
-    max-width: 52ch;
-    margin: 0 auto clamp(1.2rem, 3vh, 2rem);
-    font-size: 0.98rem;
 }
 
 /* Cartes d'expérience */

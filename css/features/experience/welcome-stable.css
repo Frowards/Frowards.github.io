@@ -1,0 +1,78 @@
+/* ==========================================================================
+   Écran d'accueil : une mise en page qui ne bouge pas
+   Chaque expérience change les polices de l'écran (titre, noms des cartes,
+   bouton...). Les blocs dont la hauteur dépendrait de la police reçoivent
+   une hauteur fixe par format d'écran, leur contenu centré dedans : changer
+   d'expérience ou de mode clair / sombre ne déplace plus rien.
+   Chargé en dernier : ces hauteurs l'emportent sur les styles d'aperçu.
+   ========================================================================== */
+
+.xp-welcome {
+    --xp-title-h: 3.3rem;   /* titre (une ligne, la plus haute des polices) */
+    --xp-name-h: 1.85rem;   /* nom d'une carte */
+    --xp-desc-h: 2.4rem;    /* description d'une carte (deux lignes) */
+    --xp-opt-h: 5.4rem;     /* option de visite */
+    --xp-go-h: 3.4rem;      /* bouton « C'est parti » */
+}
+/* Tablette, écrans moyens : description des cartes sur trois lignes au plus */
+@media (min-width: 601px) and (max-width: 1099px) {
+    .xp-welcome { --xp-title-h: 2.8rem; --xp-desc-h: 3.5rem; }
+}
+/* Téléphone en portrait (titre sur deux lignes sous 380 px de large) */
+@media (max-width: 600px) {
+    .xp-welcome { --xp-title-h: 3.9rem; --xp-name-h: 1.45rem; --xp-opt-h: 4.4rem; --xp-go-h: 2.9rem; --xp-pick-h: 2.1rem; }
+}
+@media (min-width: 380px) and (max-width: 600px) {
+    .xp-welcome { --xp-title-h: 2rem; --xp-pick-h: 1.3rem; }
+}
+/* Petits téléphones et téléphone en paysage : options de visite sur une ligne */
+@media (max-width: 600px) and (max-height: 620px), (orientation: landscape) and (max-height: 500px) {
+    .xp-welcome { --xp-opt-h: 2.7rem; }
+}
+@media (orientation: landscape) and (max-height: 500px) {
+    .xp-welcome { --xp-title-h: 2.9rem; --xp-name-h: 1.45rem; --xp-go-h: 2.9rem; --xp-pick-h: 1.3rem; }
+}
+
+.xp-welcome .xp-welcome__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--xp-title-h);
+}
+.xp-welcome .xp-card__name {
+    display: flex;
+    align-items: center;
+    height: var(--xp-name-h);
+    padding-top: 0;
+    padding-bottom: 0;
+}
+/* Description visible (grands écrans) : hauteur réservée */
+@media (min-width: 601px) and (min-height: 501px) {
+    .xp-welcome .xp-card__desc { height: var(--xp-desc-h); overflow: hidden; }
+}
+/* Ligne « expérience sélectionnée » (écrans compacts uniquement) */
+@media (max-width: 600px), (orientation: landscape) and (max-height: 500px) {
+    .xp-welcome .xp-pick {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: var(--xp-pick-h);
+        min-height: 0;
+    }
+}
+.xp-welcome .xp-tour__opt { height: var(--xp-opt-h); }
+.xp-welcome .xp-go { height: var(--xp-go-h); padding-top: 0; padding-bottom: 0; }
+
+/* Mention propre au Spatial (« Sombre : ciel étoilé ») : sa ligne est
+   réservée dans toutes les expériences, et retirée sur téléphone */
+.xp-welcome[data-preview] .xp-mode__space { display: block; visibility: hidden; }
+.xp-welcome[data-preview="future"] .xp-mode__space { visibility: visible; }
+@media (max-width: 600px), (orientation: landscape) and (max-height: 500px) {
+    .xp-welcome[data-preview] .xp-mode__space { display: none; }
+}
+
+/* Téléphone en portrait (colonne flexible) : seules les cartes rétrécissent
+   si la place manque, les autres blocs gardent leur hauteur */
+@media (max-width: 600px) and (orientation: portrait) {
+    .xp-welcome__box > :not(.xp-cards) { flex-shrink: 0; }
+}

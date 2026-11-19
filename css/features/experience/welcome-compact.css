@@ -1,10 +1,9 @@
 /* ==========================================================================
    Écran d'accueil sur téléphone : tout tient sur l'écran, sans défiler
    (portrait et paysage).
-   - Le texte d'introduction disparaît, la description des cartes est
-     remplacée par une ligne qui décrit l'expérience sélectionnée (.xp-pick).
-   - Drapeau de langue et bouton de fermeture remontent dans les coins, sur
-     la ligne « Bienvenue ».
+   - La description des cartes est remplacée par une ligne qui décrit
+     l'expérience sélectionnée (.xp-pick).
+   - La ligne du haut (fermeture, « Bienvenue », drapeau) se resserre.
    - En paysage : quatre cartes sur une ligne, affichage et visite côte à côte.
    Chargé après welcome-live-preview.css : ses tailles de titre par
    expérience l'emportent sur celles de l'aperçu en direct.
@@ -31,7 +30,6 @@
     .xp-welcome[data-preview="retro"] .xp-welcome__title { font-size: 1.9rem; line-height: 1; }
     .xp-welcome[data-preview="future"] .xp-welcome__title { font-size: 1.05rem; }
     .xp-welcome[data-preview="gamer"] .xp-welcome__title { font-size: 0.8rem; line-height: 1.6; }
-    .xp-welcome__sub { display: none; }
 
     /* Cartes : aperçu plus bas, nom seul ; la description reste lue par les
        lecteurs d'écran (masquage visuel uniquement) */
@@ -88,7 +86,7 @@
    iPhone SE au grand Android, sans défiler et sans paraître tassé.
    - Les espacements entre les blocs grandissent avec la hauteur de
      l'écran (unités svh) : c'est eux qui donnent de l'air.
-   - Les aperçus grandissent aussi, mais restent mesurés (6,5rem au plus).
+   - Les aperçus grandissent aussi, mais restent mesurés (9rem au plus).
    - Si la place manque malgré tout, les aperçus rétrécissent en premier
      (colonne flexible) : rien ne déborde. Le reste se centre. */
 @media (max-width: 600px) and (orientation: portrait) {
@@ -106,27 +104,14 @@
         grid-auto-rows: minmax(0, 1fr);
         gap: clamp(0.5rem, var(--xp-gap), 0.8rem);
     }
-    .xp-card .xp-pv { flex: 0 1 auto; aspect-ratio: auto; height: clamp(3rem, 15svh - 1.5rem, 6.5rem); min-height: 2.5rem; }
+    .xp-card .xp-pv { flex: 0 1 auto; aspect-ratio: auto; height: clamp(3rem, 19svh - 2rem, 9rem); min-height: 2.5rem; }
     .xp-welcome .xp-go { align-self: center; }
     .xp-welcome__top { margin-bottom: calc(var(--xp-gap) * 0.5); }
     .xp-welcome[data-preview] .xp-welcome__title { margin-bottom: calc(var(--xp-gap) * 0.8); }
-    .xp-welcome__sub { margin-bottom: var(--xp-gap); }
     .xp-cards { margin-bottom: 0.5rem; }
     .xp-pick { margin-bottom: var(--xp-gap); }
     .xp-mode, .xp-tour { margin-bottom: var(--xp-gap); }
     .xp-welcome__note { margin-top: calc(var(--xp-gap) * 0.8); }
-}
-@media (max-width: 600px) and (orientation: portrait) and (min-height: 650px) {
-    .xp-welcome__sub { display: block; max-width: 34ch; font-size: 0.86rem; line-height: 1.45; }
-    .xp-welcome[data-preview="retro"] .xp-welcome__sub { font-size: 0.98rem; line-height: 1.15; }
-}
-@media (max-width: 600px) and (orientation: portrait) and (min-height: 760px) {
-    .xp-welcome[data-preview] .xp-welcome__title { font-size: 1.55rem; }
-    .xp-welcome[data-preview="retro"] .xp-welcome__title { font-size: 2.1rem; }
-    .xp-welcome[data-preview="future"] .xp-welcome__title { font-size: 1.15rem; }
-    .xp-welcome[data-preview="gamer"] .xp-welcome__title { font-size: 0.9rem; }
-    .xp-card__name { font-size: 0.98rem; }
-    .xp-welcome .xp-go { padding: 0.85rem 1.5rem; }
 }
 
 /* Petits téléphones (iPhone SE...) : encore un peu plus serré */
@@ -171,8 +156,7 @@
 @media (min-width: 601px) and (max-height: 820px) {
     .xp-welcome { padding-top: 0.9rem; padding-bottom: 0.9rem; }
     .xp-welcome__top { margin-bottom: 0.3rem; }
-    .xp-welcome__title { margin-bottom: 0.4rem; }
-    .xp-welcome__sub { margin-bottom: 0.9rem; }
+    .xp-welcome__title { margin-bottom: 0.9rem; }
     .xp-card .xp-pv { aspect-ratio: 16 / 7; }
     .xp-cards { margin-bottom: 0.9rem; }
     .xp-mode { margin-bottom: 0.8rem; }
@@ -181,7 +165,6 @@
     .xp-welcome__note { margin-top: 0.6rem; }
 }
 @media (min-width: 601px) and (max-height: 700px) {
-    .xp-welcome__sub { display: none; }
     .xp-card .xp-pv { aspect-ratio: 16 / 6; }
 }
 
