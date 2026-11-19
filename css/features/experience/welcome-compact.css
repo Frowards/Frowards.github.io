@@ -27,7 +27,7 @@
 
     /* Titre : tailles par police (l'aperçu en direct change la police) */
     .xp-welcome[data-preview] .xp-welcome__title { font-size: 1.35rem; margin-bottom: 0.55rem; }
-    .xp-welcome[data-preview="retro"] .xp-welcome__title { font-size: 1.9rem; line-height: 1; }
+    .xp-welcome[data-preview="retro"] .xp-welcome__title { font-size: 1.65rem; line-height: 1; white-space: nowrap; }
     .xp-welcome[data-preview="future"] .xp-welcome__title { font-size: 1.05rem; }
     .xp-welcome[data-preview="gamer"] .xp-welcome__title { font-size: 0.8rem; line-height: 1.6; }
 
