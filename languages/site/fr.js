@@ -16,6 +16,10 @@ export default {
 
     "LANG.SWITCH_ARIA": "Switch to English",
 
+    "ORIENT.TITLE": "Plus agréable en portrait",
+    "ORIENT.TEXT": "Tournez votre téléphone pour profiter pleinement du portfolio.",
+    "ORIENT.CLOSE": "Fermer ce conseil",
+
     "FAV.BADGE": "Ce que je préfère",
 
     "TIP.ERP": "ERP (progiciel de gestion intégré) : un système unique qui pilote achats, ventes, stocks, facturation et logistique de toute l'entreprise.",

@@ -1,0 +1,170 @@
+/* ==========================================================================
+   Écran d'accueil sur téléphone : tout tient sur l'écran, sans défiler
+   (portrait et paysage).
+   - Le texte d'introduction disparaît, la description des cartes est
+     remplacée par une ligne qui décrit l'expérience sélectionnée (.xp-pick).
+   - Drapeau de langue et bouton de fermeture remontent dans les coins, sur
+     la ligne « Bienvenue ».
+   - En paysage : quatre cartes sur une ligne, affichage et visite côte à côte.
+   Chargé après welcome-live-preview.css : ses tailles de titre par
+   expérience l'emportent sur celles de l'aperçu en direct.
+   ========================================================================== */
+
+/* Ligne « expérience sélectionnée » : réservée aux écrans compacts */
+.xp-pick { display: none; }
+.xp-pick span { display: none; }
+.xp-welcome[data-preview="classic"] [data-pick="classic"],
+.xp-welcome[data-preview="retro"] [data-pick="retro"],
+.xp-welcome[data-preview="future"] [data-pick="future"],
+.xp-welcome[data-preview="gamer"] [data-pick="gamer"] { display: inline; }
+
+@media (max-width: 600px), (orientation: landscape) and (max-height: 500px) {
+    .xp-welcome { padding: 0.6rem 0.75rem calc(0.6rem + env(safe-area-inset-bottom, 0px)); }
+    .xp-welcome__box { position: relative; }
+
+    /* Drapeau à droite, fermeture à gauche, sur la ligne « Bienvenue » */
+    .xp-welcome__top {
+        position: absolute;
+        inset: 0 0 auto;
+        margin: 0;
+        pointer-events: none;
+    }
+    .xp-welcome__top > * { pointer-events: auto; }
+    .xp-welcome__top [data-xp-lang] { margin-left: auto; }
+    .xp-welcome__top [data-xp-close] { order: -1; }
+    .xp-welcome__top .toggle-btn { height: 2.1rem; }
+    .xp-chip--flag { height: 2.1rem; padding: 0 0.55rem; }
+    .xp-welcome__hello {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 2.1rem;
+        padding: 0 3.4rem;
+        margin-bottom: 0.25rem;
+        font-size: 0.66rem;
+        line-height: 1.3;
+    }
+
+    /* Titre : tailles par police (l'aperçu en direct change la police) */
+    .xp-welcome[data-preview] .xp-welcome__title { font-size: 1.35rem; margin-bottom: 0.55rem; }
+    .xp-welcome[data-preview="retro"] .xp-welcome__title { font-size: 1.9rem; line-height: 1; }
+    .xp-welcome[data-preview="future"] .xp-welcome__title { font-size: 1.05rem; }
+    .xp-welcome[data-preview="gamer"] .xp-welcome__title { font-size: 0.8rem; line-height: 1.6; }
+    .xp-welcome__sub { display: none; }
+
+    /* Cartes : aperçu plus bas, nom seul ; la description reste lue par les
+       lecteurs d'écran (masquage visuel uniquement) */
+    .xp-cards { gap: 0.5rem; margin-bottom: 0.35rem; }
+    .xp-card { gap: 0.15rem; padding: 0.35rem 0.35rem 0.45rem; border-radius: 12px; }
+    .xp-card .xp-pv { aspect-ratio: 16 / 7; border-radius: 7px; }
+    .xp-card__name { font-size: 0.9rem; padding: 0.1rem 0.2rem 0; }
+    .xp-welcome[data-preview="gamer"] .xp-card__name { font-size: 0.6rem; }
+    /* Aperçu Gamer moins haut : la barre d'XP se cale sous « LVL 1 », pièce
+       et cœur descendent pour ne pas la chevaucher */
+    .xp-pv__lvl { top: 9%; }
+    .xp-pv__xp { top: calc(9% + 1.1rem); }
+    .xp-pv__heart, .xp-pv__coin { bottom: 12%; }
+    .xp-card__desc {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        padding: 0;
+        clip-path: inset(50%);
+        white-space: nowrap;
+    }
+    .xp-card { position: relative; }
+    .xp-pick {
+        display: block;
+        min-height: 1.3em;
+        margin: 0 0 0.6rem;
+        font-size: 0.78rem;
+        line-height: 1.3;
+        color: var(--pb-text-secondary);
+    }
+
+    /* Affichage et visite */
+    .xp-mode { gap: 0.3rem 0.6rem; margin-bottom: 0.6rem; }
+    .xp-mode__detected { display: none; }
+    .xp-mode__space { font-size: 0.7rem; }
+    .xp-tour { gap: 0; margin-bottom: 0.7rem; }
+    .xp-tour > .xp-mode__label { display: none; }
+    .xp-tour__opt { gap: 0.5rem; padding: 0.45rem 0.6rem; }
+    .xp-tour__opt .li { width: 1.35rem; height: 1.35rem; }
+    .xp-tour__opt b { font-size: 0.86rem; }
+    .xp-tour__opt small { font-size: 0.68rem; }
+    .xp-welcome .xp-go { width: min(100%, 22rem); padding: 0.7rem 1.5rem; }
+    .xp-welcome__note { margin-top: 0.5rem; font-size: 0.7rem; }
+
+    /* Rétro : la police VT323 est petite, mais ses interlignes sont grands */
+    .xp-welcome[data-preview="retro"] { font-size: 1rem; }
+    .xp-welcome[data-preview="retro"] .xp-tour__opt small { font-size: 0.8rem; line-height: 1.1; }
+    .xp-welcome[data-preview="retro"] .xp-pick { font-size: 0.95rem; line-height: 1.1; }
+    .xp-welcome[data-preview="retro"] .xp-go { font-size: 1.15rem; }
+}
+
+/* Petits téléphones (iPhone SE...) : encore un peu plus serré */
+@media (max-width: 600px) and (max-height: 620px) {
+    .xp-welcome__hello { min-height: 1.9rem; }
+    .xp-welcome__top .toggle-btn, .xp-chip--flag { height: 1.9rem; }
+    .xp-card .xp-pv { aspect-ratio: 16 / 6; }
+    .xp-tour__opt small { display: none; }
+    .xp-mode { margin-bottom: 0.45rem; }
+    .xp-tour { margin-bottom: 0.55rem; }
+    .xp-welcome__note { display: none; }
+}
+
+/* Téléphone en paysage : quatre cartes sur une ligne, réglages côte à côte */
+@media (orientation: landscape) and (max-height: 500px) {
+    .xp-welcome__box {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 1rem;
+        align-items: center;
+    }
+    .xp-welcome__box > * { grid-column: 1 / -1; }
+    .xp-welcome__box > .xp-mode { grid-column: 1; margin-bottom: 0; }
+    .xp-welcome__box > .xp-tour { grid-column: 2; margin-bottom: 0; }
+    .xp-welcome__box > .xp-go { margin-top: 0.6rem; justify-self: center; }
+    .xp-welcome[data-preview] .xp-welcome__title { margin-bottom: 0.45rem; }
+    .xp-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .xp-card .xp-pv { aspect-ratio: 16 / 6; }
+    .xp-pick { margin-bottom: 0.4rem; }
+    .xp-mode { flex-wrap: nowrap; }
+    .xp-welcome[data-preview] .xp-mode__space { display: none; }
+    .xp-tour__opts { width: 100%; }
+    .xp-tour__opt small { display: none; }
+    .xp-welcome__note { display: none; }
+}
+
+/* Tablette en portrait : aperçus des cartes moins hauts */
+@media (min-width: 601px) and (max-width: 900px) {
+    .xp-card .xp-pv { aspect-ratio: 16 / 7; }
+}
+
+/* Écrans larges mais peu hauts (portables 1366 x 768, fenêtre réduite) :
+   l'écran se resserre en hauteur pour tenir sans défiler */
+@media (min-width: 601px) and (max-height: 820px) {
+    .xp-welcome { padding-top: 0.9rem; padding-bottom: 0.9rem; }
+    .xp-welcome__top { margin-bottom: 0; }
+    .xp-welcome__hello { margin-bottom: 0.3rem; }
+    .xp-welcome__title { margin-bottom: 0.4rem; }
+    .xp-welcome__sub { margin-bottom: 0.9rem; }
+    .xp-card .xp-pv { aspect-ratio: 16 / 7; }
+    .xp-cards { margin-bottom: 0.9rem; }
+    .xp-mode { margin-bottom: 0.8rem; }
+    .xp-mode__detected { display: none; }
+    .xp-tour { margin-bottom: 0.9rem; }
+    .xp-welcome__note { margin-top: 0.6rem; }
+}
+@media (min-width: 601px) and (max-height: 700px) {
+    .xp-welcome__sub { display: none; }
+    .xp-card .xp-pv { aspect-ratio: 16 / 6; }
+}
+
+/* Rétro sur grand écran : titre et descriptions un peu plus serrés (le
+   titre français, plus long, passe sinon sur deux lignes très hautes) */
+@media (min-width: 601px) {
+    .xp-welcome[data-preview="retro"] .xp-welcome__title { font-size: clamp(2.2rem, 5vw, 3.1rem); line-height: 1.05; }
+    .xp-welcome[data-preview="retro"] :is(.xp-card__desc, .xp-tour__opt small) { line-height: 1.2; }
+}

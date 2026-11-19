@@ -33,6 +33,8 @@ import { scene, viewportWidth, cellWidth } from './scene.js';
 
 /** Largeur d'écran sous laquelle la mascotte rapetisse (px) et échelles associées */
 const SMALL_SCREEN = 600;
+/** Hauteur d'écran sous laquelle la mascotte est réduite (téléphone en paysage) */
+const SHORT_SCREEN = 500;
 const SCALE_SMALL = 0.72;
 const SCALE_LARGE = 0.9;
 
@@ -91,9 +93,10 @@ function setVisible(on) {
     }
 }
 
-/** Adapte les tailles à la largeur de l'écran */
+/** Adapte les tailles à l'écran (petit, ou peu haut comme un téléphone en paysage) */
 function resize() {
-    scene.scale = viewportWidth() < SMALL_SCREEN ? SCALE_SMALL : SCALE_LARGE;
+    const compact = viewportWidth() < SMALL_SCREEN || window.innerHeight < SHORT_SCREEN;
+    scene.scale = compact ? SCALE_SMALL : SCALE_LARGE;
     Pierre.resize();
     Pet.resize();
     FetchGame.resize();

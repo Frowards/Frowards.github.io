@@ -131,6 +131,16 @@
     .tourbar__mid { min-width: 0; flex: 1; }
     .tourbar__name { font-size: 0.9rem; text-align: center; }
 }
+/* Téléphone en paysage : barre plus basse, pour laisser la place au contenu */
+@media (orientation: landscape) and (max-height: 500px) {
+    :root { --tourbar-h: 3.3rem; }
+    .tourbar__btn { padding: 0.45rem 0.9rem; }
+    .tourbar__exit { padding: 0.35rem 0.7rem; }
+    .tourbar__mid { gap: 0.1rem; }
+    .tourbar__count { font-size: 0.62rem; }
+    .tourbar__name { font-size: 0.88rem; }
+    .tourbar__dots { margin-top: 0; }
+}
 
 /* Barre selon l'expérience */
 :root[data-pb-exp="retro"] .tourbar { background: var(--pb-bg-secondary); border-top-width: 2px; }

@@ -72,6 +72,7 @@
 @import url("features/experience/adjustments.css");
 @import url("features/experience/welcome-live-preview.css");
 @import url("features/experience/welcome-space.css");
+@import url("features/experience/welcome-compact.css");
 
 /* Visite guidée : mise en page, barre, transitions, espace et cockpit */
 @import url("features/tour/layout.css");
@@ -88,3 +89,6 @@
 @import url("features/mascot/toggle.css");
 @import url("features/mascot/pet.css");
 @import url("features/mascot/experiences.css");
+
+/* Conseil d'orientation (téléphone en paysage) */
+@import url("features/orientation/hint.css");

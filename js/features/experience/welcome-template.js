@@ -49,6 +49,17 @@ function cardMarkup(exp) {
     ].join('');
 }
 
+/**
+ * Description de l'expérience sélectionnée, sous les cartes : affichée
+ * seulement sur téléphone, où les cartes ne montrent que leur nom (la ligne
+ * visible est choisie en CSS d'après data-preview, voir welcome-compact.css).
+ * Masquée aux lecteurs d'écran, qui lisent déjà la description des cartes.
+ */
+function pickMarkup() {
+    const lines = EXPERIENCES.map((exp) => `<span data-pick="${exp}">${tx(`EXP.${exp.toUpperCase()}_DESC`)}</span>`);
+    return `<p class="xp-pick" aria-hidden="true">${lines.join('')}</p>`;
+}
+
 /** Choix clair / sombre, avec le mode détecté sur l'appareil */
 function modeMarkup(detected) {
     const detectedName = t(detected === 'dark' ? 'EXP.DARK' : 'EXP.LIGHT').toLowerCase();
@@ -103,6 +114,7 @@ export function welcomeMarkup({ closable, detected }) {
         `<h2 id="xp-title" class="xp-welcome__title">${tx('EXP.TITLE')}</h2>`,
         `<p class="xp-welcome__sub">${tx('EXP.SUB')}</p>`,
         `<div class="xp-cards" role="radiogroup" aria-label="${tx('EXP.TITLE')}">${EXPERIENCES.map(cardMarkup).join('')}</div>`,
+        pickMarkup(),
         modeMarkup(detected),
         tourMarkup(),
         `<button type="button" class="btn btn-primary xp-go" data-xp-go>${tx('EXP.GO')}</button>`,

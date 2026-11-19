@@ -16,6 +16,10 @@ export default {
 
     "LANG.SWITCH_ARIA": "Passer en français",
 
+    "ORIENT.TITLE": "Best in portrait",
+    "ORIENT.TEXT": "Rotate your phone to enjoy the portfolio fully.",
+    "ORIENT.CLOSE": "Dismiss this tip",
+
     "FAV.BADGE": "What I love most",
 
     "TIP.ERP": "ERP (Enterprise Resource Planning): a single system driving purchasing, sales, stock, invoicing and logistics for the whole company.",

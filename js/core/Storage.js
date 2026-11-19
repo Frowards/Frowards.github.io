@@ -23,7 +23,8 @@ export const KEYS = Object.freeze({
     MASCOT: 'pb_mascot',          // mascotte masquée ('off') ou visible
     WELCOME_SEEN: 'pb_welcome_seen', // (session) écran d'accueil déjà montré pendant cette visite
     TOUR_STEP: 'pb_tour_step',      // (session) étape de la visite guidée à l'écran
-    SCROLL_POS: 'pb_scroll_pos'     // (session) position de lecture en visite libre ({ i, dy })
+    SCROLL_POS: 'pb_scroll_pos',    // (session) position de lecture en visite libre ({ i, dy })
+    ORIENT_HINT_OFF: 'pb_orient_off' // (session) conseil « tournez votre téléphone » refermé
 });
 
 function area(kind) {

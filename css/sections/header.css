@@ -102,6 +102,18 @@
     .topnav a.cta { padding: 0.6rem 1rem; }
 }
 @media (max-width: 380px) { .brand-name { font-size: 0.95rem; } }
+/* Téléphone en paysage : la hauteur est rare, tout revient sur une rangée
+   (marque, navigation en icônes, actions) */
+@media (max-width: 860px) and (orientation: landscape) and (max-height: 500px) {
+    .topbar-inner { flex-wrap: nowrap; gap: 0.5rem; padding-top: 0.3rem; padding-bottom: 0.3rem; }
+    .brand { flex: 0 1 auto; }
+    .brand-name { font-size: 0.95rem; }
+    .topnav { order: 0; width: auto; margin-left: auto; justify-content: flex-end; padding: 0; }
+    .topnav a { padding: 0.45rem 0.55rem; }
+    .topnav a.cta { padding: 0.45rem 0.7rem; }
+    .topbar-actions { margin-left: 0; }
+    .topbar-actions::before { margin: 0 0.3rem; }
+}
 
 /* Lien « Ceres » de la navigation : logo réduit à côté du libellé */
 .nav-ceres { display: inline-flex; align-items: center; gap: 0.4rem; }
