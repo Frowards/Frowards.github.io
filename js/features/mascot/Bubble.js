@@ -17,7 +17,7 @@ import Behavior from './Behavior.js';
 import FetchGame from './FetchGame.js';
 import { scene, viewportWidth } from './scene.js';
 
-const LINKEDIN_URL = 'https://www.linkedin.com/in/pierre-bernard-darmann-b636a7172/';
+const LINKEDIN_URL = 'https://www.linkedin.com/in/pierre-bernard-darmann/';
 
 /** Marges de la bulle : bords de l'écran, écart au-dessus de Pierre, pointe (px) */
 const EDGE = 8;
