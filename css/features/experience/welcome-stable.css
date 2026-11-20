@@ -62,14 +62,10 @@
 }
 .xp-welcome .xp-tour__opt { height: var(--xp-opt-h); }
 .xp-welcome .xp-go { height: var(--xp-go-h); padding-top: 0; padding-bottom: 0; }
-
-/* Mention propre au Spatial (« Sombre : ciel étoilé ») : sa ligne est
-   réservée dans toutes les expériences, et retirée sur téléphone */
-.xp-welcome[data-preview] .xp-mode__space { display: block; visibility: hidden; }
-.xp-welcome[data-preview="future"] .xp-mode__space { visibility: visible; }
-@media (max-width: 600px), (orientation: landscape) and (max-height: 500px) {
-    .xp-welcome[data-preview] .xp-mode__space { display: none; }
-}
+/* Clair / Sombre : hauteur fixe, bordure comprise (1 px en Classique,
+   3 px en Gamer), comme le bouton « Mode daltonien » à côté */
+.xp-welcome .xp-seg { box-sizing: border-box; height: 2.15rem; }
+.xp-welcome .xp-seg button { padding-top: 0; padding-bottom: 0; }
 
 /* Téléphone en portrait (colonne flexible) : seules les cartes rétrécissent
    si la place manque, les autres blocs gardent leur hauteur */

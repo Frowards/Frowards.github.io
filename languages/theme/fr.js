@@ -10,8 +10,12 @@ export default {
     "THEME.CLOSE": "Fermer",
     "THEME.CVD": "Mode daltonien",
     "THEME.CVD_OFF": "Désactivé",
-    "THEME.CVD_DEUTAN": "Deutéranopie (vert, la plus courante)",
-    "THEME.CVD_PROTAN": "Protanopie (rouge)",
-    "THEME.CVD_TRITAN": "Tritanopie (bleu et jaune)",
+    "THEME.CVD_OFF_HINT": "Couleurs d'origine",
+    "THEME.CVD_DEUTAN": "Deutéranopie",
+    "THEME.CVD_DEUTAN_HINT": "Rouge et vert confondus, la plus courante",
+    "THEME.CVD_PROTAN": "Protanopie",
+    "THEME.CVD_PROTAN_HINT": "Rouge et vert confondus, rouges assombris",
+    "THEME.CVD_TRITAN": "Tritanopie",
+    "THEME.CVD_TRITAN_HINT": "Bleu et jaune confondus",
     "THEME.MASCOT": "Mascotte (Pierre et son dragon)"
 };

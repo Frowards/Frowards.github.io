@@ -5,6 +5,6 @@
 
 .xp-toast--gamer { font-family: 'Press Start 2P', monospace; font-size: 0.55rem; line-height: 1.6; border-radius: 0; border-width: 3px; box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.45); transition-timing-function: steps(5); }
 .xp-toast--gamer b { color: #A3FF12; font-size: 0.62rem; }
-:root[data-theme="light"] .xp-toast--gamer b { color: #3F7D00; }
+:root[data-pb-mode="light"] .xp-toast--gamer b { color: #3F7D00; }
 .xp-toast--retro { font-family: 'VT323', monospace; font-size: 1.1rem; border-radius: 0; }
 .xp-toast--future { font-family: 'Orbitron', sans-serif; font-size: 0.68rem; letter-spacing: 0.08em; border-radius: 0; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%); }

@@ -20,18 +20,42 @@
 }
 .xp-trans__txt { position: relative; z-index: 2; }
 
-/* Classique : voile qui se pose puis s'ouvre en douceur */
-.xp-trans--classic { background: var(--pb-bg); opacity: 0; transition: opacity 0.45s var(--pb-ease-out); }
+/* Classique : voile qui se pose puis s'ouvre en douceur. Couleurs fixes du
+   Classique (et non celles du thème) : le thème change sous le voile,
+   le halo ne doit pas passer d'une couleur à l'autre */
+.xp-trans--classic { --xp-trans-rgb: 6, 182, 212; background: #0A0B10; opacity: 0; transition: opacity 0.45s var(--pb-ease-out); }
 .xp-trans--classic.is-on { opacity: 1; }
 .xp-trans--classic.is-out { opacity: 0; transition-duration: 0.6s; }
 .xp-trans__glow {
     width: 40vmax; height: 40vmax;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(var(--pb-primary-rgb), 0.45), transparent 65%);
+    background: radial-gradient(circle, rgba(var(--xp-trans-rgb), 0.45), transparent 65%);
     transform: scale(0.2);
-    transition: transform 1s var(--pb-ease-out);
+    transition: transform 1.6s var(--pb-ease-out);
 }
 .xp-trans--classic.is-on .xp-trans__glow { transform: scale(1.6); }
+.xp-trans--classic.is-light { --xp-trans-rgb: 14, 116, 144; background: #ddd8cc; }
+/* « C'est parti » en lettres dorées qui se resserrent et se précisent */
+.xp-trans--classic .xp-trans__glow,
+.xp-trans--classic .xp-trans__txt { grid-area: 1 / 1; }
+.xp-trans--classic .xp-trans__txt {
+    padding: 0 1.2rem;
+    text-align: center;
+    font-family: 'Cinzel', Georgia, serif;
+    font-weight: 900;
+    font-size: clamp(1.8rem, 7vw, 3.4rem);
+    line-height: 1.15;
+    background: linear-gradient(180deg, #FFE9A8, #FDC900, #E8960C);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    opacity: 0;
+    letter-spacing: 0.35em;
+    filter: blur(8px);
+}
+.xp-trans--classic.is-on .xp-trans__txt { animation: xp-name-in 1.1s var(--pb-ease-out) 0.15s forwards; }
+@keyframes xp-name-in { to { opacity: 1; letter-spacing: 0.06em; filter: blur(0); } }
+.xp-trans--classic.is-light .xp-trans__txt { background-image: linear-gradient(180deg, #C99A1A, #A67C00, #7A5A00); }
 
 /* Rétro : allumage d'un écran cathodique */
 .xp-trans--retro { background: #000; opacity: 0; transition: opacity 0.2s; }
@@ -55,31 +79,23 @@
     width: 0;
     border-right: 0.5em solid #FFB000;
 }
-.xp-trans--retro.is-on .xp-trans__txt { animation: xp-type 0.5s steps(22) 0.15s forwards; }
+/* Le texte se tape, puis le curseur clignote jusqu'à la sortie */
+.xp-trans--retro.is-on .xp-trans__txt { animation: xp-type 0.5s steps(22) 0.15s forwards, xp-caret 0.9s steps(1) 0.65s infinite; }
 .xp-trans--retro.is-out { animation: xp-crt-off 0.75s ease-in forwards; }
 @keyframes xp-crt-on { 0% { width: 0; height: 2px; } 60% { width: 100vw; height: 2px; } 100% { width: 100vw; height: 100vh; opacity: 0; } }
 @keyframes xp-type { to { width: 23ch; } }
+@keyframes xp-caret { 50% { border-right-color: transparent; } }
 @keyframes xp-crt-off { 0% { opacity: 1; filter: brightness(1); } 30% { filter: brightness(2.5); } 100% { opacity: 0; filter: brightness(1); } }
 
-/* Spatial : saut en hyperespace (traînées d'étoiles qui jaillissent du centre) */
-.xp-trans__warp {
-    position: absolute;
-    inset: -50%;
-    background: repeating-conic-gradient(from 0deg at 50% 50%, rgba(160, 240, 255, 0) 0deg 2.6deg, rgba(190, 245, 255, 0.75) 2.6deg 2.85deg, rgba(160, 240, 255, 0) 2.85deg 6deg);
-    -webkit-mask-image: radial-gradient(circle, transparent 6%, #000 30%, transparent 70%);
-    mask-image: radial-gradient(circle, transparent 6%, #000 30%, transparent 70%);
-    transform: scale(0.2) rotate(0deg);
-    opacity: 0;
-}
-.xp-trans__warp--b { background: repeating-conic-gradient(from 3deg at 50% 50%, rgba(200, 160, 255, 0) 0deg 4.1deg, rgba(210, 180, 255, 0.55) 4.1deg 4.3deg, rgba(200, 160, 255, 0) 4.3deg 8deg); }
-.xp-trans--future.is-on .xp-trans__warp { animation: xp-warp 1.3s cubic-bezier(0.5, 0, 0.75, 0) forwards; }
-.xp-trans--future.is-on .xp-trans__warp--b { animation-delay: 0.12s; }
-@keyframes xp-warp { 0% { transform: scale(0.2); opacity: 0; } 30% { opacity: 1; } 100% { transform: scale(2.6); opacity: 1; } }
+/* Spatial : saut en hyperespace (traînées d'étoiles dessinées dans le
+   canvas, js/features/experience/hyperspace.js) */
+.xp-trans__sky { position: absolute; inset: 0; width: 100%; height: 100%; }
 
-/* Spatial : voile nuit qui se déroule depuis le haut puis se retire vers le bas */
-.xp-trans--future { background: #04060E; clip-path: inset(0 0 100% 0); transition: clip-path 0.55s cubic-bezier(0.7, 0, 0.3, 1); }
+/* Spatial : voile nuit qui se déroule depuis le haut ; en fin de saut,
+   tout (traînées et texte) s'efface ensemble en 0,7 s */
+.xp-trans--future { background: #04060E; clip-path: inset(0 0 100% 0); transition: clip-path 0.55s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.7s ease; }
 .xp-trans--future.is-on { clip-path: inset(0 0 0 0); }
-.xp-trans--future.is-out { clip-path: inset(100% 0 0 0); transition-duration: 0.7s; }
+.xp-trans--future.is-out { opacity: 0; }
 .xp-trans--future .xp-trans__txt {
     font-family: 'Orbitron', sans-serif;
     font-weight: 700;
@@ -93,7 +109,10 @@
 }
 @keyframes xp-flicker { 0%, 100% { opacity: 1; } 40% { opacity: 0.55; } 60% { opacity: 0.9; } 80% { opacity: 0.4; } }
 
-/* Gamer : mosaïque de pixels + « PRÊT ? GO ! » */
+/* Gamer : mosaïque de pixels + « PRÊT ? GO ! ». Une fois posée, la mosaïque
+   est parcourue d'une vague en diagonale et le texte bat la mesure : rien ne
+   se fige jusqu'à la sortie. Propriété scale (et non transform) pour la
+   vague et le battement : elle se combine aux entrées / sorties. */
 .xp-trans__pix {
     position: absolute;
     inset: 0;
@@ -104,7 +123,12 @@
 .xp-trans__pix i { background: #FF3EA5; transform: scale(0); transition: transform 0.22s steps(3) var(--d); }
 .xp-trans__pix i:nth-child(3n) { background: #6D28D9; }
 .xp-trans__pix i:nth-child(5n) { background: #A3FF12; }
-.xp-trans--gamer.is-on .xp-trans__pix i { transform: scale(1.02); }
+.xp-trans--gamer.is-on .xp-trans__pix i { transform: scale(1.02); animation: xp-pix-wave 1.1s ease-in-out calc(0.7s + var(--w)) infinite; }
+@keyframes xp-pix-wave { 0%, 100% { scale: 1; filter: none; } 50% { scale: 0.86; filter: brightness(1.35); } }
+/* Fond sombre derrière la mosaïque pendant la vague (la page ne transparaît
+   pas entre les pixels) ; retiré à la sortie, quand les pixels disparaissent */
+.xp-trans--gamer.is-on { background: #130B26; transition: background-color 0s 0.7s; }
+.xp-trans--gamer.is-out { background: transparent; transition: none; }
 .xp-trans--gamer.is-out .xp-trans__pix i { transform: scale(0); }
 .xp-trans--gamer .xp-trans__txt {
     font-family: 'Press Start 2P', monospace;
@@ -115,12 +139,24 @@
     padding: 0 1rem;
     text-align: center;
 }
-.xp-trans--gamer.is-on .xp-trans__txt { animation: xp-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards; }
+.xp-trans--gamer.is-on .xp-trans__txt { animation: xp-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards, xp-beat 0.55s steps(2) 0.8s infinite; }
+@keyframes xp-beat { 0%, 100% { scale: 1; } 50% { scale: 1.12; } }
 .xp-trans--gamer.is-out .xp-trans__txt { animation: none; transform: scale(0); transition: transform 0.2s; }
 @keyframes xp-pop { to { transform: scale(1); } }
 
 /* Saut de lancement en Spatial clair : traînées grises sur ciel clair */
 .xp-trans--future.is-light { background: linear-gradient(180deg, #F3F6FC, #CFDAF0); }
-.xp-trans--future.is-light .xp-trans__warp { background: repeating-conic-gradient(from 0deg at 50% 50%, rgba(90, 100, 120, 0) 0deg 2.6deg, rgba(90, 100, 120, 0.55) 2.6deg 2.9deg, rgba(90, 100, 120, 0) 2.9deg 6deg); }
-.xp-trans--future.is-light .xp-trans__warp--b { background: repeating-conic-gradient(from 3deg at 50% 50%, rgba(150, 120, 100, 0) 0deg 4.1deg, rgba(150, 120, 100, 0.45) 4.1deg 4.4deg, rgba(150, 120, 100, 0) 4.4deg 8deg); }
 .xp-trans--future.is-light .xp-trans__txt { color: #0B1B2B; text-shadow: 0 0 12px rgba(255, 255, 255, 0.9); }
+
+/* ---------- Mode clair : Rétro et Gamer (comme le Classique et le Spatial) ---------- */
+/* Rétro clair : listing papier, encre ambre foncé */
+.xp-trans--retro.is-light { background: #F4ECD6; }
+.xp-trans--retro.is-light .xp-trans__line { background: #A36A00; box-shadow: 0 0 14px 3px rgba(163, 106, 0, 0.35); }
+.xp-trans--retro.is-light .xp-trans__txt { color: #7A4F00; text-shadow: none; border-right-color: #A36A00; }
+/* Gamer clair : fond crème, pixels pastel, texte foncé */
+.xp-trans--gamer.is-light.is-on { background: #FFF8E7; }
+.xp-trans--gamer.is-light.is-out { background: transparent; }
+.xp-trans--gamer.is-light .xp-trans__pix i { background: #FF8AC8; }
+.xp-trans--gamer.is-light .xp-trans__pix i:nth-child(3n) { background: #B794F6; }
+.xp-trans--gamer.is-light .xp-trans__pix i:nth-child(5n) { background: #C8F560; }
+.xp-trans--gamer.is-light .xp-trans__txt { color: #1B1036; text-shadow: 4px 4px 0 #FFF8E7; }

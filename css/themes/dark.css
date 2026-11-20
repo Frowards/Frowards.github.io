@@ -33,7 +33,7 @@
     --pb-text: #e4e6eb;
     --pb-text-secondary: #a0a4b0;
     --pb-text-muted: #9CA3AF;
-    --pb-text-on-color: #ffffff;
+    --pb-text-on-color: #04141A;   /* texte foncé sur le cyan vif (contraste) */
 
     /* --- Bordures --- */
     --pb-border: #2a2e3d;

@@ -88,7 +88,7 @@
 }
 @keyframes xp-crt-flicker { 0%, 100% { opacity: 1; } 50% { opacity: 0.85; } }
 :root[data-pb-exp="retro"] body { padding-bottom: 1.9rem; }
-:root[data-pb-exp="retro"]:not([data-theme="light"]) :is(h1, h2, h3, .logo-text) { text-shadow: 0 0 8px rgba(255, 176, 0, 0.45); }
+:root[data-pb-exp="retro"][data-pb-mode="dark"] :is(h1, h2, h3, .logo-text) { text-shadow: 0 0 8px rgba(255, 176, 0, 0.45); }
 :root[data-pb-exp="retro"] :is(h1, h2) { text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.05; }
 :root[data-pb-exp="retro"] h1 { font-size: clamp(2.2rem, 5vw, 4.6rem); }
 :root[data-pb-exp="retro"] h2 { font-size: clamp(1.9rem, 3.4vw, 3rem); }

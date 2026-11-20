@@ -12,7 +12,9 @@
  *   - tour:toggle         { active }             visite guidée activée / quittée
  *   - tour:step           { index, count }       étape de la visite affichée
  *   - panel:toggle        { open }               options d'affichage ouvertes / fermées
- *   - panel:request       -                      demande d'ouvrir les options d'affichage
+ *   - panel:request       { only?, look?, styleFrom? }  demande d'ouvrir les options d'affichage
+ *                                                (only: 'cvd' : seulement le mode daltonien ;
+ *                                                look, styleFrom : style de l'expérience)
  *   - mascot:request      { visible }            demande d'afficher / masquer la mascotte
  *                                                (bulle de Pierre, panneau de thème)
  *   - mascot:change       { visible }            mascotte affichée / masquée

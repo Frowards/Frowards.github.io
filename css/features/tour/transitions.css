@@ -73,12 +73,16 @@
 @keyframes tf-load { to { transform: scaleX(1); } }
 
 /* Gamer : rideau de pixels + écran de niveau */
+/* Gamer : même mosaïque qu'au lancement (css/features/experience/transitions.css,
+   animations xp-pix-wave) : couleurs, vague en diagonale, fond sombre */
 .tour-fx--gamer { z-index: 950; }
+.tour-fx--gamer.is-on { background: #130B26; transition: background-color 0s 0.6s; }
+.tour-fx--gamer.is-out { background: transparent; transition: none; }
 .tour-fx__pix { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(12, 1fr); grid-template-rows: repeat(8, 1fr); }
-.tour-fx__pix i { background: var(--pb-bg-secondary); transform: scale(0); transition: transform 0.2s steps(3) var(--d); }
-.tour-fx__pix i:nth-child(4n) { background: #6D28D9; }
-.tour-fx__pix i:nth-child(7n) { background: #FF3EA5; }
-.tour-fx--gamer.is-on .tour-fx__pix i { transform: scale(1.02); }
+.tour-fx__pix i { background: #FF3EA5; transform: scale(0); transition: transform 0.22s steps(3) var(--d); }
+.tour-fx__pix i:nth-child(3n) { background: #6D28D9; }
+.tour-fx__pix i:nth-child(5n) { background: #A3FF12; }
+.tour-fx--gamer.is-on .tour-fx__pix i { transform: scale(1.02); animation: xp-pix-wave 1.1s ease-in-out calc(0.6s + var(--w)) infinite; }
 .tour-fx--gamer.is-out .tour-fx__pix i { transform: scale(0); }
 .tour-fx__card {
     position: relative;
@@ -98,7 +102,21 @@
 }
 .tour-fx__card b { font-size: clamp(1rem, 4vw, 1.8rem); color: #A3FF12; text-shadow: 3px 3px 0 #000; }
 .tour-fx__card span { font-size: clamp(0.55rem, 2vw, 0.85rem); line-height: 1.6; }
-.tour-fx--gamer.is-on .tour-fx__card { animation: tf-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s forwards; }
+/* L'écran de niveau bat la mesure jusqu'à la sortie (propriété scale) */
+.tour-fx--gamer.is-on .tour-fx__card { animation: tf-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s forwards, tf-beat 0.55s steps(2) 0.75s infinite; }
+@keyframes tf-beat { 0%, 100% { scale: 1; } 50% { scale: 1.05; } }
+/* Gamer en mode clair : fond crème, pixels pastel, écran de niveau clair */
+:root[data-pb-mode="light"] .tour-fx--gamer.is-on { background: #FFF8E7; }
+:root[data-pb-mode="light"] .tour-fx--gamer.is-out { background: transparent; }
+:root[data-pb-mode="light"] .tour-fx__pix i { background: #FF8AC8; }
+:root[data-pb-mode="light"] .tour-fx__pix i:nth-child(3n) { background: #B794F6; }
+:root[data-pb-mode="light"] .tour-fx__pix i:nth-child(5n) { background: #C8F560; }
+:root[data-pb-mode="light"] .tour-fx__card {
+    background: #FFFFFF;
+    color: #1B1036;
+    box-shadow: 0 -4px 0 #C2185B, 0 4px 0 #C2185B, -4px 0 0 #C2185B, 4px 0 0 #C2185B, 8px 8px 0 rgba(27, 16, 54, 0.25);
+}
+:root[data-pb-mode="light"] .tour-fx__card b { color: #C2185B; text-shadow: 3px 3px 0 rgba(27, 16, 54, 0.15); }
 .tour-fx--gamer.is-out .tour-fx__card { animation: tf-unpop 0.25s steps(3) forwards; transform: scale(1); }
 @keyframes tf-pop { to { transform: scale(1); } }
 @keyframes tf-unpop { to { transform: scale(0); } }

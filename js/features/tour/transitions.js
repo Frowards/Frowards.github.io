@@ -2,7 +2,8 @@
  * Mises en scène des changements d'étape, une par expérience :
  *   - Classique : diaporama en fondu glissé
  *   - Rétro     : l'écran s'éteint, « C:\> LOAD CERES.DAT », puis se rallume
- *   - Gamer     : écran « STAGE 2 » derrière un rideau de pixels
+ *   - Gamer     : écran « STAGE 2 » sur une mosaïque de pixels parcourue
+ *                 d'une vague (la même qu'au lancement de l'expérience)
  *   - Spatial   : l'interface se replie, saut en hyperespace (les étoiles
  *                 s'étirent) et la zone suivante surgit de l'espace
  * Les animations elles-mêmes sont en CSS (css/features/tour/transitions.css,
@@ -13,7 +14,7 @@ import { esc } from '../../utils/dom.js';
 import { pad2 } from './steps.js';
 import Cockpit from './Cockpit.js';
 import Starfield from './space/Starfield.js';
-import { showFxLayer, fadeOutFxLayer, removeFxLayer, pixelCells } from './fx-layer.js';
+import { showFxLayer, fadeOutFxLayer, removeFxLayer, waveCells } from './fx-layer.js';
 
 /** Classes d'animation posées sur les étapes pendant une transition */
 const ANIMATION_CLASSES = ['tour-out', 'tour-in', 'tour-fwd', 'tour-back', 'tour-crt-off', 'tour-crt-on', 'tour-fold', 'tour-arrive', 'is-leaving'];
@@ -89,7 +90,7 @@ function retroScene({ from, to, name, show, done }) {
 function gamerScene({ index, name, show, done }) {
     const T = TIMING.gamer;
     const card = `<span class="tour-fx__card"><b>${esc(t('TOUR.STAGE', { n: index + 1 }))}</b><span>${esc(name.toUpperCase())}</span></span>`;
-    showFxLayer('tour-fx--gamer', `<span class="tour-fx__pix">${pixelCells(96, 0.35)}</span>${card}`);
+    showFxLayer('tour-fx--gamer', `<span class="tour-fx__pix">${waveCells(0.35)}</span>${card}`);
     later(T.show, show);
     later(T.curtainOut, fadeOutFxLayer);
     later(T.end, () => { removeFxLayer(); done(); });

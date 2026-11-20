@@ -160,7 +160,13 @@ export default {
     "CT.TITLE": "Envie d'en discuter ?",
     "CT.P": "Un projet, une équipe à encadrer, une question sur mon parcours : écrivez-moi, je réponds volontiers.",
     "CT.LOC": "Saze (30), France",
-    "CT.AVAIL": "Ouvert aux opportunités <strong>en France, en Belgique, au Luxembourg et au Québec</strong> - nationalités française et belge.",
+    "CT.NAT": "Nationalités <strong>française et belge</strong>",
+    "CT.AVAIL": "Ouvert aux opportunités en :",
+    "CT.C_FR": "France",
+    "CT.C_BE": "Belgique",
+    "CT.C_LU": "Luxembourg",
+    "CT.C_CA": "Canada",
+    "CT.C_US": "États-Unis",
 
     "FOOT.TEXT": "Site conçu et développé sans framework."
 };

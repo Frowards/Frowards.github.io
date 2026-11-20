@@ -79,7 +79,7 @@
 :root[data-pb-exp="future"] h1 { font-size: clamp(1.7rem, 3vw, 3.1rem); line-height: 1.15; }
 :root[data-pb-exp="future"] h2 { font-size: clamp(1.3rem, 2vw, 2rem); }
 :root[data-pb-exp="future"] h3 { letter-spacing: 0.03em; }
-:root[data-pb-exp="future"]:not([data-theme="light"]) :is(h1, h2) { text-shadow: 0 0 18px rgba(0, 229, 255, 0.25); }
+:root[data-pb-exp="future"][data-pb-mode="dark"] :is(h1, h2) { text-shadow: 0 0 18px rgba(0, 229, 255, 0.25); }
 /* Coins biseautés + crochets lumineux aux angles des cartes */
 :root[data-pb-exp="future"] :is(.btn, .chip) { clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px)); border-radius: 0; }
 :root[data-pb-exp="future"]:not([data-pb-deco]) .glass {

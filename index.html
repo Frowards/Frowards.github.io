@@ -64,10 +64,32 @@
       </label>
       <fieldset class="cvd-options">
         <legend data-i18n="THEME.CVD">Mode daltonien</legend>
-        <label><input type="radio" name="cvd" value="off"><span data-i18n="THEME.CVD_OFF">Désactivé</span></label>
-        <label><input type="radio" name="cvd" value="deutan"><span data-i18n="THEME.CVD_DEUTAN">Deutéranopie (vert, la plus courante)</span></label>
-        <label><input type="radio" name="cvd" value="protan"><span data-i18n="THEME.CVD_PROTAN">Protanopie (rouge)</span></label>
-        <label><input type="radio" name="cvd" value="tritan"><span data-i18n="THEME.CVD_TRITAN">Tritanopie (bleu et jaune)</span></label>
+        <div class="cvd-grid">
+          <label class="cvd-opt">
+            <input type="radio" name="cvd" value="off">
+            <span class="cvd-opt__sw" aria-hidden="true"><i style="--c: #E53935"></i><i style="--c: #43A047"></i><i style="--c: #1E88E5"></i><i style="--c: #FDD835"></i></span>
+            <span class="cvd-opt__name" data-i18n="THEME.CVD_OFF">Désactivé</span>
+            <span class="cvd-opt__hint" data-i18n="THEME.CVD_OFF_HINT">Couleurs d'origine</span>
+          </label>
+          <label class="cvd-opt">
+            <input type="radio" name="cvd" value="deutan">
+            <span class="cvd-opt__sw" aria-hidden="true"><i style="--c: #E53935"></i><i style="--c: #43A047"></i></span>
+            <span class="cvd-opt__name" data-i18n="THEME.CVD_DEUTAN">Deutéranopie</span>
+            <span class="cvd-opt__hint" data-i18n="THEME.CVD_DEUTAN_HINT">Rouge et vert confondus, la plus courante</span>
+          </label>
+          <label class="cvd-opt">
+            <input type="radio" name="cvd" value="protan">
+            <span class="cvd-opt__sw" aria-hidden="true"><i style="--c: #E53935"></i><i style="--c: #43A047"></i></span>
+            <span class="cvd-opt__name" data-i18n="THEME.CVD_PROTAN">Protanopie</span>
+            <span class="cvd-opt__hint" data-i18n="THEME.CVD_PROTAN_HINT">Rouge et vert confondus, rouges assombris</span>
+          </label>
+          <label class="cvd-opt">
+            <input type="radio" name="cvd" value="tritan">
+            <span class="cvd-opt__sw" aria-hidden="true"><i style="--c: #1E88E5"></i><i style="--c: #FDD835"></i></span>
+            <span class="cvd-opt__name" data-i18n="THEME.CVD_TRITAN">Tritanopie</span>
+            <span class="cvd-opt__hint" data-i18n="THEME.CVD_TRITAN_HINT">Bleu et jaune confondus</span>
+          </label>
+        </div>
       </fieldset>
     </div>
   </div>
@@ -520,9 +542,22 @@
           </li>
           <li>
             <span class="plain">
-              <svg data-icon="globe"></svg>
-              <span data-i18n-html="CT.AVAIL">Ouvert aux opportunités en France, en Belgique, au Luxembourg et au Québec - nationalités française et belge.</span>
+              <svg data-icon="id-card"></svg>
+              <span data-i18n-html="CT.NAT">Nationalités française et belge</span>
             </span>
+          </li>
+          <li class="avail">
+            <span class="plain">
+              <svg data-icon="globe"></svg>
+              <span data-i18n="CT.AVAIL">Ouvert aux opportunités en :</span>
+            </span>
+            <ul class="avail-countries">
+              <li><span data-flag="fr"></span><span data-i18n="CT.C_FR">France</span></li>
+              <li><span data-flag="be"></span><span data-i18n="CT.C_BE">Belgique</span></li>
+              <li><span data-flag="lu"></span><span data-i18n="CT.C_LU">Luxembourg</span></li>
+              <li><span data-flag="ca"></span><span data-i18n="CT.C_CA">Canada</span></li>
+              <li><span data-flag="us"></span><span data-i18n="CT.C_US">États-Unis</span></li>
+            </ul>
           </li>
         </ul>
       </div>

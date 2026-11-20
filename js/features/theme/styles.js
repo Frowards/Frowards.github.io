@@ -11,7 +11,7 @@ import { RADIUS_BASES, LIMITS } from './defaults.js';
 import { hexToRgb, accentTokens, borderTokens } from './color.js';
 import { fontStack } from './fonts.js';
 
-const ACCENT_PROPS = ['--pb-primary', '--pb-primary-hover', '--pb-primary-light', '--pb-primary-rgb', '--pb-primary-alpha'];
+const ACCENT_PROPS = ['--pb-primary', '--pb-primary-hover', '--pb-primary-light', '--pb-primary-rgb', '--pb-primary-alpha', '--pb-text-on-color'];
 const BORDER_PROPS = ['--pb-border', '--pb-border-light'];
 
 /** Écrit chaque { variable: valeur } dans style */

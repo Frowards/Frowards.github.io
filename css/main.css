@@ -30,6 +30,7 @@
 
 /* Panneau de personnalisation du thème */
 @import url("features/theme-panel/panel.css");
+@import url("features/theme-panel/looks.css");
 
 /* Sections de la page */
 @import url("sections/hero.css");

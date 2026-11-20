@@ -141,6 +141,26 @@ function applyPreset(preset, mode) {
     commit();
 }
 
+/**
+ * Aperçu de l'écran d'accueil : habille la racine comme le préréglage
+ * (arrondis, bordures, polices, transparence) et le mode prévisualisés,
+ * sans rien enregistrer ni toucher aux effets de fond. La taille du texte
+ * est celle de l'écran (scale), la même pour toutes les expériences :
+ * l'écran garde ses dimensions d'une expérience à l'autre (il compense
+ * lui-même les petites polices, welcome-live-preview.css).
+ * apply() rend ensuite la configuration du visiteur.
+ * @param {Object} preset réglages de l'expérience prévisualisée
+ * @param {'light'|'dark'} mode mode prévisualisé
+ * @param {number} [scale] taille du texte de l'écran (%)
+ */
+function preview(preset, mode, scale = 100) {
+    const root = document.documentElement;
+    const cfg = sanitize({ ...defaultConfig(), ...clone(preset || {}), cvd: config.cvd, mode, fontScale: scale });
+    applyStyles(root, cfg, mode);
+    root.setAttribute('data-pb-mode', mode);
+    root.setAttribute('data-theme', mode);
+}
+
 /** Déclare le préréglage courant sans rien appliquer (rechargement de page) */
 function setBase(preset) {
     base = clone(preset || {});
@@ -164,6 +184,7 @@ const Theme = {
     apply,
     set,
     applyPreset,
+    preview,
     setBase,
     effectiveMode,
 

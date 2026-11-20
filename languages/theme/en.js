@@ -10,8 +10,12 @@ export default {
     "THEME.CLOSE": "Close",
     "THEME.CVD": "Color-blind mode",
     "THEME.CVD_OFF": "Off",
-    "THEME.CVD_DEUTAN": "Deuteranopia (green, the most common)",
-    "THEME.CVD_PROTAN": "Protanopia (red)",
-    "THEME.CVD_TRITAN": "Tritanopia (blue and yellow)",
+    "THEME.CVD_OFF_HINT": "Original colors",
+    "THEME.CVD_DEUTAN": "Deuteranopia",
+    "THEME.CVD_DEUTAN_HINT": "Red and green confused, the most common",
+    "THEME.CVD_PROTAN": "Protanopia",
+    "THEME.CVD_PROTAN_HINT": "Red and green confused, darker reds",
+    "THEME.CVD_TRITAN": "Tritanopia",
+    "THEME.CVD_TRITAN_HINT": "Blue and yellow confused",
     "THEME.MASCOT": "Mascot (Pierre and his dragon)"
 };

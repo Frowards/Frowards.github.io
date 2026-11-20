@@ -11,9 +11,11 @@
 .xp-welcome { font-family: var(--xp-font-body, 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif); }
 .xp-welcome .xp-welcome__title { font-family: var(--xp-font-title, 'Cinzel', Georgia, serif); }
 
+/* Couleurs d'accent identiques à celles du site (presets.js et
+   theme/color.js : accent assombri et lisible en clair) */
 /* --- Classique --- */
 .xp-welcome[data-preview="classic"][data-preview-mode="dark"] {
-    --pb-primary: #06B6D4; --pb-primary-hover: #0891B2; --pb-primary-rgb: 6, 182, 212; --pb-text-on-color: #ffffff;
+    --pb-primary: #06B6D4; --pb-primary-hover: #0891B2; --pb-primary-rgb: 6, 182, 212; --pb-text-on-color: #04141A;
     --pb-bg: #0A0B10; --pb-card-bg: rgba(30, 34, 48, 0.7); --pb-text: #e4e6eb; --pb-text-secondary: #a0a4b0; --pb-text-muted: #9CA3AF;
     --pb-border: #2a2e3d; --pb-border-light: #353945; --pb-surface-subtle: rgba(255, 255, 255, 0.03); --pb-surface-glass: rgba(25, 28, 36, 0.55);
     --xp-font-title: 'Cinzel', Georgia, serif;
@@ -37,7 +39,7 @@
     --pb-border: #4A3613; --pb-border-light: #6A4E1C; --pb-surface-subtle: rgba(255, 176, 0, 0.035); --pb-surface-glass: rgba(18, 14, 5, 0.85);
 }
 .xp-welcome[data-preview="retro"][data-preview-mode="light"] {
-    --pb-primary: #A36A00; --pb-primary-hover: #7A4F00; --pb-primary-rgb: 163, 106, 0; --pb-text-on-color: #ffffff;
+    --pb-primary: #996A00; --pb-primary-hover: #825A00; --pb-primary-rgb: 153, 106, 0; --pb-text-on-color: #ffffff;
     --pb-bg: #F4ECD6; --pb-card-bg: rgba(251, 246, 230, 0.97); --pb-text: #2B2108; --pb-text-secondary: #574515; --pb-text-muted: #7A6A3A;
     --pb-border: #9C8350; --pb-border-light: #7E6838; --pb-surface-subtle: rgba(90, 70, 20, 0.04); --pb-surface-glass: rgba(251, 246, 230, 0.9);
 }
@@ -70,7 +72,7 @@
     --pb-border: rgba(0, 229, 255, 0.26); --pb-border-light: rgba(0, 229, 255, 0.45); --pb-surface-subtle: rgba(0, 229, 255, 0.035); --pb-surface-glass: rgba(8, 18, 36, 0.5);
 }
 .xp-welcome[data-preview="future"][data-preview-mode="light"] {
-    --pb-primary: #0078AA; --pb-primary-hover: #005F87; --pb-primary-rgb: 0, 120, 170; --pb-text-on-color: #ffffff;
+    --pb-primary: #007E8C; --pb-primary-hover: #006B77; --pb-primary-rgb: 0, 126, 140; --pb-text-on-color: #ffffff;
     --pb-bg: #E6ECF8; --pb-card-bg: rgba(255, 255, 255, 0.78); --pb-text: #0B1B2B; --pb-text-secondary: #33506A; --pb-text-muted: #56708A;
     --pb-border: rgba(0, 100, 150, 0.28); --pb-border-light: rgba(0, 100, 150, 0.48); --pb-surface-subtle: rgba(0, 100, 150, 0.04); --pb-surface-glass: rgba(255, 255, 255, 0.6);
 }
@@ -94,12 +96,12 @@
 /* --- Gamer : arcade pixel --- */
 .xp-welcome[data-preview="gamer"] { --xp-font-title: 'Press Start 2P', monospace; }
 .xp-welcome[data-preview="gamer"][data-preview-mode="dark"] {
-    --pb-primary: #FF3EA5; --pb-primary-hover: #E0218A; --pb-primary-rgb: 255, 62, 165; --pb-text-on-color: #ffffff;
+    --pb-primary: #FF3EA5; --pb-primary-hover: #E0218A; --pb-primary-rgb: 255, 62, 165; --pb-text-on-color: #0B0B12;
     --pb-bg: #130B26; --pb-card-bg: #1C1238; --pb-text: #FFFFFF; --pb-text-secondary: #CFC4F7; --pb-text-muted: #A796DB;
     --pb-border: #6D28D9; --pb-border-light: #8B5CF6; --pb-surface-subtle: rgba(255, 255, 255, 0.035); --pb-surface-glass: rgba(28, 18, 56, 0.94);
 }
 .xp-welcome[data-preview="gamer"][data-preview-mode="light"] {
-    --pb-primary: #C2185B; --pb-primary-hover: #9C1349; --pb-primary-rgb: 194, 24, 91; --pb-text-on-color: #ffffff;
+    --pb-primary: #B32B73; --pb-primary-hover: #982562; --pb-primary-rgb: 179, 43, 115; --pb-text-on-color: #ffffff;
     --pb-bg: #FFF8E7; --pb-card-bg: #FFFFFF; --pb-text: #1B1036; --pb-text-secondary: #463673; --pb-text-muted: #66579A;
     --pb-border: #6D28D9; --pb-border-light: #5B21B6; --pb-surface-subtle: rgba(109, 40, 217, 0.04); --pb-surface-glass: rgba(255, 255, 255, 0.95);
 }

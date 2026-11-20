@@ -9,6 +9,10 @@
  *   - la visite guidée ou libre.
  * Chaque clic habille aussitôt l'écran dans le style choisi (aperçu en
  * direct par data-preview / data-preview-mode, voir welcome-live-preview.css).
+ * La racine prend aussi l'expérience prévisualisée (data-pb-exp, arrondis,
+ * bordures, polices, taille du texte : Theme.preview) : l'aperçu est le même
+ * quelle que soit l'expérience affichée avant. La page, masquée dessous,
+ * est rendue telle quelle si l'écran est refermé sans lancer.
  * « C'est parti » transmet le choix au propriétaire de l'écran (onLaunch).
  *
  * Fenêtre modale accessible : role="dialog", focus piégé, Échap pour fermer.
@@ -18,9 +22,14 @@ import Events from '../../core/Events.js';
 import Theme from '../theme/Theme.js';
 import { qs, qsa } from '../../utils/dom.js';
 import { prefersReducedMotion } from '../../utils/motion.js';
-import { EXPERIENCES } from './presets.js';
+import { EXPERIENCES, presetFor } from './presets.js';
 import { currentExp, currentTour, systemMode } from './state.js';
 import { welcomeMarkup } from './welcome-template.js';
+
+/** Sur grand écran (PC), l'écran entier est agrandi à la taille du Rétro
+ *  (118 %), pour toutes les expériences : il y a la place */
+const LARGE_SCREEN = '(min-width: 1100px) and (min-height: 700px)';
+const LARGE_SCALE = 118;
 
 /** Durée du fondu d'ouverture et de fermeture (voir .xp-welcome dans welcome.css) */
 const CLOSE_MS = 350;
@@ -29,6 +38,9 @@ let overlay = null;
 let coverTimer = 0;
 let firstVisit = false;
 let launchHandler = null;
+/** Expérience et défilement de la page à l'ouverture (rendus à la fermeture) */
+let liveExp = null;
+let liveScroll = 0;
 
 /** Choix en cours sur l'écran */
 const choice = { exp: 'classic', mode: null, tour: 'guided' };
@@ -53,6 +65,9 @@ function renderSelection() {
     });
     overlay.setAttribute('data-preview', choice.exp);
     overlay.setAttribute('data-preview-mode', choice.mode);
+    document.documentElement.setAttribute('data-pb-exp', choice.exp);
+    const scale = window.matchMedia(LARGE_SCREEN).matches ? LARGE_SCALE : 100;
+    Theme.preview(presetFor(choice.exp), choice.mode, scale);
     markColorBlind();
 }
 
@@ -77,7 +92,7 @@ function onClick(e) {
     if (tour) { choice.tour = tour.getAttribute('data-xp-tour'); renderSelection(); return; }
     if (e.target.closest('[data-xp-go]')) { if (launchHandler) launchHandler({ ...choice }); return; }
     if (e.target.closest('[data-xp-close]')) { Welcome.close(); return; }
-    if (e.target.closest('[data-xp-cvd]')) { Events.emit('panel:request'); return; }
+    if (e.target.closest('[data-xp-cvd]')) { Events.emit('panel:request', { only: 'cvd', look: choice.exp, styleFrom: overlay }); return; }
     if (e.target.closest('[data-xp-lang]')) Lang.toggle();
 }
 
@@ -124,6 +139,8 @@ function build() {
     overlay.addEventListener('keydown', onKeydown);
     Lang.onChange(() => { if (overlay && !overlay.hidden) render(); });
     Events.on('theme:change', () => { if (overlay && !overlay.hidden) markColorBlind(); });
+    /* Fenêtre redimensionnée (passage PC / petit écran) : taille de l'écran recalculée */
+    window.matchMedia(LARGE_SCREEN).addEventListener('change', () => { if (overlay && !overlay.hidden) renderSelection(); });
 }
 
 /**
@@ -167,7 +184,9 @@ const Welcome = {
     /** Ouvre l'écran, présélectionné sur l'expérience et le mode affichés */
     open() {
         if (!overlay) build();
-        choice.exp = currentExp();
+        liveExp = currentExp();
+        liveScroll = window.scrollY;
+        choice.exp = liveExp;
         choice.mode = Theme.effectiveMode();
         if (!firstVisit) choice.tour = currentTour();
         render();
@@ -189,9 +208,14 @@ const Welcome = {
     /** Ferme l'écran en fondu et rend le focus au bouton du header */
     close() {
         if (!overlay) return;
+        /* Fermé sans lancer : la page retrouve son expérience et sa place */
+        if (liveExp) document.documentElement.setAttribute('data-pb-exp', liveExp);
+        Theme.apply();
         setPageCovered(false);
         overlay.classList.remove('is-in');
         document.body.classList.remove('xp-open');
+        /* Après le retour du défilement de la page (body.xp-open retiré) */
+        window.scrollTo({ top: liveScroll, left: 0, behavior: 'instant' });
         const done = () => { overlay.hidden = true; };
         if (prefersReducedMotion()) done();
         else setTimeout(done, CLOSE_MS);

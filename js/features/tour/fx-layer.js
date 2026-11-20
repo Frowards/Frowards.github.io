@@ -35,13 +35,26 @@ export function removeFxLayer() {
     layer = null;
 }
 
+/** Mosaïque du Gamer : 12 x 8 pixels (grilles des feuilles de style) */
+const PIX_COLS = 12;
+const PIX_ROWS = 8;
+/** Décalage de la vague en diagonale, par pixel (s) */
+const PIX_WAVE_STEP_S = 0.06;
+
 /**
- * Cases d'un rideau de pixels, chacune avec un délai aléatoire (--d) pour
- * qu'elles apparaissent en désordre. Partagé avec les transitions de
- * lancement des expériences.
- * @param {number} count     nombre de cases (12 x 8 dans les feuilles de style)
- * @param {number} maxDelay  délai maximal en secondes
+ * Pixels de la mosaïque du Gamer, partagée par les changements d'étape et
+ * le lancement de l'expérience : chacun apparaît après un délai aléatoire
+ * (--d) puis suit une vague en diagonale (--w, place dans la vague).
+ * @param {number} maxDelay  délai d'apparition maximal (s)
  */
-export function pixelCells(count, maxDelay) {
-    return Array.from({ length: count }, () => `<i style="--d:${(Math.random() * maxDelay).toFixed(2)}s"></i>`).join('');
+export function waveCells(maxDelay) {
+    let html = '';
+    for (let row = 0; row < PIX_ROWS; row += 1) {
+        for (let col = 0; col < PIX_COLS; col += 1) {
+            const d = (Math.random() * maxDelay).toFixed(2);
+            const w = ((row + col) * PIX_WAVE_STEP_S).toFixed(2);
+            html += `<i style="--d:${d}s;--w:${w}s"></i>`;
+        }
+    }
+    return html;
 }

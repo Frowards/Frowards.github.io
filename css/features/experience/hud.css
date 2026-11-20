@@ -92,7 +92,7 @@ body.xp-open .xp-hud, body.xp-open .xp-toasts { display: none; }
     transition: transform 0.25s steps(8);
 }
 .xp-hud--gamer .xp-hud__xp { flex: none; color: #A3FF12; }
-:root[data-theme="light"] .xp-hud--gamer .xp-hud__xp { color: #3F7D00; }
+:root[data-pb-mode="light"] .xp-hud--gamer .xp-hud__xp { color: #3F7D00; }
 @media (max-width: 520px) {
     .xp-hud--future { left: 0.6rem; right: 0.6rem; bottom: 0.6rem; width: auto; }
     .xp-hud--gamer { gap: 0.45rem; padding: 0 0.6rem; font-size: 0.42rem; }

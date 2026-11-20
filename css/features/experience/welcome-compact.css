@@ -65,7 +65,6 @@
     /* Affichage et visite */
     .xp-mode { gap: 0.3rem 0.6rem; margin-bottom: 0.6rem; }
     .xp-mode__detected { display: none; }
-    .xp-mode__space { font-size: 0.7rem; }
     .xp-tour { gap: 0; margin-bottom: 0.7rem; }
     .xp-tour > .xp-mode__label { display: none; }
     .xp-tour__opt { gap: 0.5rem; padding: 0.45rem 0.6rem; }
@@ -158,7 +157,6 @@
     .xp-card .xp-pv { aspect-ratio: 16 / 6; }
     .xp-pick { margin-bottom: 0.4rem; }
     .xp-mode { flex-wrap: nowrap; }
-    .xp-welcome[data-preview] .xp-mode__space { display: none; }
     .xp-tour__opts { width: 100%; }
     .xp-tour__opt small { display: none; }
     .xp-go__note { display: none; }

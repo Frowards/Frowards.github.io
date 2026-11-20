@@ -14,6 +14,7 @@ import Lang from './core/Lang.js';
 import languages from '../languages/index.js';
 
 import Icon from './components/Icon.js';
+import Flag from './components/Flag.js';
 import './components/icons/ui.js';
 import './components/icons/brands.js';
 import Tooltip from './components/Tooltip.js';
@@ -37,6 +38,7 @@ import ProjectFlow from './effects/project-flow/ProjectFlow.js';
 Lang.register(languages);
 Lang.init();
 Icon.hydrate();
+Flag.hydrate();
 Contact.hydrate();
 
 /* 2. Thème : le préréglage de l'expérience sert de base avant la lecture des réglages */

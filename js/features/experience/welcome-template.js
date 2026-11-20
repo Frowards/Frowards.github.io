@@ -72,7 +72,6 @@ function modeMarkup(detected) {
         /* Daltonisme : bien en vue, ouvre le choix du type (options d'affichage) */
         `<button type="button" class="xp-chip xp-cvd" data-xp-cvd aria-haspopup="dialog" aria-label="${tx('EXP.CVD')}">${Icon.svg('accessibility')}<span>${tx('EXP.CVD')}</span></button>`,
         `<span class="xp-mode__detected">${tx('EXP.DETECTED', { mode: detectedName })}</span>`,
-        `<span class="xp-mode__space">${tx('EXP.SPACE_NIGHT')}</span>`,
         '</div>'
     ].join('');
 }

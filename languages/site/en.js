@@ -160,7 +160,13 @@ export default {
     "CT.TITLE": "Want to talk?",
     "CT.P": "A project, a team to lead, a question about my journey: drop me a line, I'll gladly reply.",
     "CT.LOC": "Saze, Gard, France",
-    "CT.AVAIL": "Open to opportunities in <strong>France, Belgium, Luxembourg and Quebec</strong> - French and Belgian citizen.",
+    "CT.NAT": "<strong>French and Belgian</strong> citizen",
+    "CT.AVAIL": "Open to opportunities in:",
+    "CT.C_FR": "France",
+    "CT.C_BE": "Belgium",
+    "CT.C_LU": "Luxembourg",
+    "CT.C_CA": "Canada",
+    "CT.C_US": "United States",
 
     "FOOT.TEXT": "Designed and built without a framework."
 };

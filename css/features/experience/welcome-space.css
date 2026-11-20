@@ -1,11 +1,8 @@
 /* ==========================================================================
    Spatial sur l'écran d'accueil
    Ciel étoilé qui défile : étoiles blanches sur noir (sombre), étoiles
-   noires sur blanc (clair), avec la mention qui l'explique.
+   noires sur blanc (clair).
    ========================================================================== */
-
-.xp-mode__space { display: none; flex-basis: 100%; font-size: 0.78rem; color: var(--pb-primary); }
-.xp-welcome[data-preview="future"] .xp-mode__space { display: block; }
 
 /* Fond : deux couches d'étoiles qui grossissent depuis le centre (on avance) */
 .xp-welcome[data-preview="future"] .xp-welcome__bg {

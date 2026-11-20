@@ -70,5 +70,7 @@ Icon.register({
     /* LinkedIn au trait */
     'linkedin-square': '<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 11v5M8 8v.01M12 16v-3a2 2 0 0 1 4 0v3"/>',
     /* repère de carte (localisation) */
-    'map-pin': '<path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>'
+    'map-pin': '<path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+    /* carte d'identité (nationalités) */
+    'id-card': '<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="11" r="2"/><path d="M5.5 16c0.5-1.5 1.6-2.2 3-2.2s2.5 0.7 3 2.2"/><path d="M14 10h4M14 14h4"/>'
 });
