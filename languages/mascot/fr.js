@@ -10,6 +10,7 @@ export default {
     "MASCOT.MAIL_SUBJECT": "Contact depuis votre portfolio",
     "MASCOT.CALL": "M'appeler : {tel}",
     "MASCOT.LINKEDIN": "Me retrouver sur LinkedIn",
+    "MASCOT.CV": "Voir mon CV (PDF)",
     "MASCOT.COPY": "Copier mon adresse e-mail",
     "MASCOT.COPIED": "Adresse copiée, à vous de jouer !",
     "MASCOT.SECTION": "Voir la page Contact",

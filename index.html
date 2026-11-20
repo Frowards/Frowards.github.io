@@ -119,6 +119,12 @@
         <div class="hero-actions">
           <a class="btn btn-primary" href="#contact" data-i18n="HERO.BTN_CONTACT">Me contacter</a>
           <a class="btn btn-ghost" href="#ceres" data-i18n="HERO.BTN_WORK">Voir mon travail</a>
+          <!-- CV : PDF ouvert dans un nouvel onglet (lecture, impression, téléchargement) ;
+               adresse posée par Contact.hydrate, absente des sources (robots) -->
+          <a class="btn btn-ghost" href="#contact" data-pb-contact="cv" target="_blank" rel="noopener nofollow">
+            <svg data-icon="file-text"></svg>
+            <span data-i18n="HERO.BTN_CV">Voir mon CV</span>
+          </a>
         </div>
       </div>
 
@@ -540,6 +546,7 @@
             </div>
           </form>
         </div>
+        <div class="contact-side">
         <ul class="contact-list">
           <li>
             <a href="#contact" data-pb-contact="mail">
@@ -583,6 +590,12 @@
               <li><span data-flag="ca"></span><span data-i18n="CT.C_CA">Canada</span></li>
               <li><span data-flag="us"></span><span data-i18n="CT.C_US">États-Unis</span></li>
             </ul>
+        <!-- CV : bouton à part, sous les coordonnées ; adresse posée par Contact.hydrate -->
+        <a class="btn btn-primary contact-cv" href="#contact" data-pb-contact="cv" target="_blank" rel="noopener nofollow">
+          <svg data-icon="file-text"></svg>
+          <span data-i18n="CT.CV">Télécharger mon CV (PDF)</span>
+        </a>
+        </div>
           </li>
         </ul>
       </div>

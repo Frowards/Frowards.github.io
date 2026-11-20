@@ -47,6 +47,7 @@ export default {
     "HERO.LEAD": "Trained in video games, seasoned in VR and serious games, I now build <strong>the web ERP of a retail group</strong>, used every day by <strong>hundreds of people</strong>: interfaces, business logic, APIs and databases. And what I love most is the part people see and touch: <strong>UX and UI</strong>.",
     "HERO.BTN_CONTACT": "Contact me",
     "HERO.BTN_WORK": "See my work",
+    "HERO.BTN_CV": "See my resume",
 
     "LAUNCH.ARIA": "Application window listing my domains: web interfaces, design system, PHP APIs, PostgreSQL, Delphi, user experience",
     "LAUNCH.TITLE": "my-daily-work.app",
@@ -171,6 +172,7 @@ export default {
     "CT.F_SENT": "Thank you, your message is on its way! I'll get back to you soon.",
     "CT.F_ERROR": "The message could not be sent. Please try again, or email me directly at",
     "CT.F_SUBJECT": "Portfolio - message from {name}",
+    "CT.CV": "Download my resume (PDF, in French)",
     "CT.NAT": "<strong>French and Belgian</strong> citizen",
     "CT.AVAIL": "Open to opportunities in:",
     "CT.C_FR": "France",

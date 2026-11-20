@@ -47,6 +47,7 @@ export default {
     "HERO.LEAD": "Formé au jeu vidéo, passé par la VR et les serious games, je conçois aujourd'hui <strong>l'ERP web d'un groupe de distribution</strong>, utilisé chaque jour par <strong>des centaines de personnes</strong> : interfaces, logique métier, API et bases de données. Et ce que je préfère, c'est la partie que l'on voit et que l'on touche : <strong>l'UX et l'UI</strong>.",
     "HERO.BTN_CONTACT": "Me contacter",
     "HERO.BTN_WORK": "Voir mon travail",
+    "HERO.BTN_CV": "Voir mon CV",
 
     "LAUNCH.ARIA": "Fenêtre d'application listant mes domaines : interfaces web, design system, API PHP, PostgreSQL, Delphi, expérience utilisateur",
     "LAUNCH.TITLE": "mon-quotidien.app",
@@ -171,6 +172,7 @@ export default {
     "CT.F_SENT": "Merci, votre message est bien parti ! Je vous réponds au plus vite.",
     "CT.F_ERROR": "Le message n'a pas pu partir. Réessayez, ou écrivez-moi directement à",
     "CT.F_SUBJECT": "Portfolio - message de {name}",
+    "CT.CV": "Télécharger mon CV (PDF)",
     "CT.NAT": "Nationalités <strong>française et belge</strong>",
     "CT.AVAIL": "Ouvert aux opportunités en :",
     "CT.C_FR": "France",

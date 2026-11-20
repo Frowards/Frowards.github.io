@@ -42,6 +42,7 @@ function render() {
         item('a', `href="mailto:${Contact.mail}?subject=${subject}"`, 'mascot-mail', t('MASCOT.MAIL')),
         item('a', `href="tel:${Contact.tel}"`, 'mascot-tel', t('MASCOT.CALL', { tel: Contact.telShown })),
         item('a', `href="${LINKEDIN_URL}" target="_blank" rel="noopener"`, 'mascot-linkedin', t('MASCOT.LINKEDIN')),
+        item('a', `href="${Contact.cv}" target="_blank" rel="noopener nofollow"`, 'mascot-cv', t('MASCOT.CV')),
         item('button', 'type="button" data-m="copy"', 'mascot-copy', t('MASCOT.COPY')),
         item('a', 'href="#contact" data-m="section"', 'mascot-contact', t('MASCOT.SECTION')),
         '</ul>',
