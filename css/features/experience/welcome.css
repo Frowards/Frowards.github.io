@@ -87,8 +87,8 @@ body.xp-covered > *:not(#pb-welcome, .xp-trans, .orient-hint, #theme-panel) { vi
     .xp-welcome .xp-chip--flag:hover { border-color: var(--pb-primary); background: var(--pb-surface-subtle); }
 }
 .xp-chip--flag .flag {
-    width: 1.6rem;
-    height: 0.8rem;
+    width: auto;    /* proportions officielles du drapeau */
+    height: 1.05rem;
     border-radius: 2px;
     box-shadow: 0 0 0 1px var(--pb-border);
 }

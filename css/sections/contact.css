@@ -67,9 +67,12 @@
     white-space: nowrap;
     color: var(--pb-text);
 }
+/* Drapeau (format 4:3 commun, js/components/Flag.js) */
+.contact-list .flag-slot { display: inline-flex; flex: none; }
 .contact-list .flag {
-    width: 1.3rem;
-    height: 0.65rem;
+    width: auto;
+    max-width: none;
+    height: 0.85rem;
     flex: none;
     border-radius: 2px;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18);

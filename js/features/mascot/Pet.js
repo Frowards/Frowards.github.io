@@ -94,12 +94,15 @@ const Pet = {
         petSprite = el('div', { className: 'mascot-pet__sprite' });
         petSprite.style.backgroundImage = `url("${DRAGON_SHEET.src}")`;
         petEl.appendChild(petSprite);
+        /* Caché jusqu'à sa première image placée (update) : sinon il apparaît
+           un instant en haut à gauche, avant l'entrée en scène de Pierre */
+        petEl.hidden = true;
         document.body.appendChild(petEl);
     },
 
-    /** Affiche ou cache le dragon */
+    /** Cache le dragon ; il réapparaît à sa prochaine image placée (update) */
     show(on) {
-        petEl.hidden = !on;
+        if (!on) petEl.hidden = true;
     },
 
     /** Fait vivre le dragon pendant dt secondes, puis l'affiche (et la pomme) */

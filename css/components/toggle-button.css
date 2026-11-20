@@ -26,8 +26,8 @@
 .toggle-btn:hover { border-color: var(--pb-primary); background: var(--pb-bg-hover); }
 .toggle-btn svg { width: 1.05rem; height: 1.05rem; }
 .toggle-btn .flag {
-    width: 1.5rem;
-    height: 0.75rem; /* fixe (ratio 2:1 du viewBox) : le bouton ne bouge plus au changement */
+    width: auto;    /* proportions officielles du drapeau (aspect-ratio posé par Flag) */
+    height: 0.95rem;
     border-radius: 2px;
     box-shadow: 0 0 0 1px var(--pb-border);
 }

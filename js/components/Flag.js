@@ -2,8 +2,10 @@
  * Flag - drapeaux des langues du site, partagés par le bouton de langue du
  * header et celui de l'écran d'accueil.
  *
- * Petites illustrations aux couleurs officielles (ratio 2:1, viewBox 60 x 30),
- * et non des pictos monochromes du registre d'icônes (Icon). Les émojis
+ * Les mêmes drapeaux que Ceres (C:\Ceres\front\_CeresAssets\flags, issus de
+ * la bibliothèque flag-icons, licence MIT) : couleurs officielles, chaque
+ * drapeau redessiné au format commun 4:3 (jamais étiré ni écrasé), et non des
+ * pictos monochromes du registre d'icônes (Icon). Les émojis
  * drapeaux ne sont pas utilisés : Windows les affiche en simples lettres.
  *
  * Les boutons montrent le drapeau de la langue AFFICHÉE (repère immédiat,
@@ -11,46 +13,47 @@
  *
  * Utilisation : Flag.svg('en') -> '<svg class="flag flag-en" ...>...</svg>'
  *               <span data-flag="be"></span> en HTML, puis Flag.hydrate()
+ *               (le span devient .flag-slot : emplacement de largeur fixe)
  * Mise en forme : .toggle-btn .flag (components/toggle-button.css) et
  * .xp-chip--flag .flag (features/experience/welcome.css).
  */
 const FLAGS = Object.freeze({
-    en: '<rect width="60" height="30" fill="#012169"/>'
-        + '<path d="M0,0 60,30 M60,0 0,30" stroke="#fff" stroke-width="6"/>'
-        + '<path d="M0,0 60,30 M60,0 0,30" stroke="#C8102E" stroke-width="3.5"/>'
-        + '<path d="M30,0 V30 M0,15 H60" stroke="#fff" stroke-width="10"/>'
-        + '<path d="M30,0 V30 M0,15 H60" stroke="#C8102E" stroke-width="6"/>',
-    fr: '<rect width="20" height="30" fill="#0055A4"/>'
-        + '<rect x="20" width="20" height="30" fill="#fff"/>'
-        + '<rect x="40" width="20" height="30" fill="#EF4135"/>',
-    be: '<rect width="20" height="30" fill="#000"/>'
-        + '<rect x="20" width="20" height="30" fill="#FDDA24"/>'
-        + '<rect x="40" width="20" height="30" fill="#EF3340"/>',
-    lu: '<rect width="60" height="10" fill="#EA141D"/>'
-        + '<rect y="10" width="60" height="10" fill="#fff"/>'
-        + '<rect y="20" width="60" height="10" fill="#51ADDA"/>',
-    /* États-Unis : bandes, canton bleu, étoiles simplifiées en points */
-    us: '<rect width="60" height="30" fill="#fff"/>'
-        + '<rect y="0.00" width="60" height="2.31" fill="#B31942"/><rect y="4.62" width="60" height="2.31" fill="#B31942"/><rect y="9.23" width="60" height="2.31" fill="#B31942"/><rect y="13.85" width="60" height="2.31" fill="#B31942"/><rect y="18.46" width="60" height="2.31" fill="#B31942"/><rect y="23.08" width="60" height="2.31" fill="#B31942"/><rect y="27.69" width="60" height="2.31" fill="#B31942"/>'
-        + '<rect width="24" height="16.15" fill="#0A3161"/>'
-        + '<g fill="#fff"><circle cx="2.0" cy="1.62" r="0.6"/><circle cx="6.0" cy="1.62" r="0.6"/><circle cx="10.0" cy="1.62" r="0.6"/><circle cx="14.0" cy="1.62" r="0.6"/><circle cx="18.0" cy="1.62" r="0.6"/><circle cx="22.0" cy="1.62" r="0.6"/><circle cx="4.0" cy="3.23" r="0.6"/><circle cx="8.0" cy="3.23" r="0.6"/><circle cx="12.0" cy="3.23" r="0.6"/><circle cx="16.0" cy="3.23" r="0.6"/><circle cx="20.0" cy="3.23" r="0.6"/><circle cx="2.0" cy="4.85" r="0.6"/><circle cx="6.0" cy="4.85" r="0.6"/><circle cx="10.0" cy="4.85" r="0.6"/><circle cx="14.0" cy="4.85" r="0.6"/><circle cx="18.0" cy="4.85" r="0.6"/><circle cx="22.0" cy="4.85" r="0.6"/><circle cx="4.0" cy="6.46" r="0.6"/><circle cx="8.0" cy="6.46" r="0.6"/><circle cx="12.0" cy="6.46" r="0.6"/><circle cx="16.0" cy="6.46" r="0.6"/><circle cx="20.0" cy="6.46" r="0.6"/><circle cx="2.0" cy="8.08" r="0.6"/><circle cx="6.0" cy="8.08" r="0.6"/><circle cx="10.0" cy="8.08" r="0.6"/><circle cx="14.0" cy="8.08" r="0.6"/><circle cx="18.0" cy="8.08" r="0.6"/><circle cx="22.0" cy="8.08" r="0.6"/><circle cx="4.0" cy="9.69" r="0.6"/><circle cx="8.0" cy="9.69" r="0.6"/><circle cx="12.0" cy="9.69" r="0.6"/><circle cx="16.0" cy="9.69" r="0.6"/><circle cx="20.0" cy="9.69" r="0.6"/><circle cx="2.0" cy="11.31" r="0.6"/><circle cx="6.0" cy="11.31" r="0.6"/><circle cx="10.0" cy="11.31" r="0.6"/><circle cx="14.0" cy="11.31" r="0.6"/><circle cx="18.0" cy="11.31" r="0.6"/><circle cx="22.0" cy="11.31" r="0.6"/><circle cx="4.0" cy="12.92" r="0.6"/><circle cx="8.0" cy="12.92" r="0.6"/><circle cx="12.0" cy="12.92" r="0.6"/><circle cx="16.0" cy="12.92" r="0.6"/><circle cx="20.0" cy="12.92" r="0.6"/><circle cx="2.0" cy="14.54" r="0.6"/><circle cx="6.0" cy="14.54" r="0.6"/><circle cx="10.0" cy="14.54" r="0.6"/><circle cx="14.0" cy="14.54" r="0.6"/><circle cx="18.0" cy="14.54" r="0.6"/><circle cx="22.0" cy="14.54" r="0.6"/></g>',
-    /* Canada : bandes rouges, feuille d'érable (tracé officiel mis à l'échelle) */
-    ca: '<rect width="60" height="30" fill="#D80621"/>'
-        + '<rect x="15" width="30" height="30" fill="#fff"/>'
-        + '<path transform="scale(0.00625)" fill="#D80621" d="m 4890,4430 -45,-863 a 95,95 0 0 1 111,-98 l 859,151 -116,-320 a 65,65 0 0 1 20,-73 l 941,-762 -212,-99 a 65,65 0 0 1 -34,-79 l 186,-572 -542,115 a 65,65 0 0 1 -73,-38 l -105,-247 -423,454 a 65,65 0 0 1 -111,-57 l 204,-1052 -327,189 a 65,65 0 0 1 -91,-27 l -332,-652 -332,652 a 65,65 0 0 1 -91,27 l -327,-189 204,1052 a 65,65 0 0 1 -111,57 l -423,-454 -105,247 a 65,65 0 0 1 -73,38 l -542,-115 186,572 a 65,65 0 0 1 -34,79 l -212,99 941,762 a 65,65 0 0 1 20,73 l -116,320 859,-151 a 95,95 0 0 1 111,98 l -45,863 z"/>'
+    /* Royaume-Uni (langue anglaise) */
+    en: () => '<path fill="#012169" d="M0 0h640v480H0z"/><path fill="#FFF" d="m75 0 244 181L562 0h78v62L400 241l240 178v61h-80L320 301 81 480H0v-60l239-178L0 64V0z"/><path fill="#C8102E" d="m424 281 216 159v40L369 281zm-184 20 6 35L54 480H0zM640 0v3L391 191l2-44L590 0zM0 0l239 176h-60L0 42z"/><path fill="#FFF" d="M241 0v480h160V0zM0 160v160h640V160z"/><path fill="#C8102E" d="M0 193v96h640v-96zM273 0v480h96V0z"/>',
+    /* France */
+    fr: () => '<path fill="#fff" d="M0 0h640v480H0z"/><path fill="#000091" d="M0 0h213.3v480H0z"/><path fill="#e1000f" d="M426.7 0H640v480H426.7z"/>',
+    /* Belgique */
+    be: () => '<g fill-rule="evenodd" stroke-width="1pt"><path fill="#000001" d="M0 0h213.3v480H0z"/><path fill="#ffd90c" d="M213.3 0h213.4v480H213.3z"/><path fill="#f31830" d="M426.7 0H640v480H426.7z"/></g>',
+    /* Luxembourg */
+    lu: () => '<path fill="#ed2939" d="M0 0h640v160H0z"/><path fill="#fff" d="M0 160h640v160H0z"/><path fill="#00a1de" d="M0 320h640v160H0z"/>',
+    /* Canada */
+    ca: () => '<path fill="#fff" d="M150.1 0h339.7v480H150z"/><path fill="#d52b1e" d="M-19.7 0h169.8v480H-19.7zm509.5 0h169.8v480H489.9zM201 232l-13.3 4.4 61.4 54c4.7 13.7-1.6 17.8-5.6 25l66.6-8.4-1.6 67 13.9-.3-3.1-66.6 66.7 8c-4.1-8.7-7.8-13.3-4-27.2l61.3-51-10.7-4c-8.8-6.8 3.8-32.6 5.6-48.9 0 0-35.7 12.3-38 5.8l-9.2-17.5-32.6 35.8c-3.5.9-5-.5-5.9-3.5l15-74.8-23.8 13.4q-3.2 1.3-5.2-2.2l-23-46-23.6 47.8q-2.8 2.5-5 .7L264 130.8l13.7 74.1c-1.1 3-3.7 3.8-6.7 2.2l-31.2-35.3c-4 6.5-6.8 17.1-12.2 19.5s-23.5-4.5-35.6-7c4.2 14.8 17 39.6 9 47.7"/>',
+    /* États-Unis */
+    us: (id) => `<path fill="#bd3d44" d="M0 0h640v480H0"/><path stroke="#fff" stroke-width="37" d="M0 55.3h640M0 129h640M0 203h640M0 277h640M0 351h640M0 425h640"/><path fill="#192f5d" d="M0 0h364.8v258.5H0"/><marker id="${id}" markerHeight="30" markerWidth="30"><path fill="#fff" d="m14 0 9 27L0 10h28L5 27z"/></marker><path fill="none" marker-mid="url(#${id})" d="m0 0 16 11h61 61 61 61 60L47 37h61 61 60 61L16 63h61 61 61 61 60L47 89h61 61 60 61L16 115h61 61 61 61 60L47 141h61 61 60 61L16 166h61 61 61 61 60L47 192h61 61 60 61L16 218h61 61 61 61 60z"/>`
 });
 
+/** Compteur pour des identifiants uniques (étoiles du drapeau américain) */
+let uid = 0;
+
 const Flag = {
-    /** Balisage SVG du drapeau de la langue (chaîne vide si inconnue) */
-    svg(lang) {
-        if (!FLAGS[lang]) return '';
-        return `<svg class="flag flag-${lang}" viewBox="0 0 60 30" aria-hidden="true" focusable="false">${FLAGS[lang]}</svg>`;
+    /**
+     * Balisage SVG du drapeau de la langue ou du pays (chaîne vide si inconnu).
+     * Format 4:3 commun à tous les drapeaux (viewBox et aspect-ratio) : les
+     * feuilles de style ne fixent que la hauteur.
+     */
+    svg(code) {
+        const body = FLAGS[code];
+        if (!body) return '';
+        uid += 1;
+        return `<svg class="flag flag-${code}" viewBox="0 0 640 480" style="aspect-ratio: 4 / 3" aria-hidden="true" focusable="false">${body(`pb-flag-${uid}`)}</svg>`;
     },
 
     /** Remplace tous les <span data-flag="xx"> présents sous root par leur drapeau */
     hydrate(root = document) {
         root.querySelectorAll('[data-flag]').forEach((node) => {
-            node.outerHTML = Flag.svg(node.dataset.flag);
+            node.classList.add('flag-slot');
+            node.innerHTML = Flag.svg(node.dataset.flag);
+            node.removeAttribute('data-flag');
         });
     }
 };
