@@ -25,6 +25,7 @@ import { prefersReducedMotion } from '../../utils/motion.js';
 import { EXPERIENCES, presetFor } from './presets.js';
 import { currentExp, currentTour, systemMode } from './state.js';
 import { welcomeMarkup } from './welcome-template.js';
+import { startCruise } from './hyperspace.js';
 
 /** Sur grand écran (PC), l'écran entier est agrandi à la taille du Rétro
  *  (118 %), pour toutes les expériences : il y a la place */
@@ -40,6 +41,8 @@ let firstVisit = false;
 let launchHandler = null;
 /** Expérience et défilement de la page à l'ouverture (rendus à la fermeture) */
 let liveExp = null;
+/** Ciel étoilé de l'aperçu Spatial : canvas animé, clé (canvas + mode) et arrêt */
+let sky = { canvas: null, light: false, stop: null };
 let liveScroll = 0;
 
 /** Choix en cours sur l'écran */
@@ -69,6 +72,23 @@ function renderSelection() {
     const scale = window.matchMedia(LARGE_SCREEN).matches ? LARGE_SCALE : 100;
     Theme.preview(presetFor(choice.exp), choice.mode, scale);
     markColorBlind();
+    syncSky();
+}
+
+/** Arrête le ciel étoilé de l'aperçu Spatial */
+function stopSky() {
+    if (sky.stop) sky.stop();
+    sky = { canvas: null, light: false, stop: null };
+}
+
+/** Ciel étoilé animé seulement pendant l'aperçu Spatial (canvas léger) */
+function syncSky() {
+    const canvas = qs('.xp-welcome__sky', overlay);
+    const light = choice.mode === 'light';
+    if (choice.exp !== 'future' || !canvas || overlay.hidden) { stopSky(); return; }
+    if (sky.canvas === canvas && sky.light === light) return;
+    stopSky();
+    sky = { canvas, light, stop: startCruise(canvas, { light }) };
 }
 
 /** Bouton « Mode daltonien » allumé quand un type est corrigé */
@@ -191,6 +211,7 @@ const Welcome = {
         if (!firstVisit) choice.tour = currentTour();
         render();
         overlay.hidden = false;
+        syncSky();
         document.body.classList.add('xp-open');
         /* Page déjà masquée par l'anti-flash : elle le reste ; sinon, elle
            l'est à la fin du fondu d'ouverture */
@@ -216,7 +237,7 @@ const Welcome = {
         document.body.classList.remove('xp-open');
         /* Après le retour du défilement de la page (body.xp-open retiré) */
         window.scrollTo({ top: liveScroll, left: 0, behavior: 'instant' });
-        const done = () => { overlay.hidden = true; };
+        const done = () => { overlay.hidden = true; stopSky(); };
         if (prefersReducedMotion()) done();
         else setTimeout(done, CLOSE_MS);
         focusHeaderButton();
@@ -236,6 +257,7 @@ const Welcome = {
         if (!overlay) return;
         overlay.hidden = true;
         overlay.inert = false;
+        stopSky();
         setPageCovered(false);
         overlay.classList.remove('is-in');
         document.body.classList.remove('xp-open');

@@ -104,7 +104,7 @@ function tourMarkup() {
  */
 export function welcomeMarkup({ closable, detected }) {
     return [
-        '<div class="xp-welcome__bg" aria-hidden="true"></div>',
+        '<div class="xp-welcome__bg" aria-hidden="true"><canvas class="xp-welcome__sky"></canvas></div>',
         '<div class="xp-welcome__box">',
         /* Ligne du haut : fermeture, « Bienvenue », drapeau de langue */
         '<div class="xp-welcome__top">',
