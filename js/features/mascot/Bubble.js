@@ -42,11 +42,12 @@ function render() {
         item('a', `href="mailto:${Contact.mail}?subject=${subject}"`, 'mascot-mail', t('MASCOT.MAIL')),
         item('a', `href="tel:${Contact.tel}"`, 'mascot-tel', t('MASCOT.CALL', { tel: Contact.telShown })),
         item('a', `href="${LINKEDIN_URL}" target="_blank" rel="noopener"`, 'mascot-linkedin', t('MASCOT.LINKEDIN')),
-        item('a', `href="${Contact.cv}" target="_blank" rel="noopener nofollow"`, 'mascot-cv', t('MASCOT.CV')),
         item('button', 'type="button" data-m="copy"', 'mascot-copy', t('MASCOT.COPY')),
         item('a', 'href="#contact" data-m="section"', 'mascot-contact', t('MASCOT.SECTION')),
         '</ul>',
         '<p class="mascot-bubble__status" role="status" aria-live="polite"></p>',
+        /* CV : à part des moyens de contact, mis en avant */
+        `<a class="mascot-bubble__cv" href="${Contact.cv}" target="_blank" rel="noopener nofollow">${Icon.svg('mascot-cv')}<span>${esc(t('MASCOT.CV'))}</span></a>`,
         `<p class="mascot-bubble__tip">${esc(t('MASCOT.TIP'))}</p>`,
         /* Hors de la liste de contact : simple lien discret, en pied de bulle */
         `<button type="button" class="mascot-bubble__hide" data-m="hide">${Icon.svg('mascot-hide')}<span>${esc(t('MASCOT.HIDE'))}</span></button>`

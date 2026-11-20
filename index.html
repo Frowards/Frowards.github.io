@@ -520,6 +520,11 @@
           </div>
           <h2 data-i18n="CT.TITLE">Envie d'en discuter ?</h2>
           <p data-i18n="CT.P">Un projet, une équipe à encadrer, une question sur mon parcours : écrivez-moi, je réponds volontiers.</p>
+          <!-- CV : sous l'invitation, avant le formulaire ; adresse posée par Contact.hydrate -->
+          <a class="btn btn-ghost contact-cv" href="#contact" data-pb-contact="cv" target="_blank" rel="noopener nofollow">
+            <svg data-icon="file-text"></svg>
+            <span data-i18n="CT.CV">Télécharger mon CV (PDF)</span>
+          </a>
           <!-- Formulaire de contact : envoyé par e-mail via Web3Forms (js/features/contact/ContactForm.js) -->
           <form class="contact-form" id="contact-form" novalidate>
             <div class="cf-row">
@@ -546,7 +551,6 @@
             </div>
           </form>
         </div>
-        <div class="contact-side">
         <ul class="contact-list">
           <li>
             <a href="#contact" data-pb-contact="mail">
@@ -590,12 +594,6 @@
               <li><span data-flag="ca"></span><span data-i18n="CT.C_CA">Canada</span></li>
               <li><span data-flag="us"></span><span data-i18n="CT.C_US">États-Unis</span></li>
             </ul>
-        <!-- CV : bouton à part, sous les coordonnées ; adresse posée par Contact.hydrate -->
-        <a class="btn btn-primary contact-cv" href="#contact" data-pb-contact="cv" target="_blank" rel="noopener nofollow">
-          <svg data-icon="file-text"></svg>
-          <span data-i18n="CT.CV">Télécharger mon CV (PDF)</span>
-        </a>
-        </div>
           </li>
         </ul>
       </div>

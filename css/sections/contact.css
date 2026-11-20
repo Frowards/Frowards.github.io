@@ -38,9 +38,8 @@
     color: var(--pb-text);
 }
 
-/* Colonne des coordonnées : liste, puis le bouton du CV à part */
-.contact-side { display: flex; flex-direction: column; align-items: flex-start; gap: 1.6rem; }
-.contact-cv { align-self: flex-start; }
+/* Bouton du CV : sous l'invitation à écrire, avant le formulaire */
+.contact-cv { margin-top: 1.1rem; }
 
 /* Disponibilité : pays en pastilles avec leur drapeau, alignées sous le
    texte, en grille de pastilles de même largeur (2 colonnes, 3 sur très

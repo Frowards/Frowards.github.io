@@ -77,6 +77,23 @@
 .mascot-bubble__list .li { width: 1.05rem; height: 1.05rem; flex: none; }
 .mascot-bubble__status { font-size: 0.78rem; color: var(--pb-success); margin-top: 0.45rem; min-height: 1em; }
 .mascot-bubble__status:empty { display: none; }
+.mascot-bubble__cv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    margin-top: 0.65rem;
+    padding: 0.55rem 0.7rem;
+    border-radius: var(--pb-radius-md);
+    background: var(--pb-primary);
+    color: var(--pb-text-on-color);
+    font-size: 0.86rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background var(--pb-transition-fast);
+}
+.mascot-bubble__cv:hover { background: var(--pb-primary-hover); }
+.mascot-bubble__cv .li { width: 1.05rem; height: 1.05rem; flex: none; stroke: currentColor; }
 .mascot-bubble__tip { margin-top: 0.55rem; font-size: 0.74rem; color: var(--pb-text-muted); }
 /* « Masquer la mascotte » : lien discret en pied de bulle, séparé des
    moyens de contact (elle revient par le panneau de thème) */
