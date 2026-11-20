@@ -60,6 +60,16 @@ export function playLaunchTransition(exp, { light, onCovered, onEnd }) {
     layer.setAttribute('aria-hidden', 'true');
     layer.innerHTML = (LAYERS[exp] || LAYERS.classic)();
     document.body.appendChild(layer);
+    // Taille du texte figée en px : l'écran d'accueil agrandit la taille de
+    // base (rem) et la rend à la page pendant la transition ; sans cela, le
+    // texte rétrécit en plein effet.
+    const txt = layer.querySelector('.xp-trans__txt');
+    if (txt) {
+        const cs = getComputedStyle(txt);
+        txt.style.fontSize = cs.fontSize;
+        txt.style.paddingLeft = cs.paddingLeft;
+        txt.style.paddingRight = cs.paddingRight;
+    }
     const mid = MID_MS[exp] || DEFAULT_MID_MS;
     const out = OUT_MS[exp] || mid;
     const sky = layer.querySelector('.xp-trans__sky');
