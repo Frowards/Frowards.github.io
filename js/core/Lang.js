@@ -8,6 +8,7 @@
  *     data-i18n-html   contenu HTML (réservé aux clés maîtrisées des dictionnaires)
  *     data-i18n-aria   attribut aria-label
  *     data-i18n-title  attribut title
+ *     data-i18n-placeholder  attribut placeholder (champs de formulaire)
  * - Langue par défaut : celle du navigateur ; choix mémorisé (Storage)
  * - Chaque changement émet lang:change (Events)
  */
@@ -23,7 +24,8 @@ const ATTRIBUTES = [
     ['data-i18n', (node, txt) => { node.textContent = txt; }],
     ['data-i18n-html', (node, txt) => { node.innerHTML = txt; }],
     ['data-i18n-aria', (node, txt) => { node.setAttribute('aria-label', txt); }],
-    ['data-i18n-title', (node, txt) => { node.setAttribute('title', txt); }]
+    ['data-i18n-title', (node, txt) => { node.setAttribute('title', txt); }],
+    ['data-i18n-placeholder', (node, txt) => { node.setAttribute('placeholder', txt); }]
 ];
 
 function browserLang() {

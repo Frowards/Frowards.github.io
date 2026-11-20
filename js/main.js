@@ -24,6 +24,7 @@ import Theme from './features/theme/Theme.js';
 import ThemePanel from './features/theme-panel/ThemePanel.js';
 import Header from './features/header/Header.js';
 import Contact from './features/contact/Contact.js';
+import ContactForm from './features/contact/ContactForm.js';
 import Experience from './features/experience/Experience.js';
 import Tour from './features/tour/Tour.js';
 import Mascot from './features/mascot/Mascot.js';
@@ -40,6 +41,7 @@ Lang.init();
 Icon.hydrate();
 Flag.hydrate();
 Contact.hydrate();
+ContactForm.init();
 
 /* 2. Thème : le préréglage de l'expérience sert de base avant la lecture des réglages */
 Experience.prepareTheme();

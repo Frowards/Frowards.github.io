@@ -514,6 +514,31 @@
           </div>
           <h2 data-i18n="CT.TITLE">Envie d'en discuter ?</h2>
           <p data-i18n="CT.P">Un projet, une équipe à encadrer, une question sur mon parcours : écrivez-moi, je réponds volontiers.</p>
+          <!-- Formulaire de contact : envoyé par e-mail via Web3Forms (js/features/contact/ContactForm.js) -->
+          <form class="contact-form" id="contact-form" novalidate>
+            <div class="cf-row">
+              <label class="cf-field">
+                <span data-i18n="CT.F_NAME">Nom</span>
+                <input type="text" name="name" autocomplete="name" required maxlength="100" data-i18n-placeholder="CT.F_NAME_PH" placeholder="Votre nom">
+              </label>
+              <label class="cf-field">
+                <span data-i18n="CT.F_EMAIL">E-mail</span>
+                <input type="email" name="email" autocomplete="email" required maxlength="150" data-i18n-placeholder="CT.F_EMAIL_PH" placeholder="vous@exemple.com">
+              </label>
+            </div>
+            <label class="cf-field">
+              <span data-i18n="CT.F_MESSAGE">Message</span>
+              <textarea name="message" rows="5" required maxlength="5000" data-i18n-placeholder="CT.F_MESSAGE_PH" placeholder="Bonjour Pierre, ..."></textarea>
+            </label>
+            <input type="checkbox" name="botcheck" class="cf-trap" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <div class="cf-actions">
+              <button type="submit" class="btn btn-primary">
+                <svg data-icon="mail"></svg>
+                <span data-i18n="CT.F_SEND">Envoyer</span>
+              </button>
+              <p class="cf-status" data-cf-status role="status" aria-live="polite"></p>
+            </div>
+          </form>
         </div>
         <ul class="contact-list">
           <li>

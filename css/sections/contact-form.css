@@ -1,0 +1,44 @@
+/* ==========================================================================
+   Formulaire de contact (js/features/contact/ContactForm.js)
+   Champs aux jetons du thème (bordures, arrondis, couleurs) : ils prennent
+   d'eux-mêmes le style de chaque expérience, en clair comme en sombre.
+   ========================================================================== */
+
+.contact-form { display: flex; flex-direction: column; gap: 0.9rem; margin-top: 1.4rem; max-width: 36rem; }
+.cf-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
+@media (max-width: 560px) { .cf-row { grid-template-columns: 1fr; } }
+.cf-field { display: flex; flex-direction: column; gap: 0.35rem; }
+.cf-field > span { font-size: 0.85rem; font-weight: 600; color: var(--pb-text-secondary); }
+.cf-field :is(input, textarea) {
+    width: 100%;
+    padding: 0.65rem 0.8rem;
+    border: var(--pb-border-w) solid var(--pb-border);
+    border-radius: var(--pb-radius-md);
+    background: var(--pb-surface-subtle);
+    color: var(--pb-text);
+    font: inherit;
+    font-size: 0.95rem;
+    transition: border-color var(--pb-transition-fast), box-shadow var(--pb-transition-fast);
+}
+.cf-field textarea { resize: vertical; min-height: 7.5rem; }
+.cf-field :is(input, textarea)::placeholder { color: var(--pb-text-muted); opacity: 1; }
+.cf-field :is(input, textarea):focus {
+    outline: none;
+    border-color: var(--pb-primary);
+    box-shadow: 0 0 0 3px rgba(var(--pb-primary-rgb), 0.25);
+}
+/* Champ invalide signalé seulement après une saisie */
+.cf-field :is(input, textarea):user-invalid { border-color: #E5484D; }
+
+/* Case piège anti-robots : hors de vue */
+.cf-trap { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+.cf-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 0.6rem 1rem; }
+.cf-actions .btn { display: inline-flex; align-items: center; gap: 0.5rem; }
+.cf-actions .btn svg { width: 1.05rem; height: 1.05rem; }
+.cf-actions .btn:disabled { opacity: 0.6; cursor: progress; }
+.cf-status { margin: 0; font-size: 0.88rem; color: var(--pb-text-secondary); }
+.cf-status:empty { display: none; }
+.contact-form[data-state="sent"] .cf-status { color: var(--pb-text); font-weight: 600; }
+.contact-form[data-state="error"] .cf-status { color: var(--pb-text); }
+.contact-form[data-state="error"] .cf-status a { color: var(--pb-primary); font-weight: 600; }
