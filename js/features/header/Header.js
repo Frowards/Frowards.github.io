@@ -26,13 +26,13 @@ function setHidden(node, hidden) {
     if (node) node.toggleAttribute('hidden', hidden);
 }
 
-/** Bouton de langue : drapeau et libellé accessible de la langue cible */
+/** Bouton de langue : drapeau de la langue affichée, libellé accessible de l'action */
 function initLangButton() {
     const button = qs('#btn-lang');
     if (!button) return;
 
     const refresh = () => {
-        button.innerHTML = Flag.svg(Flag.target(Lang.lang));
+        button.innerHTML = Flag.svg(Lang.lang);
         button.setAttribute('aria-label', t('LANG.SWITCH_ARIA'));
     };
 

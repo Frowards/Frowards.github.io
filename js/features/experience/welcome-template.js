@@ -111,7 +111,7 @@ export function welcomeMarkup({ closable, detected }) {
         '<div class="xp-welcome__top">',
         closable ? `<button type="button" class="toggle-btn" data-xp-close aria-label="${tx('EXP.CLOSE')}">${Icon.svg('close')}</button>` : '',
         `<p class="xp-welcome__hello">${tx('EXP.HELLO')}</p>`,
-        `<button type="button" class="xp-chip xp-chip--flag" data-xp-lang aria-label="${tx('LANG.SWITCH_ARIA')}" title="${tx('LANG.SWITCH_ARIA')}">${Flag.svg(Flag.target(Lang.lang))}</button>`,
+        `<button type="button" class="xp-chip xp-chip--flag" data-xp-lang aria-label="${tx('LANG.SWITCH_ARIA')}" title="${tx('LANG.SWITCH_ARIA')}">${Flag.svg(Lang.lang)}</button>`,
         '</div>',
         `<h2 id="xp-title" class="xp-welcome__title">${tx('EXP.TITLE')}</h2>`,
         `<div class="xp-cards" role="radiogroup" aria-label="${tx('EXP.TITLE')}">${EXPERIENCES.map(cardMarkup).join('')}</div>`,

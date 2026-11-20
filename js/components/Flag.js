@@ -6,6 +6,9 @@
  * et non des pictos monochromes du registre d'icônes (Icon). Les émojis
  * drapeaux ne sont pas utilisés : Windows les affiche en simples lettres.
  *
+ * Les boutons montrent le drapeau de la langue AFFICHÉE (repère immédiat,
+ * et valable s'il y a un jour plus de deux langues au choix).
+ *
  * Utilisation : Flag.svg('en') -> '<svg class="flag flag-en" ...>...</svg>'
  * Mise en forme : .toggle-btn .flag (components/toggle-button.css) et
  * .xp-chip--flag .flag (features/experience/welcome.css).
@@ -26,11 +29,6 @@ const Flag = {
     svg(lang) {
         if (!FLAGS[lang]) return '';
         return `<svg class="flag flag-${lang}" viewBox="0 0 60 30" aria-hidden="true" focusable="false">${FLAGS[lang]}</svg>`;
-    },
-
-    /** Langue proposée par un bouton de langue : l'autre que celle affichée */
-    target(lang) {
-        return lang === 'fr' ? 'en' : 'fr';
     }
 };
 
