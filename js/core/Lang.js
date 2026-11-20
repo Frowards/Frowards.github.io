@@ -87,7 +87,20 @@ const Lang = {
         return Events.on('lang:change', ({ lang }) => fn(lang));
     },
 
+    /**
+     * Ordre de priorité : ?lang=fr|en dans l'adresse (liens du profil LinkedIn
+     * français ou anglais), puis le choix mémorisé, puis la langue du navigateur.
+     * Le paramètre est mémorisé comme un choix, puis retiré de l'adresse.
+     */
     init() {
+        const params = new URLSearchParams(location.search);
+        const asked = (params.get('lang') || '').toLowerCase();
+        if (LANGS.includes(asked)) {
+            Storage.set(KEYS.LANG, asked);
+            params.delete('lang');
+            const query = params.toString();
+            history.replaceState(history.state, '', location.pathname + (query ? `?${query}` : '') + location.hash);
+        }
         const stored = Storage.get(KEYS.LANG);
         current = LANGS.includes(stored) ? stored : browserLang();
         Lang.apply();
