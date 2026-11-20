@@ -1,7 +1,7 @@
 /**
  * Contact - coordonnées protégées des robots collecteurs d'adresses.
  *
- * Le CV (PDF) suit la même règle : son adresse n'apparaît pas dans les
+ * Le CV (PDF, en français ou en anglais selon la langue affichée) suit la même règle : son adresse n'apparaît pas dans les
  * sources ([data-pb-contact="cv"]) ; robots.txt écarte aussi /assets/ des
  * moteurs de recherche.
  *
@@ -14,6 +14,7 @@
  *         <span data-pb-contact-text>E-mail</span>
  *     </a>
  */
+import Lang from '../../core/Lang.js';
 import { qsa } from '../../utils/dom.js';
 
 /** Remet une chaîne à l'endroit */
@@ -26,8 +27,10 @@ const AT = String.fromCharCode(64);
 
 /* Préfixes des liens découpés : aucun « mailto: » ni « tel: » complet à repérer */
 const MAILTO = ['mai', 'lto:'].join('');
-/* Chemin du CV, en morceaux inversés */
-const CV_PARTS = ['vc/stessa', 'nnamraD-dranreB-erreiP-VC', 'fdp.'];
+/* Chemins du CV par langue, en morceaux inversés */
+const CV_DIR = 'vc/stessa';
+const CV_FILES = { fr: 'nnamraD-dranreB-erreiP-VC', en: 'nnamraD-dranreB-erreiP-emuseR' };
+const PDF = 'fdp.';
 const TEL = ['te', 'l:'].join('');
 
 const Contact = {
@@ -40,8 +43,11 @@ const Contact = {
     /** Numéro affiché, groupé par paires de chiffres */
     telShown: DIGITS.replace(/(\d{2})(?=\d)/g, '$1 '),
 
-    /** Adresse du CV (PDF) */
-    cv: `${reverse(CV_PARTS[0])}/${reverse(CV_PARTS[1])}${reverse(CV_PARTS[2])}`,
+    /** Adresse du CV (PDF) dans la langue affichée */
+    get cv() {
+        const file = CV_FILES[Lang.lang] || CV_FILES.fr;
+        return `${reverse(CV_DIR)}/${reverse(file)}${reverse(PDF)}`;
+    },
 
     /**
      * Remplit les liens [data-pb-contact] présents sous root : adresse du

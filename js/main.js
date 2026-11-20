@@ -41,6 +41,8 @@ Lang.init();
 Icon.hydrate();
 Flag.hydrate();
 Contact.hydrate();
+/* CV dans la langue affichée : liens remis à jour au changement de langue */
+Lang.onChange(() => Contact.hydrate());
 ContactForm.init();
 
 /* 2. Thème : le préréglage de l'expérience sert de base avant la lecture des réglages */

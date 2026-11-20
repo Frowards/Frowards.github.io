@@ -172,7 +172,7 @@ export default {
     "CT.F_SENT": "Thank you, your message is on its way! I'll get back to you soon.",
     "CT.F_ERROR": "The message could not be sent. Please try again, or email me directly at",
     "CT.F_SUBJECT": "Portfolio - message from {name}",
-    "CT.CV": "Download my resume (PDF, in French)",
+    "CT.CV": "Download my resume (PDF)",
     "CT.NAT": "<strong>French and Belgian</strong> citizen",
     "CT.AVAIL": "Open to opportunities in:",
     "CT.C_FR": "France",
