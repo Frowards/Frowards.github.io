@@ -91,5 +91,8 @@
 /* Sommaire flottant (remplace la navigation du header) */
 @import url("features/toc/toc.css");
 
+/* Mesure d'audience : note d'information */
+@import url("features/stats/notice.css");
+
 /* Mode daltonien (en dernier : remplace les couleurs des expériences) */
 @import url("features/a11y/colorblind.css");

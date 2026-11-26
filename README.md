@@ -87,6 +87,7 @@ languages/
 | `features/mascot/Mascot.js` | mascotte | `init`, `show`, `hide`, `open` |
 | `components/Toast.js` | notifications | `show(titre, texte, { variant, exclusive })` |
 | `features/contact/Contact.js` | coordonnées protégées des robots | `mail`, `tel`, `telShown`, `hydrate(root)` |
+| `features/stats/Stats.js` | mesure d'audience anonyme, sans cookie (inactive sans `ENDPOINT`) | `init`, `allowed`, `setAllowed` |
 | `effects/particles/Particles.js` | fonds animés | `setEffect`, `setParams`, `param`, `current`... |
 | `effects/fluid/Fluid.js` | fluide WebGL | `start(canvas, options)`, `stop`, `setOptions`, `supported` |
 

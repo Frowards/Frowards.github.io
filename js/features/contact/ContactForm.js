@@ -11,6 +11,7 @@
  * États affichés dans la zone [data-cf-status] (aria-live) : envoi en
  * cours, envoyé, échec (avec l'adresse e-mail en secours).
  */
+import Events from '../../core/Events.js';
 import { t } from '../../core/Lang.js';
 import Contact from './Contact.js';
 
@@ -81,7 +82,9 @@ async function onSubmit(e) {
     });
     button.disabled = false;
     setStatus(ok ? 'sent' : 'error');
-    if (ok) form.reset();
+    if (!ok) return;
+    form.reset();
+    Events.emit('contact:sent');
 }
 
 const ContactForm = {

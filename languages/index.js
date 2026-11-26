@@ -14,8 +14,10 @@ import tourFr from './tour/fr.js';
 import tourEn from './tour/en.js';
 import mascotFr from './mascot/fr.js';
 import mascotEn from './mascot/en.js';
+import statsFr from './stats/fr.js';
+import statsEn from './stats/en.js';
 
 export default {
-    fr: { ...siteFr, ...themeFr, ...experienceFr, ...tourFr, ...mascotFr },
-    en: { ...siteEn, ...themeEn, ...experienceEn, ...tourEn, ...mascotEn }
+    fr: { ...siteFr, ...themeFr, ...experienceFr, ...tourFr, ...mascotFr, ...statsFr },
+    en: { ...siteEn, ...themeEn, ...experienceEn, ...tourEn, ...mascotEn, ...statsEn }
 };

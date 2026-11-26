@@ -18,6 +18,8 @@
  *   - mascot:request      { visible }            demande d'afficher / masquer la mascotte
  *                                                (bulle de Pierre, panneau de thème)
  *   - mascot:change       { visible }            mascotte affichée / masquée
+ *   - mascot:open         {}                     bulle de la mascotte ouverte
+ *   - contact:sent        {}                     message du formulaire parti
  */
 
 const listeners = new Map();

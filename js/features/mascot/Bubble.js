@@ -121,6 +121,7 @@ const Bubble = {
         render();
         bubble.hidden = false;
         Pierre.play('wave', () => Pierre.play('celebrate'));
+        Events.emit('mascot:open');
         Bubble.position();
         requestAnimationFrame(() => {
             bubble.classList.add('is-in');

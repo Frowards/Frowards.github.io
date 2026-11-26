@@ -1,0 +1,13 @@
+/* ==========================================================================
+   Note sur la mesure d'audience (js/features/stats/StatsNotice.js)
+   ========================================================================== */
+
+.stats-notice {
+    max-width: 46rem;
+    margin: 1.2rem auto 0;
+    color: var(--pb-text-muted);
+    font-size: 0.85rem;
+}
+.stats-notice summary { width: fit-content; margin-inline: auto; padding: 0.4rem 0; cursor: pointer; }
+.stats-notice summary:hover { color: var(--pb-text); }
+.stats-notice p { margin: 0.4rem 0; }

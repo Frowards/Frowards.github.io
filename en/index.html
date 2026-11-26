@@ -25,7 +25,15 @@
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta http-equiv="refresh" content="0; url=../?lang=en">
-<script>location.replace('../?lang=en' + location.hash);</script>
+<script>
+/* Garde les paramètres du lien (?src=) et transmet le site d'origine, perdu par la redirection */
+(() => {
+    const params = new URLSearchParams(location.search);
+    params.set('lang', 'en');
+    try { params.set('ref', new URL(document.referrer).hostname); } catch (e) { /* accès direct */ }
+    location.replace(`../?${params}${location.hash}`);
+})();
+</script>
 </head>
 <body>
 <p><a href="../?lang=en">Pierre Bernard-Darmann - Portfolio</a></p>

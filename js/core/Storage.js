@@ -23,6 +23,7 @@ export const KEYS = Object.freeze({
     TOUR_STEP: 'pb_tour_step',      // (session) étape de la visite guidée à l'écran
     SCROLL_POS: 'pb_scroll_pos',    // (session) position de lecture en visite libre ({ i, dy })
     ORIENT_HINT_OFF: 'pb_orient_off', // (session) conseil « tournez votre téléphone » refermé
+    STATS: 'pb_stats',              // mesure d'audience refusée ('off')
     TOC_POS: 'pb_toc_pos'           // position du bouton du sommaire ({ side, t })
 });
 

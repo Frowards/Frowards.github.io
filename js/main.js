@@ -7,6 +7,7 @@
  *   3. interface : en-tête, panneau de personnalisation, infobulles
  *   4. expériences et visite guidée, mascotte
  *   5. effets décoratifs
+ *   6. mesure d'audience
  *
  * Aucun module ne s'initialise tout seul à l'import : tout part d'ici.
  */
@@ -30,6 +31,7 @@ import Tour from './features/tour/Tour.js';
 import Mascot from './features/mascot/Mascot.js';
 import OrientationHint from './features/orientation/OrientationHint.js';
 import Toc from './features/toc/Toc.js';
+import Stats from './features/stats/Stats.js';
 
 import Particles from './effects/particles/Particles.js';
 import LauncherFx from './effects/LauncherFx.js';
@@ -65,6 +67,9 @@ Toc.init();
 /* 5. Effets décoratifs */
 LauncherFx.init();
 ProjectFlow.init();
+
+/* 6. Mesure d'audience : en dernier, une fois l'expérience et la visite prêtes */
+Stats.init();
 
 /* Poignée de débogage (console et tests automatisés) : lecture seule,
    aucun module ne s'en sert */
